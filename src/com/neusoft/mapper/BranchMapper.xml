@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.mapper.BranchMapper">                                                                                                                               
+
+	<select id="findAllBranch"  parameterType="int" resultType="com.neusoft.po.Branch">
+		select * from branch where qid=#{id}
+	</select>
+	
+	<select id="findAllBranchByPage"  parameterType="com.neusoft.tools.Page" resultType="com.neusoft.po.Branch">
+		select * from branch where qid=#{id} limit #{minNum},#{quantity}
+	</select>
+	
+	<select id="findBranchById"  parameterType="int" resultType="com.neusoft.po.Branch">
+		select * from branch where bid=#{bid}
+	</select>
+	
+	<delete id="deleteBranchById"  parameterType="int">
+		delete from branch where bid=#{bid} 
+	</delete>
+	
+	<update id="updateBranch"  parameterType="com.neusoft.po.Branch">
+		update branch set name=#{name},address=#{address},tel=#{tel},longitude=#{longitude},latitude=#{latitude} where bid=#{bid}
+	</update>
+	
+	<!--  <insert id="saveBranch"  parameterType="com.neusoft.po.Branch">
+		insert into branch(bid,qid,name,address,tel,longitude,latitude) values(SELECT func_nextval("branch_seq"),'1',#{name},#{address},#{tel},#{longitude},#{latitude})
+	</insert>-->
+	
+	<insert id="saveBranch"  parameterType="com.neusoft.po.Branch">
+		insert into branch(qid,name,address,tel,longitude,latitude) values(#{qid},#{name},#{address},#{tel},#{longitude},#{latitude})
+	</insert>
+	
+	<select id="findCount" parameterType="int" resultType="int">
+	SELECT COUNT(*) FROM branch where qid=#{qid}
+	</select>
+	
+</mapper>
+

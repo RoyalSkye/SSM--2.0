@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.mapper.UserMapper">                                                                                                                               
+
+	<select id="findUserinfoByUsername"  parameterType="com.neusoft.po.User" resultType="com.neusoft.po.User">
+		select * from user where username=#{username}
+	</select>
+	
+	<update id="updateUser"  parameterType="com.neusoft.po.User">
+		update user set username=#{username},userpassword=#{userpassword} where id=#{id}
+	</update>
+	
+</mapper>
+

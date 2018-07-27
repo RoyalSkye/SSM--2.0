@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.mapper.FreelistenbookMapper">                                                                                                                               
+
+	<resultMap type="com.neusoft.po.Freelistenbook" id="freelistenbook_freelisten_map">
+		<id property="id" column="id"/>
+		<result property="fid" column="fid"/>
+		<result property="cname" column="cname"/>
+		<result property="tel" column="tel"/>
+		<result property="booktime" column="booktime"/>
+		<result property="status" column="status"/>
+		<result property="comment" column="comment"/>
+		<result property="openid" column="openid"/>
+			<association property="freelisten" javaType="com.neusoft.po.Freelisten">
+				<id property="fid" column="fid" />
+				<result property="title" column="title"/>
+				<result property="imgurl" column="imgurl"/>
+				<result property="fdesc" column="fdesc"/>
+				<result property="status" column="status"/>
+				<result property="qid" column="qid"/>
+				<result property="bid" column="bid"/>
+				<result property="pubtime" column="pubtime"/>
+			</association>
+	</resultMap>
+
+	<select id="findAllFreelistenbook" parameterType="com.neusoft.tools.Page" resultType="com.neusoft.po.Freelistenbook">
+		select * from freelistenbook where status="待处理" limit #{minNum},#{quantity}
+	</select>
+	
+	<select id="findFreelistenbookByPhone" parameterType="String" resultMap="freelistenbook_freelisten_map">
+		select * from freelistenbook left join freelisten on freelistenbook.fid=freelisten.fid where freelistenbook.openid=#{_parameter}
+	</select>
+	
+	<select id="findFreelistenbook"  parameterType="Map" resultType="com.neusoft.po.Freelistenbook">
+		select * from freelistenbook where status="待处理"
+		<if test="cname != ''">
+			and cname like concat('%', #{cname}, '%') 
+		</if>
+		<if test="fid != ''">
+			and fid = #{fid}
+		</if>
+		<if test="starttime != ''">
+			and booktime &gt;= #{starttime}
+		</if>
+		<if test="endtime != ''">
+			and booktime &lt;= #{endtime}
+		</if>	
+		limit #{minNum},#{quantity}	
+	</select>
+
+	<update id="updateFreelistenbook" parameterType="com.neusoft.po.Freelistenbook">
+			update freelistenbook set status=#{status} where id=#{id}
+	</update>
+	
+	<insert id="saveFreelistenbook"  parameterType="com.neusoft.po.Freelistenbook">
+		insert into freelistenbook(fid,cname,tel,booktime,status,comment,openid) values(#{fid},#{cname},#{tel},#{booktime},#{status},#{comment},#{openid})
+	</insert>
+	
+	<select id="findCount" parameterType="int" resultType="int">
+		SELECT COUNT(*) FROM freelistenbook where status="待处理"
+	</select>
+	
+	<select id="findCountByCondition" parameterType="Map" resultType="int">
+	select COUNT(*) from
+		(select * from freelistenbook where status="待处理"
+		<if test="cname != ''">
+			and cname like concat('%', #{cname}, '%') 
+		</if>
+		<if test="fid != ''">
+			and fid = #{fid}
+		</if>
+		<if test="starttime != ''">
+			and booktime &gt;= #{starttime}
+		</if>
+		<if test="endtime != ''">
+			and booktime &lt;= #{endtime}
+		</if>	
+		)as temp
+	</select>
+	
+</mapper>

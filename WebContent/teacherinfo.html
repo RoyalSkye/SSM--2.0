@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+   <link rel="stylesheet" href="./layui/css/layui.css">
+   <script type="text/javascript" src="./layui/layui.js"></script> 
+  <title>NeuSoft introduction</title>
+
+<style type="text/css">
+.laytable-cell-1-tphoto_url{
+       height: 100%;
+       max-width: 100%;
+}  
+</style>
+
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+  <div class="layui-header">
+    <div class="layui-logo">NeuSoft</div>
+    <!-- 头部区域（可配合layui已有的水平导航） -->
+    <ul class="layui-nav layui-layout-right">
+      <li class="layui-nav-item">
+        <a href="javascript:;">
+          <img src="./img/profile.jpg" class="layui-nav-img">
+          RoyalSkye
+        </a>
+      </li>
+      <li class="layui-nav-item"><a href="login.html">Logout</a></li>
+    </ul>
+  </div>
+  
+  <div class="layui-side layui-bg-black">
+    <div class="layui-side-scroll">
+      <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+      <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+        <li class="layui-nav-item">
+          <a class="" href="javascript:;">企业管理</a>
+          <dl class="layui-nav-child">
+          <dd><a href="index2.html">数据统计</a></dd>
+            <dd><a href="index.html">企业基本信息</a></dd>
+            <dd><a href="branchinfo.html">企业分部信息</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item layui-nav-itemed" >
+          <a href="javascript:;">师资管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="teacherinfo.html">师资力量</a></dd>
+            <dd><a href="teacherimg.html">师资首页图片</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">课程管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="lessoninfo.html">课程信息管理</a></dd>
+            <dd><a href="lessonimg.html">课程首页图片</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">预约管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="freelisteninfo.html">预约课程查询</a></dd>
+            <dd><a href="freelistenorder.html">预约课程处理</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">订单管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="orderinfo.html">订单查询</a></dd>
+            <dd><a href="orderrefund.html">退款处理</a></dd>
+            <dd><a href="ordercancel.html">订单核销</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">朋友圈管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="messageinfo.html">消息列表</a></dd>
+            <dd><a href="messageimg.html">朋友圈首页图片</a></dd>
+          </dl>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="layui-body">
+    <!-- 内容主体区域 -->
+    <div style="padding: 15px; display: flex; justify-content: space-between; align-items: center;"><span>讲师信息表</span>
+    		<a href="saveteacher.html" style="margin-right: 40px"><button class="layui-btn layui-btn-sm">添加讲师</button></a>
+    </div>	
+    <table class="layui-hide" id="demo" lay-filter="demo">
+    	<th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}"></th></table>
+  </div>
+  
+  <div class="layui-footer">
+    <!-- 底部固定区域 -->
+    © NeuSoft 
+  </div>
+</div>
+<script src="./layui/layui.js"></script>
+<script type="text/html" id="barDemo">
+  <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+<script src="../SSM/layui/layui.js"></script>
+<script>
+//JavaScript代码区域
+layui.use('element', function(){
+  var element = layui.element;
+  
+});
+
+layui.use(['table','jquery'],function(){
+  var table = layui.table;
+  var $=layui.jquery;
+  table.render({
+    elem: '#demo'
+    ,url:'/SSM/test/TeacherHandler_findAllTeacherByPage'
+    ,cols: [[ //表头
+      {field: 'tname', title: '讲师姓名', width:'20%', style:'height:110px;', fixed: 'left'}
+      ,{field : 'tphoto_url',title : '讲师图片',width : '20%',style:'height:100px;',templet: '<div><img src="{{ d.tphoto_url}}"></div>'}
+      ,{field: 'introduction', title: '讲师简介', width:'40%', style:'height:100px;'}
+       ,{field: 'operation', title: '操作',width:'20%', align:'center',style:'height:100px;', toolbar: '#barDemo'}
+    ]]
+    ,even: true
+    ,page: true //是否显示分页
+    ,limits: [5, 7, 10]
+    ,limit: 5 //每页默认显示的数量
+  });
+  table.on('tool(demo)', function(obj){
+    var data = obj.data;
+    if(obj.event === 'del'){
+    	layer.confirm('是否确定删除', function(index){
+    		$.ajax({
+    			url:"/SSM/test/TeacherHandler_deleteTeacherById?tid="+obj.data.tid,
+    			success:function(data)
+    			{
+    				var result = JSON.parse(data); 
+    				console.log(result);
+    				if(result.result){
+    					obj.del();
+    				}else{
+    					alert("delete failed,此讲师可能已经被删除,请刷新");
+    				}
+    			}
+    		});
+            layer.close(index);
+          });
+    } else if(obj.event === 'edit'){
+    	location.href='updateteacher.html?tid='+obj.data.tid;
+    }
+   });
+});
+</script>
+</body>
+</html>

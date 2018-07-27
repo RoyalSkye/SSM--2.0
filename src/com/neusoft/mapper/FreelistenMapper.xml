@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.mapper.FreelistenMapper">                                                                                                                               
+
+	<select id="findAllFreelisten" parameterType="com.neusoft.tools.Page" resultType="com.neusoft.po.Freelisten">
+		select * from freelisten where qid=#{id} limit #{minNum},#{quantity} 
+	</select>
+	
+	<select id="findFreelistenById"  parameterType="int" resultType="com.neusoft.po.Freelisten">
+		select * from freelisten where fid=#{fid}
+	</select>
+	
+	<select id="findOnlineFreelisten" parameterType="int" resultType="com.neusoft.po.Freelisten">
+		select * from freelisten where qid=#{qid} and status="进行中"
+	</select>
+	
+
+	<select id="findFreelistenByBid"  parameterType="com.neusoft.tools.Page" resultType="com.neusoft.po.Freelisten">
+		select * from freelisten where bid=#{id} limit #{minNum},#{quantity}
+	</select>
+	
+	<delete id="deleteFreelistenById"  parameterType="int">
+		delete from freelisten where fid=#{fid}
+	</delete>
+	
+	<update id="updateFreelisten"  parameterType="com.neusoft.po.Freelisten">
+		update freelisten 
+		<trim prefix="set" suffixOverrides=",">
+  			<if test="title!=null">title=#{title},</if>
+  			<if test="imgurl!=null">imgurl=#{imgurl},</if>
+  			<if test="fdesc!=null">fdesc=#{fdesc},</if>
+  			<if test="status!=null">status=#{status},</if>
+  			<if test="pubtime!=null">pubtime=#{pubtime},</if>
+  		</trim>
+		where fid=#{fid}
+	</update>
+	
+	<insert id="saveFreelisten"  parameterType="com.neusoft.po.Freelisten">
+		insert into freelisten(title,imgurl,fdesc,status,qid,bid,pubtime) values(#{title},#{imgurl},#{fdesc},#{status},#{qid},#{bid},#{pubtime})
+	</insert>
+	
+	
+	<select id="findCount" parameterType="int" resultType="int">
+	SELECT COUNT(*) FROM freelisten where qid=#{qid}
+	</select>
+	
+	<select id="findCountByBid" parameterType="int" resultType="int">
+	SELECT COUNT(*) FROM freelisten where bid=#{bid}
+	</select>
+	
+</mapper>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.mapper.MessageMapper">                                                                                                                               
+	
+	<!-- 配置   (1对多)   关系的映射类型 -->
+	<resultMap type="com.neusoft.po.Message" id="message_messageimg_map">
+		<id property="mid" column="mid"/>
+		<result property="mtitle" column="mtitle"/>
+		<result property="mtime" column="mtime"/>
+		<result property="qid" column="qid"/>
+		<collection property="messageimgList" ofType="com.neusoft.po.Messageimg">
+			<id property="miid" column="miid" />
+			<result property="mid" column="mid" />
+			<result property="imgurl" column="imgurl" />
+		</collection>
+	</resultMap>
+	<resultMap type="com.neusoft.po.Message" id="message_messagereply_map">
+		<id property="mid" column="mid"/>
+		<result property="mtitle" column="mtitle"/>
+		<result property="mtime" column="mtime"/>
+		<result property="qid" column="qid"/>
+		<collection property="messagereplyList" ofType="com.neusoft.po.Messagereply">
+			<id property="mrid" column="mrid" />
+			<result property="mid" column="mid" />
+			<result property="content" column="content" />
+			<result property="mrnickname" column="mrnickname" />
+			<result property="mrtime" column="mrtime" />
+		</collection>
+	</resultMap>
+	<resultMap type="com.neusoft.po.Message" id="message_all_map">
+		<id property="mid" column="mid"/>
+		<result property="mtitle" column="mtitle"/>
+		<result property="mtime" column="mtime"/>
+		<result property="qid" column="qid"/>
+		<collection property="messagereplyList" ofType="com.neusoft.po.Messagereply">
+			<id property="mrid" column="mrid" />
+			<result property="mid" column="mid" />
+			<result property="content" column="content" />
+			<result property="mrnickname" column="mrnickname" />
+			<result property="mrtime" column="mrtime" />
+		</collection>
+		<collection property="messageimgList" ofType="com.neusoft.po.Messageimg">
+			<id property="miid" column="miid" />
+			<result property="mid" column="mid" />
+			<result property="imgurl" column="imgurl" />
+		</collection>
+		<collection property="messagelikeList" ofType="com.neusoft.po.Messagelike">
+			<id property="mlid" column="mlid" />
+			<result property="mid" column="mid" />
+			<result property="mlnickname" column="mlnickname" />
+			<result property="mltime" column="mltime" />
+		</collection>
+	</resultMap>
+
+	<select id="findAllMessage" parameterType="int" resultMap="message_all_map">
+		select * from ((message left join messageimg on message.mid=messageimg.mid) left join messagelike on message.mid=messagelike.mid) left join messagereply on message.mid=messagereply.mid where message.qid=#{qid} ORDER BY message.mtime DESC
+	</select>
+	
+	<select id="findMessageById"  resultMap="message_messageimg_map">
+		select * from message left join messageimg on message.mid=messageimg.mid where message.mid=#{mid}
+	</select>
+	
+	<select id="findAllMessagelike"  parameterType="String" resultType="com.neusoft.po.Messagelike">
+		select * from messagelike where mlnickname=#{_parameter}
+	</select>
+	
+	<delete id="deleteMessage"  parameterType="int">  <!-- 会删除此条朋友圈的所有相关内容 级联删除 cascade -->
+		delete from message where mid=#{mid}
+	</delete>
+	
+	<delete id="deleteMessageimg"  parameterType="int">
+		delete from messageimg where mid=#{mid}
+	</delete>
+	
+	<update id="updateMessage"  parameterType="com.neusoft.po.Message">
+		update message set mtitle=#{mtitle},mtime=#{mtime} where mid=#{mid}
+	</update>
+
+	<select id="findMessagereplyById"  parameterType="com.neusoft.tools.Page" resultMap="message_messagereply_map">
+		select * from message left join messagereply on message.mid=messagereply.mid where message.mid=#{id} limit#{minNum},#{quantity}
+	</select>
+	
+	<delete id="deleteMessagereply"  parameterType="int">
+		delete from messagereply where mrid=#{mrid}
+	</delete>
+	
+	<delete id="deleteMessagelike"  parameterType="com.neusoft.po.Messagelike">
+		delete from messagelike where mid=#{mid} and mlnickname=#{mlnickname}
+	</delete>
+	
+	<select id="findimgurl" parameterType="int" resultType="com.neusoft.po.Swiper">
+		select * from swiper where qid=#{qid} and category="D"
+	</select>
+	
+	<select id="findMessageCount" parameterType="int" resultType="int">
+		SELECT COUNT(*) from message  where qid=#{qid}
+	</select>
+	
+	<select id="selectLAST_INSERT_ID" resultType="int">
+		SELECT LAST_INSERT_ID()
+	</select>
+	
+	<insert id="saveMessageimg"  parameterType="com.neusoft.po.Messageimg">
+		insert into messageimg(mid,imgurl) values(#{mid},#{imgurl})
+	</insert>
+	
+	<insert id="saveMessagereply"  parameterType="com.neusoft.po.Messagereply">
+		insert into messagereply(mid,content,mrnickname,mrtime) values(#{mid},#{content},#{mrnickname},#{mrtime})
+	</insert>
+	
+	<select id="findMessagelike" parameterType="com.neusoft.po.Messagelike" resultType="com.neusoft.po.Messagelike">
+		select * from messagelike where mid=#{mid} and mlnickname=#{mlnickname}
+	</select>
+	
+	<insert id="saveMessagelike"  parameterType="com.neusoft.po.Messagelike">
+		insert into messagelike(mid,mlnickname,mltime) values(#{mid},#{mlnickname},#{mltime})
+	</insert>
+	
+	<insert id="saveMessage"  parameterType="com.neusoft.po.Message">
+		insert into message(mtitle,mtime,qid) values(#{mtitle},#{mtime},#{qid})
+	</insert>
+	
+</mapper>

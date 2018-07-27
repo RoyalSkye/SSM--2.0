@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>NeuSoft introduction</title>
+  <link rel="stylesheet" href="../SSM/layui/css/layui.css">
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+  <div class="layui-header">
+    <div class="layui-logo">NeuSoft</div>
+    <!-- 头部区域（可配合layui已有的水平导航） -->
+    <ul class="layui-nav layui-layout-right">
+      <li class="layui-nav-item">
+        <a href="javascript:;">
+          <img src="../SSM/img/profile.jpg" class="layui-nav-img">
+          RoyalSkye
+        </a>
+      </li>
+      <li class="layui-nav-item"><a href="login.html">Logout</a></li>
+    </ul>
+  </div>
+  
+  <div class="layui-side layui-bg-black">
+    <div class="layui-side-scroll">
+      <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+      <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+        <li class="layui-nav-item layui-nav-itemed">
+          <a class="" href="javascript:;">企业管理</a>
+          <dl class="layui-nav-child">
+          <dd><a href="index2.html">数据统计</a></dd>
+            <dd><a href="index.html">企业基本信息</a></dd>
+            <dd><a href="branchinfo.html">企业分部信息</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">师资管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="teacherinfo.html">师资力量</a></dd>
+            <dd><a href="teacherimg.html">师资首页图片</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">课程管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="lessoninfo.html">课程信息管理</a></dd>
+            <dd><a href="lessonimg.html">课程首页图片</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">预约管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="freelisteninfo.html">预约课程查询</a></dd>
+            <dd><a href="freelistenorder.html">预约课程处理</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">订单管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="orderinfo.html">订单查询</a></dd>
+            <dd><a href="orderrefund.html">退款处理</a></dd>
+            <dd><a href="ordercancel.html">订单核销</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">朋友圈管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="messageinfo.html">消息列表</a></dd>
+            <dd><a href="messageimg.html">朋友圈首页图片</a></dd>
+          </dl>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="layui-body">
+    <!-- 内容主体区域 -->
+    <div style="padding: 15px; display: flex; justify-content: space-between; align-items: center;"><span>企业分部表</span>
+    		<a href="savebranch.html" style="margin-right: 40px"><button class="layui-btn layui-btn-sm">添加分部</button></a>
+    </div>
+    <table class="layui-hide" id="demo" lay-filter="demo">	
+    <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}"></th></table>
+  </div>
+  
+  <div class="layui-footer">
+    <!-- 底部固定区域 -->
+    © NeuSoft 
+  </div>
+</div>
+
+<script type="text/html" id="barDemo">
+  <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+  <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+<script src="../SSM/layui/layui.js"></script>
+<script>
+//JavaScript代码区域
+var curentPage = 1;
+
+
+layui.use('element', function(){
+  var element = layui.element;
+  
+});
+layui.use('table', function(){
+  var table = layui.table;
+  
+  table.on('tool(demo)', function(obj){
+    var data = obj.data;
+    if(obj.event === 'detail'){
+    	location.href='branchdetailinfo.html?bid='+obj.data.bid;
+    } else if(obj.event === 'del'){
+      layer.confirm('真的删除行么', function(index){	
+        obj.del();
+        layer.close(index);
+      });
+    } else if(obj.event === 'edit'){
+    	location.href='updatebranch.html?bid='+obj.data.bid;
+    }
+   });
+ 
+  var table1 = table.render({
+    elem: '#demo'
+    ,url:'/SSM/test/BranchHandler_findAllBranchByPage'
+    ,cols: [[ //标题栏
+      {field: 'bid', title: 'ID', width: '20%', sort: true}
+      ,{field: 'name', title: '分部名字', width: '20%'}
+      ,{field: 'address', title: '分部地址', Width: '20%'}
+      ,{field: 'tel', title: '分部电话', Width: '20%'}
+      ,{field: 'operation', title: '操作',width:'20%', align:'center', toolbar: '#barDemo'}
+    ]]
+     //,skin: 'line' //表格风格
+    ,even: true
+    ,page: true //是否显示分页
+    ,limits: [5, 7, 10]	
+    ,limit: 5 //每页默认显示的数量
+    ,done: function(res){
+        console.log(res);
+    }
+  });
+  
+});
+</script>
+</body>
+</html>

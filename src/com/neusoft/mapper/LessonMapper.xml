@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.mapper.LessonMapper">   
+
+	<select id="findAllLesson" parameterType="int" resultType="com.neusoft.po.Lesson">
+		select * from lesson where qid=#{qid}
+	</select>
+	
+	<select id="findAllLessonByPage" parameterType="com.neusoft.tools.Page" resultType="com.neusoft.po.Lesson">
+		select * from lesson where qid=#{id} limit #{minNum},#{maxNum}
+	</select>
+	
+	<select id="findLessonById"  parameterType="int" resultType="com.neusoft.po.Lesson">
+		select * from lesson where lid=#{lid}
+	</select>
+	
+	<select id="findBranchByLesson"  parameterType="int" resultType="com.neusoft.po.Branch">
+		select branch.bid,branch.name from (lesson join lessonbranch on lesson.lid=lessonbranch.lid) JOIN branch on lessonbranch.bid=branch.bid where lesson.lid=#{lid}
+	</select>
+	
+	<select id="findLessonByBid"  parameterType="com.neusoft.tools.Page" resultType="com.neusoft.po.Lesson">
+		select lesson.lid,lesson.lname,lesson.imgurl,lesson.lprice,lesson.category from lesson join lessonbranch on lesson.lid=lessonbranch.lid where bid=#{id} limit #{minNum},#{quantity}
+	</select>
+	
+	<select id="selectCategory" resultType="String">
+		select DISTINCT category from lesson
+	</select>
+	
+	<delete id="deleteLessonById"  parameterType="int">
+		delete from lesson where lid=#{lid}
+	</delete>
+	
+	<update id="updateLesson"  parameterType="com.neusoft.po.Lesson">
+		update lesson set lname=#{lname},imgurl=#{imgurl},lprice=#{lprice},ldesc=#{ldesc},category=#{category},qid=#{qid},pubtime=#{pubtime} where lid=#{lid}
+	</update>
+	
+	<insert id="saveLesson" parameterType="com.neusoft.po.Lesson">
+	    insert into lesson(lname,imgurl,lprice,ldesc,category,qid,pubtime) values(#{lname}, #{imgurl}, #{lprice},#{ldesc},#{category},#{qid},#{pubtime})
+	</insert>
+	
+	<select id="selectLAST_INSERT_ID" resultType="int">
+		SELECT LAST_INSERT_ID()
+	</select>
+	
+	<!--  <insert id="saveLesson" parameterType="Map">
+	    insert into lesson(lname,imgurl,lprice,ldesc,category,qid,pubtime) values(#{lesson.lname}, #{lesson.imgurl}, #{lesson.lprice},#{lesson.ldesc},#{lesson.category},#{lesson.qid},#{lesson.pubtime});
+	    insert into lessonbranch(bid) values(#{lessonbranch.bid})
+	    <selectKey keyProperty="lid" order="AFTER" resultType="int">
+	            SELECT LAST_INSERT_ID()
+	     </selectKey>
+	</insert>-->
+	
+	<select id="findimgurl"  parameterType="int" resultType="com.neusoft.po.Swiper">
+		select * from swiper where qid=#{qid} and category="C"
+	</select>
+	
+	<select id="findCount"  parameterType="int" resultType="int">
+	SELECT COUNT(*) from lesson where qid=#{qid}
+	</select>
+	
+	<select id="findCountByBid" parameterType="int" resultType="int">
+		SELECT COUNT(*) FROM lesson join lessonbranch  on lesson.lid=lessonbranch.lid where bid=#{bid}
+	</select>
+	
+</mapper>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>NeuSoft introduction</title>
+  <link rel="stylesheet" href="../SSM/layui/css/layui.css">
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.js"></script>
+  <script>
+  function deletemessage(mid){
+		//console.log(mid);
+		$.ajax({
+			url:"/SSM/test/MessageHandler_deleteMessage?mid="+mid,
+			success:function(data)
+			{
+				var result = JSON.parse(data); 
+				console.log(result);
+				if(result.result){
+					alert("delete successfully");
+					location.href='messageinfo.html';
+				}else{
+					alert("delete failed,此朋友圈可能已经被删除,请刷新");
+				}
+			}
+		});
+	  }
+  function deletemessagereply(mrid){
+		console.log(mrid);
+		$.ajax({
+			url:"/SSM/test/MessageHandler_deleteMessagereply?mrid="+mrid,
+			success:function(data)
+			{
+				var result = JSON.parse(data); 
+				console.log(result);
+				if(result.result){
+					alert("delete successfully");
+					location.href='messageinfo.html';
+				}else{
+					alert("delete failed,此评论可能已经被删除,请刷新");
+				}
+			}
+		});
+	  }
+  var message="";
+	$(function(){
+		$.ajax({
+			url:"/SSM/test/MessageHandler_findAllMessage",				
+			success:function(data)
+			{
+				console.log(data);
+				for(var i=0;i<data.length;i++){
+					message+='<div class="layui-col-md12"><div class="layui-card"><div class="layui-card-header" style="display: flex; justify-content: space-between; item-aligns: center;"><div style="width: 500px; overflow:hidden; white-space: no-wrap; text-overflow: ellipsis;">'+data[i].mtitle;
+		        	message+='</div><div><a href="updatemessage.html?mid='+data[i].mid+'"><button class="layui-btn layui-btn-sm">编辑</button></a><a style="margin-left: 30px"><button class="layui-btn layui-btn-sm" onclick="deletemessage('+data[i].mid+')">删除</button></a></div></div><div class="layui-card-body">';
+		        	for(var j=0;j<data[i].messageimgList.length;j++){
+		        		if(data[i].messageimgList[j].imgurl===null) continue;
+		        		message+='<img src="/upload/'+data[i].messageimgList[j].imgurl+'"  width="150" height="150">';
+		        	}
+		        	message+='</div><div class="layui-col-md12"><div class="layui-card"><div class="layui-card-header"><i class="layui-icon layui-icon-praise" style="font-size: 20px; color: #787878;"></i>点赞	:</div><div class="layui-card-body">';
+		        	for(var j=0;j<data[i].messagelikeList.length;j++){
+		        		if(data[i].messagelikeList[j].mlnickname===null) continue;
+		        		message+=data[i].messagelikeList[j].mlnickname;
+		        		if(j!=data[i].messagelikeList.length-1) message+=' , ';
+		        	}
+		        	message+='</div></div></div><div class="layui-col-md12"><div class="layui-card"><div class="layui-card-header"><i class="layui-icon layui-icon-reply-fill" style="font-size: 20px; color: #787878;"></i>评论:</div><div class="layui-card-body">';
+		        	for(var j=0;j<data[i].messagereplyList.length;j++){
+		        		if(data[i].messagereplyList[j].content===null) continue;
+		        		message+='<div style="width: 500px; overflow:hidden; white-space: no-wrap; text-overflow: ellipsis;">'+data[i].messagereplyList[j].mrnickname+': '+data[i].messagereplyList[j].content+' '+data[i].messagereplyList[j].mrtime+'</div><button class="layui-btn layui-btn-sm" onclick="deletemessagereply('+data[i].messagereplyList[j].mrid+')">删除</button><br>';
+		        	}
+		        	message+='</div></div></div></div></div>';
+				}
+				$("#message").html(message);
+			}
+		});
+	});
+</script>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+  <div class="layui-header">
+    <div class="layui-logo">NeuSoft</div>
+    <!-- 头部区域（可配合layui已有的水平导航） -->
+    <ul class="layui-nav layui-layout-right">
+      <li class="layui-nav-item">
+        <a href="javascript:;">
+          <img src="../SSM/img/profile.jpg" class="layui-nav-img">
+          RoyalSkye
+        </a>
+      </li>
+      <li class="layui-nav-item"><a href="login.html">Logout</a></li>
+    </ul>
+  </div>
+  
+  <div class="layui-side layui-bg-black">
+    <div class="layui-side-scroll">
+      <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+      <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+        <li class="layui-nav-item">
+          <a class="" href="javascript:;">企业管理</a>
+          <dl class="layui-nav-child">
+          <dd><a href="index2.html">数据统计</a></dd>
+            <dd><a href="index.html">企业基本信息</a></dd>
+            <dd><a href="branchinfo.html">企业分部信息</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">师资管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="teacherinfo.html">师资力量</a></dd>
+            <dd><a href="teacherimg.html">师资首页图片</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">课程管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="lessoninfo.html">课程信息管理</a></dd>
+            <dd><a href="lessonimg.html">课程首页图片</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">预约管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="freelisteninfo.html">预约课程查询</a></dd>
+            <dd><a href="freelistenorder.html">预约课程处理</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">订单管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="orderinfo.html">订单查询</a></dd>
+            <dd><a href="orderrefund.html">退款处理</a></dd>
+            <dd><a href="ordercancel.html">订单核销</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item layui-nav-itemed">
+          <a href="javascript:;">朋友圈管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="messageinfo.html">消息列表</a></dd>
+            <dd><a href="messageimg.html">朋友圈首页图片</a></dd>
+          </dl>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="layui-body">
+    <!-- 内容主体区域 -->
+<div style="padding: 15px; display: flex; justify-content: space-between; align-items: center;"><span style="font-size:20px">朋友圈</span>
+    	<a href="savemessage.html" style="margin-right: 40px"><button class="layui-btn layui-btn-sm">发布朋友圈</button></a>
+    </div>
+<div style="padding: 20px; background-color: #F2F2F2;">
+	<div class="layui-row layui-col-space15" id="message">	
+	      </div>
+	    </div>
+	   </div> 
+	</div>
+  
+  <div class="layui-footer">
+    <!-- 底部固定区域 -->
+    © NeuSoft 
+  </div>
+</div>
+<script src="../SSM/layui/layui.js"></script>
+<script>
+//JavaScript代码区域
+layui.use('element', function(){
+  var element = layui.element;
+  
+});
+
+</script>
+</body>
+</html>

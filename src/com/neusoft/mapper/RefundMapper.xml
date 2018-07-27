@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.mapper.RefundMapper">
+  	
+  	<update id="updateRefundByOid"  parameterType="com.neusoft.po.Refund">
+		update refund set status=#{status} where oid=#{oid}
+	</update>
+	
+	<select id="findRefundByOid"  parameterType="int" resultType="com.neusoft.po.Refund">
+		select * from refund where oid=#{oid}
+	</select>
+	
+	<insert id="saveRefund"  parameterType="com.neusoft.po.Refund">
+		insert into refund(oid,refundreason,refundtime,status) values(#{oid},#{refundreason},#{refundtime},#{status})
+	</insert>
+  	
+</mapper>

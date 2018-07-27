@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.mapper.SwiperMapper">                                                                                                                               
+
+	<select id="findSwiperByQid"  parameterType="int" resultType="com.neusoft.po.Swiper">
+		select * from swiper where qid=#{qid}
+	</select>
+
+	<insert id="saveSwiper"  parameterType="com.neusoft.po.Swiper">
+		insert into swiper(qid,imgurl,category) values(#{qid},#{imgurl},#{category})
+	</insert>
+	
+	<update id="updateSwiper"  parameterType="com.neusoft.po.Swiper">
+		update swiper set imgurl=#{imgurl} where qid=#{qid} and category=#{category}
+	</update>
+	
+</mapper>

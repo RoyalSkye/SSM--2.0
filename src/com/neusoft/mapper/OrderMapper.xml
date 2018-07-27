@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.mapper.OrderMapper">                                                                                                                               
+	
+	<resultMap type="com.neusoft.po.Order" id="order_lesson_map">
+		<id property="oid" column="oid"/>
+		<result property="lid" column="lid"/>
+		<result property="openid" column="openid"/>
+		<result property="total" column="total"/>
+		<result property="actual" column="actual"/>
+		<result property="status" column="status"/>
+		<result property="ordertime" column="ordertime"/>
+		<result property="qid" column="qid"/>
+		<result property="transactionid" column="transactionid"/>
+		<result property="nickname" column="nickname"/>
+		<result property="tel" column="tel"/>
+			<association property="lesson" javaType="com.neusoft.po.Lesson">
+				<id property="lid" column="lid" />
+				<result property="lname" column="lname"/>
+				<result property="imgurl" column="imgurl"/>
+				<result property="lprice" column="lprice"/>
+				<result property="ldesc" column="ldesc"/>
+				<result property="category" column="category"/>
+				<result property="qid" column="qid"/>
+				<result property="pubtime" column="pubtime"/>
+			</association>
+	</resultMap>
+	
+	<select id="findAllOrderByPhone"  parameterType="string" resultType="com.neusoft.po.Order">
+		select * from `order` where openid=#{_parameter}
+	</select>
+
+	<select id="findAllOrder"  parameterType="com.neusoft.tools.Page" resultType="com.neusoft.po.Order">
+		select * from `order` where qid=#{id} limit #{minNum},#{quantity}
+	</select>
+	
+	<select id="findOrderByOid"  parameterType="int" resultType="com.neusoft.po.Order">
+		select * from `order` where oid=#{oid}
+	</select>
+	
+	<select id="findOrderByPhone"  parameterType="String" resultMap="order_lesson_map">
+		select * from `order` left join lesson on `order`.lid=lesson.lid where `order`.openid=#{_parameter}
+	</select>
+	
+	<select id="findOrder"  parameterType="Map" resultType="com.neusoft.po.Order">
+		select * from `order` where qid=#{qid}
+		<if test="oid != ''">
+			and oid=#{oid}
+		</if>
+		<if test="status != ''">
+			and status=#{status}
+		</if>
+		<if test="starttime != ''">
+			and ordertime &gt;= #{starttime}
+		</if>
+		<if test="endtime != ''">
+			and ordertime &lt;= #{endtime}
+		</if>	
+		limit #{minNum},#{quantity}	
+	</select>
+	
+	<update id="updateOrder" parameterType="com.neusoft.po.Order">
+		update `order` 
+			<trim prefix="set" suffixOverrides=",">
+	  			<if test="status!=null">status=#{status},</if>
+	  			<if test="actual!=''">actual=#{actual},</if>
+	  		</trim>
+		where oid=#{oid}
+	</update>
+	
+
+	<insert id="saveOrder"  parameterType="com.neusoft.po.Order">
+		insert into `order`(lid,openid,total,actual,status,ordertime,qid,transactionid,nickname,tel) values(#{lid},#{openid},#{total},#{actual},#{status},#{ordertime},#{qid},#{transactionid},#{nickname},#{tel})
+	</insert>
+
+	<select id="findCount" parameterType="int" resultType="int">
+	SELECT COUNT(*) from `order` where qid=#{qid}
+	</select>
+	
+	<select id="findCountByCondition" parameterType="Map" resultType="int">
+	select COUNT(*) from
+		(select * from `order` where qid=#{qid}
+		<if test="oid != ''">
+			and oid=#{oid}
+		</if>
+		<if test="status != ''">
+			and status=#{status}
+		</if>
+		<if test="starttime != ''">
+			and ordertime &gt;= #{starttime}
+		</if>
+		<if test="endtime != ''">
+			and ordertime &lt;= #{endtime}
+		</if>	
+		)as temp
+	</select>
+	
+</mapper>

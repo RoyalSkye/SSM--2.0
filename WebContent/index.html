@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>NeuSoft introduction</title>
+  <link rel="stylesheet" href="./layui/css/layui.css">
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.js"></script>
+<script>
+	$(function(){
+		
+		//1.send ajax request
+		/*相对路径:  localhost:8080/ssmPro2/getEmp.html  -->  localhost:8080/ssmPro2/test/ajax.action   test/ajax.action
+		绝对路径:    /ssmPro2/test/ajax.action  
+		jsp写绝对路径，工程名通过方法动态获取   html写相对路径
+		*/
+		$.ajax({
+			url:"test/EnterpriseHandler_findEnterpriseById",
+			success:function(data)
+			{
+				console.log(data);
+				//alert(JSON.stringify( data ));
+				//$("#enterprisephoto1").attr("src","./img/mainBg0.jpg");
+				var name=data.name;
+				$("#name").append(name);
+				var imgurl='';
+				for(var i=0;i<data.swiperList.length;i++){
+					imgurl+='<img src="/upload/'+data.swiperList[i].imgurl+'" width="300" height="300">';
+				}
+				$("#imgurl").append(imgurl);
+				var introduction=data.introduction;
+				$("#introduction").append(introduction);
+				var videopath='<video controls="controls" controls="controls"><source src="/upload/'+data.videopath+'"type="video/mp4" /></video>';
+				$("#videopath").append(videopath);
+				var uetext=data.uetext;
+				$("#uetext").append(uetext);
+			}
+		})
+		
+	})
+</script>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+  <div class="layui-header">
+    <div class="layui-logo">NeuSoft</div>
+    <!-- 头部区域（可配合layui已有的水平导航） -->
+    <!--
+    <ul class="layui-nav layui-layout-left">
+      <li class="layui-nav-item"><a href="">1</a></li>
+      <li class="layui-nav-item"><a href="">2</a></li>
+      <li class="layui-nav-item">
+        <a href="javascript:;">3</a>
+        <dl class="layui-nav-child">
+          <dd><a href="">1</a></dd>
+          <dd><a href="">2</a></dd>
+          <dd><a href="">3</a></dd>
+        </dl>
+      </li>
+    </ul>
+    -->
+    <ul class="layui-nav layui-layout-right">
+      <li class="layui-nav-item">
+        <a href="javascript:;">
+          <img src="./img/profile.jpg" class="layui-nav-img">
+          RoyalSkye
+        </a>
+        <!--<dl class="layui-nav-child">
+          <dd><a href="">基本资料</a></dd>
+          <dd><a href="">安全设置</a></dd>
+        </dl>-->
+      </li>
+      <li class="layui-nav-item"><a href="login.html">Logout</a></li>
+    </ul>
+  </div>
+  
+  <div class="layui-side layui-bg-black">
+    <div class="layui-side-scroll">
+      <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+      <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+        <li class="layui-nav-item layui-nav-itemed">
+          <a class="" href="javascript:;">企业管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="index2.html">数据统计</a></dd>
+            <dd><a href="index.html">企业基本信息</a></dd>
+            <dd><a href="branchinfo.html">企业分部信息</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">师资管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="teacherinfo.html">师资力量</a></dd>
+            <dd><a href="teacherimg.html">师资首页图片</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">课程管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="lessoninfo.html">课程信息管理</a></dd>
+            <dd><a href="lessonimg.html">课程首页图片</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">预约管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="freelisteninfo.html">预约课程查询</a></dd>
+            <dd><a href="freelistenorder.html">预约课程处理</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">订单管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="orderinfo.html">订单查询</a></dd>
+            <dd><a href="orderrefund.html">退款处理</a></dd>
+            <dd><a href="ordercancel.html">订单核销</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">朋友圈管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="messageinfo.html">消息列表</a></dd>
+            <dd><a href="messageimg.html">朋友圈首页图片</a></dd>
+          </dl>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="layui-body">
+    <!-- 内容主体区域 -->
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+		  <legend>Neusoft</legend>
+		</fieldset>
+
+<div class="layui-collapse">
+  <div class="layui-colla-item">
+    <h2 class="layui-colla-title">企业名称</h2>
+    <div class="layui-colla-content layui-show" id="name"></div>
+  </div>
+  <div class="layui-colla-item">
+    <h2 class="layui-colla-title">企业图片</h2>
+    <div class="layui-colla-content layui-show" id="imgurl"></div>
+  </div>
+  <div class="layui-colla-item">
+    <h2 class="layui-colla-title">企业简介</h2>
+    <div class="layui-colla-content layui-show" id="introduction"></div>
+  </div>
+  <div class="layui-colla-item">
+    <h2 class="layui-colla-title">企业视频</h2>
+    <div class="layui-colla-content layui-show" id="videopath"></div>
+  </div>
+  <div class="layui-colla-item">
+    <h2 class="layui-colla-title">精彩展示</h2>
+    <div class="layui-colla-content layui-show" id="uetext"></div>
+  </div>
+</div>
+  	<a href="updateindex.html"><button class="layui-btn layui-btn-lg">修改信息</button></a>
+  </div>
+  
+  <div class="layui-footer">
+    <!-- 底部固定区域 -->
+    © NeuSoft 
+  </div>
+</div>
+<script src="./layui/layui.js"></script>
+<script>
+//JavaScript代码区域
+layui.use('element', function(){
+  var element = layui.element;
+  
+});
+</script>
+</body>
+</html>

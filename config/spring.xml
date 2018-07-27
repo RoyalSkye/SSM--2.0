@@ -1,0 +1,85 @@
+﻿<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-4.3.xsd 
+		http://www.springframework.org/schema/mvc 
+		http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd 
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-4.3.xsd 
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-4.3.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+	<context:component-scan base-package="com.neusoft"></context:component-scan>
+
+	<bean id="PoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <!-- 最大连接数 -->
+        <property name="maxTotal" value="30" />
+        <!-- 最大空闲连接数 -->
+        <property name="maxIdle" value="10" />
+        <!-- 获取连接时的最大等待毫秒数,小于零:阻塞不确定的时间,默认-1 -->
+        <property name="maxWaitMillis" value="1500" />
+        <!-- 在获取连接的时候检查有效性, 默认false -->
+       <!--  <property name="testOnBorrow" value="true" />     -->  
+    </bean>
+
+	<bean id="jedisPool" class="redis.clients.jedis.JedisPool">
+        <constructor-arg name="timeout" value="6000"></constructor-arg>
+        <constructor-arg name="host" value="10.25.39.199"></constructor-arg>
+        <constructor-arg name="port" value="6379"></constructor-arg>
+        <constructor-arg name="password" value="175516"></constructor-arg>
+        <constructor-arg name="poolConfig" ref="PoolConfig"></constructor-arg>
+    </bean>
+
+	<!-- 配置数据源 -->
+	<!-- dbcp2是数据库连接池c3p0 -->
+	<bean id="ds" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/ssm1"/>
+		<property name="username" value="root" />
+		<property name="password" value="rx806090733wx" />
+	</bean>
+	
+	<!-- 配置session工厂 -->
+	<bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- 加载mybatis的主配置文件 -->
+		<property name="configLocation" value="classpath:SqlMapConfig.xml"/>
+		<!-- 注入数据源 -->
+		<property name="dataSource" ref="ds" />
+	</bean>
+	
+	<!-- 扫描mapper -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<!-- 指定扫描的包名
+		如果扫描多个包，每个包中间使用半角逗号分隔
+		-->
+		<property name="basePackage" value="com.neusoft.mapper"/>
+		<!-- 自动创建session（connection）去数据库交互 -->
+		<property name="sqlSessionFactoryBeanName" value="sessionFactory"/>
+	</bean>
+
+	<!-- 声明事务管理器 -->
+	<bean id="txm" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="ds"></property>
+	</bean>
+	
+	<!-- 配置事务通知 -->
+	<tx:advice id="txAdvice" transaction-manager="txm">
+		<tx:attributes>
+			<tx:method name="save*" propagation="REQUIRED"/>
+			<tx:method name="update*" propagation="REQUIRED"/>
+			<tx:method name="delete*" propagation="REQUIRED"/>
+			<tx:method name="select*" propagation="SUPPORTS" read-only="true"/>
+		</tx:attributes>
+	</tx:advice>
+	
+	<!-- pointcut:织入点语法 -->
+	<aop:config>
+		<aop:advisor advice-ref="txAdvice" pointcut="execution(* com.neusoft.service.impl.*.*(..))"/>  <!-- 符号的意义:返回值不管  这个包下的所有类的所有方法  入参不管 -->
+	</aop:config>
+	
+</beans>

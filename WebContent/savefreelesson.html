@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>NeuSoft introduction</title>
+  <link rel="stylesheet" href="../SSM/layui/css/layui.css">
+  <style type="text/css">
+    .button-wrap {
+      margin: 10px;
+      display: flex;
+      justify-content: flex-start;
+    }
+    .per-button {
+      border-radius: 20px;
+      margin: 10px;
+    }
+    #container {
+      margin: 20px 0;
+    }
+  </style>
+   <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.js"></script>
+<script>
+	var titie="";
+	var imgurl="";
+	var fdesc="";
+	var status="";
+	var bid="";
+	$(function(){
+		$.ajax({
+			url:"test/BranchHandler_findAllBranch",			
+			success:function(data)
+			{
+				console.log(data);
+				var branchname='';
+				for(var i=0;i<data.data.length;i++){
+					branchname+='<input type="radio" lay-filter="single" name="name" value="'+data.data[i].bid+'" title="'+data.data[i].name+'">';
+				}
+				$("#branchname").append(branchname);
+			}
+		});
+		
+		$("#btn_submit").click(function(){
+			title=$("#title").val();
+			var ue = UE.getEditor('container');
+		    var fdesc=ue.getContent();
+		    if(title==""||fdesc==""||status==""||bid==""||imgurl==""){
+		    	console.log("title="+title);
+		    	console.log("fdesc="+fdesc);
+		    	console.log("status="+status);
+		    	console.log("bid="+bid);
+		    	console.log("imgurl="+imgurl);
+		    	alert("必填项不能为空!");
+		    }else{
+				$.ajax({
+					url:"/SSM/test/FreelistenHandler_saveFreelisten",
+					type:"post",
+					data:{title:title,imgurl:imgurl,fdesc:fdesc,status:status,bid:bid},
+			    	dataType:"json", 
+					success:function(data)
+					{
+						if(data.result){
+							console.log(data);
+							alert("save successfully");
+							location.href='freelisteninfo.html';
+						}else{
+							console.log(data);
+							alert("save failed");
+						}
+					}
+				});
+		    }
+		});
+	})
+</script>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+  <div class="layui-header">
+    <div class="layui-logo">NeuSoft</div>
+    <!-- 头部区域（可配合layui已有的水平导航） -->
+    <ul class="layui-nav layui-layout-right">
+      <li class="layui-nav-item">
+        <a href="javascript:;">
+          <img src="../SSM/img/profile.jpg" class="layui-nav-img">
+          RoyalSkye
+        </a>
+      </li>
+      <li class="layui-nav-item"><a href="login.html">Logout</a></li>
+    </ul>
+  </div>
+  
+  <div class="layui-side layui-bg-black">
+    <div class="layui-side-scroll">
+      <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+      <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+        <li class="layui-nav-item">
+          <a class="" href="javascript:;">企业管理</a>
+          <dl class="layui-nav-child">
+          <dd><a href="index2.html">数据统计</a></dd>
+            <dd><a href="index.html">企业基本信息</a></dd>
+            <dd><a href="branchinfo.html">企业分部信息</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">师资管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="teacherinfo.html">师资力量</a></dd>
+            <dd><a href="teacherimg.html">师资首页图片</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">课程管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="lessoninfo.html">课程信息管理</a></dd>
+            <dd><a href="lessonimg.html">课程首页图片</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item  layui-nav-itemed">
+          <a href="javascript:;">预约管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="freelisteninfo.html">预约课程查询</a></dd>
+            <dd><a href="freelistenorder.html">预约课程处理</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">订单管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="orderinfo.html">订单查询</a></dd>
+            <dd><a href="orderrefund.html">退款处理</a></dd>
+            <dd><a href="ordercancel.html">订单核销</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">朋友圈管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="messageinfo.html">消息列表</a></dd>
+            <dd><a href="messageimg.html">朋友圈首页图片</a></dd>
+          </dl>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+   <div class="layui-body">
+    <!-- 内容主体区域 -->
+    <fieldset class="layui-elem-field layui-field-
+
+title" style="margin-top: 20px;">
+  <legend>添加预约课程</legend>
+</fieldset>
+
+<form class="layui-form" action="">
+<div class="layui-collapse">
+  <div class="layui-colla-item">
+    <h2 class="layui-colla-title">预约课程名称</h2>
+    <div class="layui-colla-content layui-show">
+    	<div class="layui-input-inline">
+      <input type="text" name="title" id="title" required  lay-verify="required" autocomplete="off" placeholder="请输入课程名称" class="layui-input">
+    </div>
+   </div>
+  </div>
+  <div class="layui-colla-item">
+    <h2 class="layui-colla-title">预约课程图片</h2><br>
+    <div id="img">
+	</div>
+    <div class="layui-upload-drag" id="test10">
+	  <i class="layui-icon"></i>
+	  <p>点击上传，或将文件拖拽到此处--1MB limited</p>
+	</div>
+  </div>
+	<div class="layui-colla-item">
+    <h2 class="layui-colla-title">预约课程详情</h2>
+    <div class="layui-colla-content layui-show">
+      <!-- 加载编辑器的容器 -->
+      <script id="container" name="content" type="text/plain">
+      </script>
+    </div>
+  	</div>
+  	<div class="layui-colla-item">
+    <h2 class="layui-colla-title">课程状态</h2>
+    <div class="layui-colla-content layui-show">
+    	<div class="layui-inline">
+      <label class="layui-form-label">课程状态</label>
+      <div class="layui-input-inline">
+        <select name="modules" lay-verify="required" lay-search="" lay-filter="test">
+          <option value=""></option>
+          <option value="进行中">进行中</option>
+        </select>
+     	</div>
+   	 </div>
+  	</div>	
+  </div>
+  <div class="layui-colla-item">
+    <h2 class="layui-colla-title">分部名字</h2>
+    <div class="layui-colla-content layui-show">
+    	<div class="layui-form-item" pane="">
+    <label class="layui-form-label">分部名字</label>
+       <div class="layui-input-block" id="branchname">
+    </div>
+  </div>
+    </div>
+  </div>
+  
+</div>
+	<button class="per-button layui-btn layui-btn-lg" lay-submit lay-filter="updatelesson" id="btn_submit" type="button">提交</button>
+</form>
+</div>
+
+  <div class="layui-footer">
+    <!-- 底部固定区域 -->
+    © NeuSoft 
+  </div>
+</div>
+<script src="../SSM/layui/layui.js"></script>
+<!-- 配置文件 -->
+<script type="text/javascript" src="./js/ueditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" src="./js/ueditor.all.js"></script>
+<script>
+//JavaScript代码区域
+layui.use('element', function(){
+  var element = layui.element;
+  
+});
+layui.use('upload', function(){
+  var $ = layui.jquery
+  ,upload = layui.upload;
+
+//拖拽上传
+  upload.render({
+    elem: '#test10'
+    ,url: '/SSM/test/FreelistenHandler_saveimg'
+    ,size: 1024 //限制文件大小，单位 KB
+    ,done: function(res){
+      console.log(res);
+      if(res.result){
+    	  var img='<img src="/upload/'+res.imgurl+'" id="imgurl" width="200" height="200">';
+    	  $("#img").html(img);
+    	  imgurl=$("#imgurl").attr("src");
+    	  console.log(imgurl);
+      }else{
+    	  alert("upload failed");
+      }
+    }
+  });
+});  
+ 
+ layui.use('form', function(){
+  var form = layui.form;
+  form.on('select(test)',function(data){
+		console.log(data);
+		console.log(data.value);
+		status=data.value;
+	});
+  form.on('radio(single)',function(data){
+	  console.log(data);
+	  bid=data.value;
+	});
+});
+
+UE.getEditor('container', {
+    toolbars: [
+    ['fullscreen', 'source', 'undo', 'redo', 'bold', 'italic', 'underline', 'strikethrough', 'forecolor', 'backcolor', 'insertimage']
+    ],
+    autoHeightEnabled: true,
+    autoFloatEnabled: true
+    });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>NeuSoft introduction</title>
+  <link rel="stylesheet" href="../SSM/layui/css/layui.css">
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.js"></script>
+<script>
+var cname="";
+var fid="";
+var starttime="";
+var endtime="";
+var url="";
+	$(function(){
+		$("#btn_submit").click(function(){
+			cname=$("#cname").val();
+			fid=$("#fid").val();
+			starttime=$("#test1-1").val();
+			endtime=$("#test1-2").val();
+			console.log("cname="+cname);
+			console.log("fid="+fid);
+			console.log("starttime="+starttime);
+			console.log("endtime="+endtime);
+			url='/SSM/test/FreelistenbookHandler_findFreelistenbook?cname='+encodeURI(encodeURI(cname))+'&fid='+fid+'&starttime='+starttime+'&endtime='+endtime;
+			showtable(url);
+			/*$.ajax({
+				url:"",
+				type:"post",
+				data:{cname:cname,fid:fid,starttime:starttime,endtime:endtime},
+		    	dataType:"json", 
+				success:function(data)
+				{
+					console.log(data);
+				}
+			});*/
+		});
+	});
+</script>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+  <div class="layui-header">
+    <div class="layui-logo">NeuSoft</div>
+    <!-- 头部区域（可配合layui已有的水平导航） -->
+    <ul class="layui-nav layui-layout-right">
+      <li class="layui-nav-item">
+        <a href="javascript:;">
+          <img src="../SSM/img/profile.jpg" class="layui-nav-img">
+          RoyalSkye
+        </a>
+      </li>
+      <li class="layui-nav-item"><a href="login.html">Logout</a></li>
+    </ul>
+  </div>
+  
+  <div class="layui-side layui-bg-black">
+    <div class="layui-side-scroll">
+      <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+      <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+        <li class="layui-nav-item ">
+          <a class="" href="javascript:;">企业管理</a>
+          <dl class="layui-nav-child">
+          <dd><a href="index2.html">数据统计</a></dd>
+            <dd><a href="index.html">企业基本信息</a></dd>
+            <dd><a href="branchinfo.html">企业分部信息</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">师资管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="teacherinfo.html">师资力量</a></dd>
+            <dd><a href="teacherimg.html">师资首页图片</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">课程管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="lessoninfo.html">课程信息管理</a></dd>
+            <dd><a href="lessonimg.html">课程首页图片</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item layui-nav-itemed">
+          <a href="javascript:;">预约管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="freelisteninfo.html">预约课程查询</a></dd>
+            <dd><a href="freelistenorder.html">预约课程处理</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">订单管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="orderinfo.html">订单查询</a></dd>
+            <dd><a href="orderrefund.html">退款处理</a></dd>
+            <dd><a href="ordercancel.html">订单核销</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">朋友圈管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="messageinfo.html">消息列表</a></dd>
+            <dd><a href="messageimg.html">朋友圈首页图片</a></dd>
+          </dl>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="layui-body">
+    <!-- 内容主体区域 -->
+     <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+		  <legend>预约查询</legend>
+		</fieldset>
+    <div class="demoTable">	
+	  关键字：
+	  <div class="layui-inline" float="left">
+	    <input class="layui-input" name="fid" id="fid" placeholder="请输入预约课程编号" autocomplete="off">
+	  </div>
+	  用户昵称:
+	  <div class="layui-inline">
+	    <input class="layui-input" name="cname" id="cname" placeholder="请输入用户昵称	" autocomplete="off">
+	  </div>
+	  <div class="layui-inline" float="right">
+	    <form class="layui-form" action="">
+	      <label class="layui-form-label">预约状态:</label>
+	       <div class="layui-input-inline">
+	        <select name="modules" lay-verify="required" lay-search="">
+	          <option value="">待处理</option>
+	        </select>
+	       </div>
+	      <div class="layui-inline">
+		      <label class="layui-form-label">预约时间:</label>
+		      <div class="layui-input-inline">
+		        <input type="text" class="layui-input" id="test1-1" placeholder="yyyy-MM-dd">
+		      </div>
+		      to
+		      <div class="layui-input-inline">
+		        <input type="text" class="layui-input" id="test1-2" placeholder="yyyy-MM-dd">
+		      </div>
+		    </div>
+	   	</form>
+	  </div>
+	  <button class="layui-btn" data-type="reload" id="btn_submit" type="button">查询</button>
+	</div>
+<table class="layui-hide" id="demo" lay-filter="demo">
+<th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}"></th></table>	
+  </div>
+ 
+  <div class="layui-footer">
+    <!-- 底部固定区域 -->
+    © NeuSoft 
+  </div>
+</div>
+
+<script type="text/html" id="barDemo">
+  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="confirm">订单核销</a>
+</script>
+
+<script src="../SSM/layui/layui.js"></script>
+<script>
+//JavaScript代码区域
+layui.use('element', function(){
+  var element = layui.element;
+  
+});
+url='/SSM/test/FreelistenbookHandler_findAllFreelistenbookByPage'
+showtable(url);
+function showtable(url){
+	layui.use('table', function(){
+		  var table = layui.table;
+			
+		  table.on('tool(demo)', function(obj){
+			    var data = obj.data;
+			    console.log(obj)
+			    if(obj.event === 'confirm'){
+			    	var id=obj.data.id;
+			    	$.ajax({
+						url:"/SSM/test/FreelistenbookHandler_updateFreelistenbook",
+						type:"post",
+						data:{id:id},
+				    	dataType:"json", 
+						success:function(data)
+						{
+							if(data.result){
+								console.log(data);
+								obj.del();
+								/*url='/SSM/test/FreelistenbookHandler_findAllFreelistenbookByPage';
+								showtable(url);*/
+							}else{
+								console.log(data);
+								alert("confirm failed");
+							}
+						}
+					});
+			    } 
+			   });
+		  	
+			  table.render({
+			    elem: '#demo'
+			     ,url:url
+			    ,cols: [[
+			      {checkbox: true, fixed: true,width:'5%'}
+			      ,{field:'id', title: '订单编号', width:'10%', sort: true, fixed: true}
+			      ,{field:'fid', title: '课程编号', sort: true,width:'10%'}
+			      ,{field:'cname', title: '用户昵称', width:'10%'}
+			      ,{field:'tel', title: '用户电话', width:'10%'}
+			      ,{field:'status', title: '订单状态', width:'10%'}
+			      ,{field:'comment', title: '用户留言', sort: true,width:'15%'}
+			      ,{field:'booktime', title: '下单时间', sort: true,width:'15%'}
+			      ,{field: 'operation', title: '操作',width:'15%', align:'center', toolbar: '#barDemo'}
+			    ]]
+			    ,even: true
+			    ,limits: [5, 7, 10]
+			    ,limit: 10 //每页默认显示的数量
+			    ,id: 'testReload'
+			    ,page: true
+			    ,done: function(res){
+			        console.log(res)
+			    }
+			  });
+
+		 var $ = layui.$, active = {
+			 reload: function(){
+			var demoReload = $('#demoReload');
+			}
+		};
+		});
+}
+  
+  layui.use('form', function(){
+  var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+  form.render();
+});  
+	layui.use('laydate', function(){
+	  var laydate = layui.laydate;
+	  
+	  //国际版
+	  laydate.render({
+	    elem: '#test1-1'
+	    ,lang: 'en'
+	  });
+	  //国际版
+	  laydate.render({
+	    elem: '#test1-2'
+	    ,lang: 'en'
+	  });
+  });
+
+</script>
+</body>
+</html>
