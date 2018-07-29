@@ -9,7 +9,7 @@
 	</select>
 
 	<insert id="saveCustomer"  parameterType="com.neusoft.po.Customer">
-		insert into customer(phone,password,nickname,money) values(#{phone},#{password},#{nickname},#{money})
+		insert into customer(phone,password,nickname,money,credit) values(#{phone},#{password},#{nickname},#{money},#{credit})
 	</insert>
 	
 	<update id="updateCustomer"  parameterType="com.neusoft.po.Customer">
@@ -18,6 +18,7 @@
   			<if test="password!=null">password=#{password},</if>
   			<if test="nickname!=null">nickname=#{nickname},</if>
   			<if test="money!=null">money=money+#{money},</if>
+  			<if test="credit!=null">credit=#{credit},</if>
   		</trim>
 		where phone=#{phone}
 	</update>

@@ -74,7 +74,6 @@ public class CustomerHandler {
                 	System.out.println("customer is null");
                 	if(customerService.saveCustomer(customer)){
                 		session.setAttribute("app", true);
-                		session.setAttribute("key", 2);//用于区分后端还是前端
                     	session.setAttribute("customer", customer);
                     	session.setAttribute("qid", 1);
                         session.setAttribute("phone", customer.getPhone());

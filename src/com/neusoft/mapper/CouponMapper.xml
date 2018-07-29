@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.mapper.CouponMapper">                                                                                                                               
+
+	<select id="findCouponByCid"  parameterType="com.neusoft.po.Coupon" resultType="com.neusoft.po.Coupon">
+		select * from coupon where cid=#{cid} and starttime &gt;= #{starttime}
+	</select>
+	
+	<select id="findCouponByCondition"  parameterType="com.neusoft.po.Coupon" resultType="com.neusoft.po.Coupon">
+		select * from coupon where cid=#{cid} and starttime &gt;= #{starttime} and endtime &lt;= #{endtime} and category = #{category}
+	</select>
+	
+	<delete id="deleteCoupon"  parameterType="com.neusoft.po.Coupon">
+		delete from coupon where couponid = #{couponid}
+	</delete>
+	
+	<insert id="saveCoupon"  parameterType="com.neusoft.po.Coupon">
+		insert into coupon(category,cid,starttime,endtime,discount) values(#{category},#{cid},#{starttime},#{endtime},#{discount})
+	</insert>
+	
+</mapper>

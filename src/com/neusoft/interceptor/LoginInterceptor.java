@@ -37,9 +37,9 @@ public class LoginInterceptor implements HandlerInterceptor {
 		}else{
 			System.out.println("您还未登录，请先登录");
 			System.out.println("session:"+session);
-			request.getRequestDispatcher("/login.html").forward(request, response);
+			//request.getRequestDispatcher("/login.html").forward(request, response);  //由于浏览器缓存可能导致登录后访问刚刚测试拦截器的页面直接跳转到登录页面
 			//response.sendRedirect(request.getContextPath() +"/login.html");
-			//response.sendRedirect(response.encodeURL("/SSM/login.html"));
+			response.sendRedirect(response.encodeURL("/SSM/login.html"));
 			return false;
 		}
 	}

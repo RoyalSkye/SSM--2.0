@@ -28,7 +28,6 @@ public class UserHandler {
 			session.setAttribute("qid", u.getQid());
 			session.setAttribute("user", u);
 			session.setAttribute("isLoginOK", true);
-			session.setAttribute("key", 1);//用于区分后端还是前端
 			session.setMaxInactiveInterval(60*30);
 			//return "{\"result\":true}";
 			return "redirect:/index2.html";

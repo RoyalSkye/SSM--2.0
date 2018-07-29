@@ -6,7 +6,14 @@ public class Customer {
 	private String password;
 	private String nickname;
 	private double money;
+	private int credit;
 	
+	public int getCredit() {
+		return credit;
+	}
+	public void setCredit(int credit) {
+		this.credit = credit;
+	}
 	public double getMoney() {
 		return money;
 	}
