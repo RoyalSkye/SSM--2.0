@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.mapper.CheckinMapper">                                                                                                                               
+
+	<select id="findCheckin"  parameterType="com.neusoft.po.Checkin" resultType="int">
+		select count(*) from checkin where cid=#{cid} and time=#{time}
+	</select>
+	
+	<select id="findAllCheckin"  parameterType="int" resultType="com.neusoft.po.Checkin">
+		select * from checkin where cid=#{cid}
+	</select>
+	
+	<insert id="saveCheckin"  parameterType="com.neusoft.po.Checkin">
+		insert into checkin(time,cid) values(#{time},#{cid})
+	</insert>
+	
+</mapper>

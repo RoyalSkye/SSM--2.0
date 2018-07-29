@@ -1,5 +1,9 @@
 package com.neusoft.control;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -8,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.neusoft.po.Checkin;
 import com.neusoft.po.Customer;
 import com.neusoft.service.CustomerService;
 import com.neusoft.tools.*;
@@ -38,6 +43,25 @@ public class CustomerHandler {
 		HttpSession session=request.getSession();
 		String phone=(String)session.getAttribute("phone");
 		return customerService.findCustomerByPhone(phone);
+	}
+	
+	@RequestMapping(value="/test/CustomerHandler_saveCheckin")
+	@ResponseBody
+	public String saveCheckin(Checkin c) throws Exception{
+		Date date=new Date();
+		SimpleDateFormat ft =new SimpleDateFormat ("yyyy-MM-dd");
+		c.setTime(ft.format(date));
+		if(customerService.saveCheckin(c)){
+			return "{\"result\":true}";
+		}else{
+			return "{\"result\":false}";
+		}
+	}
+	
+	@RequestMapping(value="/test/CustomerHandler_findAllCheckin")
+	@ResponseBody
+	public List<Checkin> findAllCheckin(int cid) throws Exception{  //也可返回数组 看前端需求
+		return customerService.findAllCheckin(cid);
 	}
 	
 	@RequestMapping(value="/test/CustomerHandler_getcode",produces = "application/json; charset=utf-8")

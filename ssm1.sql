@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50718
 File Encoding         : 65001
 
-Date: 2018-07-29 21:09:20
+Date: 2018-07-29 22:56:48
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -49,6 +49,25 @@ INSERT INTO `branch` VALUES ('13', '2', '东北育才', '东北育才', '024', '
 INSERT INTO `branch` VALUES ('14', '1', '非洲分部', '非洲分部', '11', '1', '1');
 INSERT INTO `branch` VALUES ('15', '1', '上海分部', '上海', '001', '121.48054', '31.235929');
 INSERT INTO `branch` VALUES ('16', '1', '上海分部', '上海', '010', '121.48054', '31.235929');
+
+-- ----------------------------
+-- Table structure for checkin
+-- ----------------------------
+DROP TABLE IF EXISTS `checkin`;
+CREATE TABLE `checkin` (
+  `checkinid` int(11) NOT NULL AUTO_INCREMENT,
+  `time` datetime DEFAULT NULL,
+  `cid` int(11) DEFAULT NULL,
+  PRIMARY KEY (`checkinid`),
+  KEY `fk_checkincid` (`cid`),
+  CONSTRAINT `fk_checkincid` FOREIGN KEY (`cid`) REFERENCES `customer` (`cid`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of checkin
+-- ----------------------------
+INSERT INTO `checkin` VALUES ('1', '2018-07-29 22:00:00', '8');
+INSERT INTO `checkin` VALUES ('2', '2018-07-28 00:00:15', '8');
 
 -- ----------------------------
 -- Table structure for coupon
