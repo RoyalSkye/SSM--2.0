@@ -59,7 +59,7 @@ public class TeacherHandler {
 		Page page = new Page(limit,pages,qid);
 		page.setTotalPage(teacherService.findCount(page.getId()));
 		return FileTools.addHeader(teacherService.findAllTeacherByPage(page),page.getTotalPage());
-		}
+	}
 	
 	@RequestMapping(value="/test/TeacherHandler_findTeacherById")
 	@ResponseBody

@@ -3,8 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+   <link rel="stylesheet" href="./layui/css/layui.css">
+   <script type="text/javascript" src="./layui/layui.js"></script> 
   <title>NeuSoft introduction</title>
-  <link rel="stylesheet" href="../SSM/layui/css/layui.css">
+
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -14,7 +16,7 @@
     <ul class="layui-nav layui-layout-right">
       <li class="layui-nav-item">
         <a href="javascript:;">
-          <img src="../SSM/img/profile.jpg" class="layui-nav-img">
+          <img src="./img/profile.jpg" class="layui-nav-img">
           RoyalSkye
         </a>
       </li>
@@ -34,7 +36,7 @@
             <dd><a href="branchinfo.html">企业分部信息</a></dd>
           </dl>
         </li>
-        <li class="layui-nav-item">
+        <li class="layui-nav-item" >
           <a href="javascript:;">师资管理</a>
           <dl class="layui-nav-child">
             <dd><a href="teacherinfo.html">师资力量</a></dd>
@@ -63,14 +65,14 @@
             <dd><a href="ordercancel.html">订单核销</a></dd>
           </dl>
         </li>
-        <li class="layui-nav-item layui-nav-itemed">
+        <li class="layui-nav-item">
           <a href="javascript:;">朋友圈管理</a>
           <dl class="layui-nav-child">
             <dd><a href="messageinfo.html">消息列表</a></dd>
             <dd><a href="messageimg.html">朋友圈首页图片</a></dd>
           </dl>
         </li>
-        <li class="layui-nav-item">
+        <li class="layui-nav-item layui-nav-itemed">
           <a href="javascript:;">积分商城管理</a>
           <dl class="layui-nav-child">
             <dd><a href="creditproduct.html">积分商城</a></dd>
@@ -82,43 +84,21 @@
   
   <div class="layui-body">
     <!-- 内容主体区域 -->
-    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-  <legend>朋友圈评论列表</legend>
-</fieldset>
-<div style="padding: 20px; background-color: #F2F2F2;">
-	<div class="layui-row layui-col-space15">
-		<div class="layui-col-md6">
-	      <div class="layui-card">
-	        <div class="layui-card-header">无阅读不生活</div>
-	        <div class="layui-card-body">
-	          评论:<br>
-	           <table class="layui-hide" id="demo" lay-filter="demo">	
-    <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}"></th></table>
-	        </div>
-	      </div>
-	    </div>
-	    
-	    <div class="layui-col-md6">
-	      <div class="layui-card">
-	        <div class="layui-card-header">无阅读不生活</div>
-	        <div class="layui-card-body">
-	          评论:<br>
-	           <table class="layui-hide" id="demo1" lay-filter="demo">	
-    <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}"></th></table>
-	        </div>
-	      </div>
-	    </div>
-	   </div>
-	</div>
-</div>
+    <div style="padding: 15px; display: flex; justify-content: space-between; align-items: center;"><span>积分商城</span>
+    		<a href="savecreditproduct.html" style="margin-right: 40px"><button class="layui-btn layui-btn-sm">添加优惠券</button></a>
+    </div>	
+    <table class="layui-hide" id="demo" lay-filter="demo">
+    	<th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}"></th></table>
+  </div>
   
   <div class="layui-footer">
     <!-- 底部固定区域 -->
     © NeuSoft 
   </div>
 </div>
-
+<script src="./layui/layui.js"></script>
 <script type="text/html" id="barDemo">
+  <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
   <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 
@@ -130,66 +110,51 @@ layui.use('element', function(){
   
 });
 
-layui.use('table', function(){
+layui.use(['table','jquery'],function(){
   var table = layui.table;
-  
-table.on('tool(demo)', function(obj){
-    var data = obj.data;
-    if(obj.event === 'del'){
-      layer.confirm('真的删除行么', function(index){
-        obj.del();
-        layer.close(index);
-      });
-    }
-});    
-table.render({
-    elem: '#demo'
-    ,cols: [[ //标题栏
-      {field: 'id', title: 'ID', width: '25%', sort: true}
-      ,{field: 'nickname', title: 'nickname', width: '25%'}
-      ,{field: 'content', title: '内容', Width: '25%'}
-      ,{field: 'operation', title: '操作',width:'25%', align:'center', toolbar: '#barDemo'}
-    ]]
-    ,data: [{
-      "id": "1"
-      ,"nickname": "艺术中心"
-      ,"content": "沈阳"
-    },{
-      "id": "1"
-      ,"nickname": "艺术中心"
-      ,"content": "沈阳"
-    }]
-     //,skin: 'line' //表格风格
-    ,even: true
-    ,page: true //是否显示分页
-    ,limits: [5, 7, 10]
-    ,limit: 5 //每页默认显示的数量
-  });
+  var $=layui.jquery;
   table.render({
-    elem: '#demo1'
-    ,cols: [[ //标题栏
-      {field: 'id', title: 'ID', width: '25%', sort: true}
-      ,{field: 'nickname', title: 'nickname', width: '25%'}
-      ,{field: 'content', title: '内容', Width: '25%'}
-      ,{field: 'operation', title: '操作',width:'25%', align:'center', toolbar: '#barDemo'}
+    elem: '#demo'
+    ,url:'/SSM/test/CreditproductHandler_findCreditproductByPage'
+    ,cols: [[ //表头
+      {field: 'cpid', title: 'ID', width:'10%', style:'height:50px;', fixed: 'left',sort: true}
+      ,{field : 'cpname',title : '名称',width : '15%',style:'height:50px;',sort: true}
+      ,{field : 'credit',title : '所需积分',width : '15%',style:'height:50px;',sort: true}
+      ,{field: 'discount', title: '折扣', width:'15%', style:'height:50px;',sort: true}
+      ,{field: 'category', title: '使用类别', width:'15%', style:'height:50px;'}
+      ,{field: 'duration', title: '有效期(天)', width:'15%', style:'height:50px;',sort: true}
+       ,{field: 'operation', title: '操作',width:'15%', align:'center',style:'height:50px;', toolbar: '#barDemo'}
     ]]
-    ,data: [{
-      "id": "1"
-      ,"nickname": "Skye"
-      ,"content": "哈哈"
-    },{
-      "id": "1"
-      ,"nickname": "Skye"
-      ,"content": "嘿嘿"
-    }]
-     //,skin: 'line' //表格风格
     ,even: true
     ,page: true //是否显示分页
     ,limits: [5, 7, 10]
     ,limit: 5 //每页默认显示的数量
   });
+  table.on('tool(demo)', function(obj){
+    var data = obj.data;
+    console.log(data);
+    if(obj.event === 'del'){
+    	layer.confirm('是否确定删除', function(index){
+    		$.ajax({
+    			url:"/SSM/test/CreditproductHandler_deleteCreditproduct?cpid="+obj.data.cpid,
+    			success:function(data)
+    			{
+    				var result = JSON.parse(data); 
+    				console.log(result);
+    				if(result.result){
+    					obj.del();
+    				}else{
+    					alert("delete failed,此优惠券可能已经被删除,请刷新");
+    				}
+    			}
+    		});
+            layer.close(index);
+          });
+    } else if(obj.event === 'edit'){
+    	location.href='updateteacher.html?tid='+obj.data.tid;
+    }
+   });
 });
-
 </script>
 </body>
 </html>

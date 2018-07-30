@@ -72,7 +72,7 @@ public class RefundServiceBean  implements RefundService{
 			isok=true;
 			Order order=new Order();
 			order.setOid(refund.getOid());
-			order.setStatus("已付款");
+			order.setStatus("已驳回");
 			if(ordermapper.updateOrder(order)<=0) isok=false;
 		}else{
 			isok=false;

@@ -34,10 +34,13 @@
 				$("#lprice").append(lprice);
 				var category = data.category;
 				$("#category").append(category);
+				var credit = data.credit;
+				$("#credit").append(credit);
 			}
 		});
 		$.ajax({ //分部名字
 			url:"test/LessonHandler_findBranchByLesson?lid="+lid,
+			async:false,
 			success:function(res){
 				console.log(res);
 				for(var i=0;i<res.length;i++){
@@ -117,6 +120,12 @@
             <dd><a href="messageimg.html">朋友圈首页图片</a></dd>
           </dl>
         </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">积分商城管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="creditproduct.html">积分商城</a></dd>
+          </dl>
+        </li>
       </ul>
     </div>
   </div>
@@ -142,6 +151,10 @@
   <div class="layui-colla-item">
     <h2 class="layui-colla-title">课程价钱</h2>
     <div class="layui-colla-content layui-show" id="lprice"></div>
+  </div>
+  <div class="layui-colla-item">
+    <h2 class="layui-colla-title">课程积分</h2>
+    <div class="layui-colla-content layui-show" id="credit"></div>
   </div>
   <div class="layui-colla-item">
     <h2 class="layui-colla-title">课程详情</h2>

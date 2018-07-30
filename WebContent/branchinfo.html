@@ -70,6 +70,12 @@
             <dd><a href="messageimg.html">朋友圈首页图片</a></dd>
           </dl>
         </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">积分商城管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="creditproduct.html">积分商城</a></dd>
+          </dl>
+        </li>
       </ul>
     </div>
   </div>
@@ -107,16 +113,28 @@ layui.use('element', function(){
 });
 layui.use('table', function(){
   var table = layui.table;
-  
+  var $=layui.jquery;
   table.on('tool(demo)', function(obj){
     var data = obj.data;
     if(obj.event === 'detail'){
     	location.href='branchdetailinfo.html?bid='+obj.data.bid;
     } else if(obj.event === 'del'){
-      layer.confirm('真的删除行么', function(index){	
-        obj.del();
-        layer.close(index);
-      });
+    	layer.confirm('是否确定删除', function(index){
+    		$.ajax({
+    			url:"/SSM/test/BranchHandler_deleteBranchById?bid="+obj.data.bid,
+    			success:function(data)
+    			{
+    				var result = JSON.parse(data); 
+    				console.log(result);
+    				if(result.result){
+    					obj.del();
+    				}else{
+    					alert("delete failed,此分部可能已经被删除,请刷新");
+    				}
+    			}
+    		});
+            layer.close(index);
+          });
     } else if(obj.event === 'edit'){
     	location.href='updatebranch.html?bid='+obj.data.bid;
     }

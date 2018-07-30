@@ -11,7 +11,14 @@ public class Branch {
 	private String tel;
 	private double longitude;
 	private double latitude;
+	private int valid;
 	
+	public int getValid() {
+		return valid;
+	}
+	public void setValid(int valid) {
+		this.valid = valid;
+	}
 	public int getBid() {
 		return bid;
 	}

@@ -15,6 +15,7 @@
   }
   	var fid=GetQueryString("fid");
 	$(function(){
+		var bid;
 		$.ajax({
 			url:"test/FreelistenHandler_findFreelistenById?fid="+fid,				
 			success:function(data)
@@ -30,15 +31,22 @@
 				$("#fdesc").append(fdesc);
 				var status=data.status;
 				$("#status").append(status);
-				var bid=data.bid;
-			}
-		});
-		$.ajax({
-			url:"test/BranchHandler_findBranchById?bid="+bid,
-			success:function(res){
-				console.log(res);
-				var name=res.name;
-				$("#name").append(name);
+				bid=data.bid;
+			},
+			complete:function(XMLHttpRequest,textStatus){
+				$.ajax({
+					url:"test/BranchHandler_findBranchById?bid="+bid,
+					success:function(res){
+						console.log(res);
+						if(res.length===0){
+							var name="无";
+							$("#name").append(name);
+						}else{
+							var name=res.name;
+							$("#name").append(name);
+						}
+					}
+				});
 			}
 		});
 	});
@@ -106,6 +114,12 @@
           <dl class="layui-nav-child">
             <dd><a href="messageinfo.html">消息列表</a></dd>
             <dd><a href="messageimg.html">朋友圈首页图片</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">积分商城管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="creditproduct.html">积分商城</a></dd>
           </dl>
         </li>
       </ul>

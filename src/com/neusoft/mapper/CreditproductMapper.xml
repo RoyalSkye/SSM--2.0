@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.mapper.CreditproductMapper">                                                                                                                               
+
+	<select id="findCreditproductByPage"  parameterType="com.neusoft.tools.Page" resultType="com.neusoft.po.Creditproduct">
+		select * from creditproduct limit #{minNum},#{quantity}
+	</select>
+	
+	<select id="findCreditproductById"  parameterType="int" resultType="com.neusoft.po.Creditproduct">
+		select * from creditproduct where cpid=#{cpid}
+	</select>
+	
+	<update id="updateCreditproduct"  parameterType="com.neusoft.po.Creditproduct">
+		update creditproduct set credit=#{credit},discount=#{discount},duration=#{duration},category=#{category},cpname=#{cpname} where cpid=#{cpid}
+	</update>
+	
+	<insert id="saveCreditproduct" parameterType="com.neusoft.po.Creditproduct">
+	    insert into creditproduct(credit,discount,duration,category,cpname) values(#{credit},#{discount},#{duration},#{category},#{cpname});
+	</insert>
+	
+	<delete id="deleteCreditproduct"  parameterType="int">
+		delete from creditproduct where cpid=#{cpid}
+	</delete>
+	
+	<select id="findCount" resultType="int">
+		select COUNT(*) from creditproduct
+	</select>
+	
+</mapper>

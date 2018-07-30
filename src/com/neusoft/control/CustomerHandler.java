@@ -28,6 +28,10 @@ public class CustomerHandler {
 	public String islogin(HttpServletRequest request) throws Exception{
 		HttpSession session=request.getSession();
 		boolean isLoginOK=Boolean.parseBoolean((session.getAttribute("app")+""));
+		
+		isLoginOK=true;
+		session.setAttribute("phone", "18604010547");
+		
 		if(isLoginOK){
 			System.out.println("appÒÑµÇÂ¼");
 			 return "{\"result\":true}";

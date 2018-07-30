@@ -17,7 +17,7 @@
 	</delete>
 	
 	<insert id="saveCoupon"  parameterType="com.neusoft.po.Coupon">
-		insert into coupon(category,cid,starttime,endtime,discount) values(#{category},#{cid},#{starttime},#{endtime},#{discount})
+		insert into coupon(category,cid,starttime,endtime,discount,name) values(#{category},#{cid},#{starttime},#{endtime},#{discount},#{name})
 	</insert>
 	
 </mapper>

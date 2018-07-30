@@ -76,6 +76,12 @@
             <dd><a href="messageimg.html">朋友圈首页图片</a></dd>
           </dl>
         </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">积分商城管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="creditproduct.html">积分商城</a></dd>
+          </dl>
+        </li>
       </ul>
     </div>
   </div>
@@ -190,7 +196,7 @@ layui.use(['element','form','jquery','layer','table'], function(){
    	,url: url
     ,cols: [[ //表头
       {field: 'title', title: '预约课程标题', width:'20%',style:'height:100px;'}
-      ,{field : 'imgurl',title : '课程图片',width :'20%',style:'height:100px;',templet: '<div><img src="{{ d.imgurl}}"></div>'}
+      ,{field : 'imgurl',title : '课程图片',width :'20%',style:'height:100px;',templet: '<div><img src="{{ d.imgurl}}" width="100" height="100"></div>'}
       ,{field: 'status', title: '预约课程状态', width:'20%',style:'height:100px;'}
       ,{field: 'pubtime', title: '预约课程发布时间', width:'20%',style:'height:100px;'}
        ,{field: 'operation', title: '操作',width:'20%',align:'center',style:'height:100px;', toolbar: '#barDemo'}

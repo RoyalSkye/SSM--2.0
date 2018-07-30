@@ -26,6 +26,7 @@
   var imgurl="";
   var category="";
   var ldesc="";
+  var credit="";
   var bid=new Array();
   var temp=new Array();
   function GetQueryString(name)
@@ -49,6 +50,8 @@
 				$("#img").before(img);
 				var updatelprice='<input type="text" name="lprice" id="lprice" required  lay-verify="required" value="'+data.lprice+'">';
 				$("#updatelprice").append(updatelprice);
+				var updatecredit='<input type="text" name="credit" id="credit" required  lay-verify="required" value="'+data.credit+'">';
+				$("#updatecredit").append(updatecredit);
 				var updateldesc=data.ldesc;
 				UE.getEditor('container', {
 				    toolbars: [
@@ -77,7 +80,8 @@
 					{
 						console.log(res);
 						for(var i=0;i<res.length;i++){
-							temp[i]=data.data[i].bid;
+							//if(res.qid==0) continue;
+							temp[i]=res[i].bid;
 						}
 						console.log(temp);
 						for(var i=0;i<data.data.length;i++){
@@ -104,6 +108,7 @@
 		$("#btn_submit").click(function(){
 			lname=$("#title").val();
 			lprice=$("#lprice").val();
+			credit=$("#credit").val();
 		    var ue = UE.getEditor('container');
 		    ldesc=ue.getContent();
 		    var i=0;
@@ -114,17 +119,18 @@
 	    	console.log("lname="+lname);
 	    	console.log("imgurl="+imgurl);
 	    	console.log("lprice="+lprice);
+	    	console.log("credit="+credit);
 	    	console.log("ldesc="+ldesc);
 	    	console.log("category="+category);
 	    	console.log("bid="+bid);
-		    if(lname==""||imgurl==""||lprice==""||ldesc==""||category==""||bid==""){
+		    if(lname==""||imgurl==""||lprice==""||ldesc==""||category==""||bid==""||credit==""){
 		    	bid = [];
 		    	alert("必填项不能为空!");
 		    }else{
 		    	$.ajax({
 					url:"/SSM/test/LessonHandler_updateLesson?bid="+bid,
 					type:"post",
-					data:{lid:lid,lname:lname,imgurl:imgurl,lprice:lprice,ldesc:ldesc,category:category},
+					data:{lid:lid,lname:lname,imgurl:imgurl,lprice:lprice,ldesc:ldesc,category:category,credit:credit},
 			    	dataType:"json", 
 					success:function(data)
 					{
@@ -206,6 +212,12 @@
             <dd><a href="messageimg.html">朋友圈首页图片</a></dd>
           </dl>
         </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">积分商城管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="creditproduct.html">积分商城</a></dd>
+          </dl>
+        </li>
       </ul>
     </div>
   </div>
@@ -237,6 +249,10 @@ title" style="margin-top: 20px;">
   <div class="layui-colla-item">
     <h2 class="layui-colla-title">课程价钱</h2>
     <div class="layui-colla-content layui-show" id="updatelprice"></div>
+  </div>
+  <div class="layui-colla-item">
+    <h2 class="layui-colla-title">课程积分</h2>
+    <div class="layui-colla-content layui-show" id="updatecredit"></div>
   </div>
 	<div class="layui-colla-item">
     <h2 class="layui-colla-title">课程详细</h2>

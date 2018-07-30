@@ -7,6 +7,14 @@ public class Coupon {
 	private String starttime;
 	private String endtime;
 	private double discount;
+	private String name;
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	public int getCouponid() {
 		return couponid;
 	}

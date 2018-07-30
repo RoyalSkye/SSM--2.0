@@ -9,7 +9,7 @@
 	</select>
 	
 	<select id="findAllLessonByPage" parameterType="com.neusoft.tools.Page" resultType="com.neusoft.po.Lesson">
-		select * from lesson where qid=#{id} limit #{minNum},#{maxNum}
+		select * from lesson where qid=#{id} limit #{minNum},#{quantity}
 	</select>
 	
 	<select id="findLessonById"  parameterType="int" resultType="com.neusoft.po.Lesson">
@@ -17,7 +17,7 @@
 	</select>
 	
 	<select id="findBranchByLesson"  parameterType="int" resultType="com.neusoft.po.Branch">
-		select branch.bid,branch.name from (lesson join lessonbranch on lesson.lid=lessonbranch.lid) JOIN branch on lessonbranch.bid=branch.bid where lesson.lid=#{lid}
+		select branch.bid,branch.name,branch.valid from (lesson join lessonbranch on lesson.lid=lessonbranch.lid) JOIN branch on lessonbranch.bid=branch.bid where lesson.lid=#{lid}
 	</select>
 	
 	<select id="findLessonByBid"  parameterType="com.neusoft.tools.Page" resultType="com.neusoft.po.Lesson">
@@ -33,11 +33,11 @@
 	</delete>
 	
 	<update id="updateLesson"  parameterType="com.neusoft.po.Lesson">
-		update lesson set lname=#{lname},imgurl=#{imgurl},lprice=#{lprice},ldesc=#{ldesc},category=#{category},qid=#{qid},pubtime=#{pubtime} where lid=#{lid}
+		update lesson set lname=#{lname},imgurl=#{imgurl},lprice=#{lprice},ldesc=#{ldesc},category=#{category},qid=#{qid},pubtime=#{pubtime},credit=#{credit} where lid=#{lid}
 	</update>
 	
 	<insert id="saveLesson" parameterType="com.neusoft.po.Lesson">
-	    insert into lesson(lname,imgurl,lprice,ldesc,category,qid,pubtime) values(#{lname}, #{imgurl}, #{lprice},#{ldesc},#{category},#{qid},#{pubtime})
+	    insert into lesson(lname,imgurl,lprice,ldesc,category,qid,pubtime,credit) values(#{lname}, #{imgurl}, #{lprice},#{ldesc},#{category},#{qid},#{pubtime},#{credit})
 	</insert>
 	
 	<select id="selectLAST_INSERT_ID" resultType="int">
@@ -57,7 +57,7 @@
 	</select>
 	
 	<select id="findCount"  parameterType="int" resultType="int">
-	SELECT COUNT(*) from lesson where qid=#{qid}
+		SELECT COUNT(*) from lesson where qid=#{qid}
 	</select>
 	
 	<select id="findCountByBid" parameterType="int" resultType="int">

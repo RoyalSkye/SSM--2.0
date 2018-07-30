@@ -14,6 +14,13 @@ public class Lesson {
 	private String category;
 	private int qid;
 	private String pubtime;
+	private int credit;
+	public int getCredit() {
+		return credit;
+	}
+	public void setCredit(int credit) {
+		this.credit = credit;
+	}
 	public int getLid() {
 		return lid;
 	}

@@ -122,6 +122,12 @@
             <dd><a href="messageimg.html">朋友圈首页图片</a></dd>
           </dl>
         </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">积分商城管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="creditproduct.html">积分商城</a></dd>
+          </dl>
+        </li>
       </ul>
     </div>
   </div>
@@ -135,13 +141,12 @@
 <form class="layui-form" action="">
 <div class="layui-collapse">
   <div class="layui-colla-item">
-    <h2 class="layui-colla-title">分部名字</h2><br>
-    <div class="layui-form-item">
-    <label class="layui-form-label">分部名字</label>
-    <div class="layui-input-inline">
+    <h2 class="layui-colla-title">分部名字</h2>
+    <div class="layui-colla-content layui-show">
+    	<div class="layui-input-inline">
       <input type="text" name="name" id="name" required  lay-verify="required" autocomplete="off" placeholder="请输入分部名字" class="layui-input">
     </div>
-  	</div>
+   </div>
   </div>
   <div class="layui-colla-item">
     <h2 class="layui-colla-title">分部地址</h2>
@@ -167,13 +172,12 @@
     </div>
   </div>
   <div class="layui-colla-item">
-    <h2 class="layui-colla-title">分部电话</h2><br>
-    <div class="layui-form-item">
-      <label class="layui-form-label">分部电话</label>
-      <div class="layui-input-inline">
-        <input type="number" oninput="if(value.length>11)value=value.slice(0,11)" name="tel" id="tel" required  lay-verify="required" autocomplete="off" placeholder="请输入分部电话" class="layui-input">
-      </div>
-  </div>
+    <h2 class="layui-colla-title">分部电话</h2>
+    <div class="layui-colla-content layui-show">
+    	<div class="layui-input-inline">
+      <input type="text" name="tel" id="tel" required  lay-verify="required" autocomplete="off" placeholder="请输入分部电话" class="layui-input">
+    </div>
+   </div>
   </div>
 </div>
   <div class="button-wrap">

@@ -5,23 +5,27 @@
 <mapper namespace="com.neusoft.mapper.BranchMapper">                                                                                                                               
 
 	<select id="findAllBranch"  parameterType="int" resultType="com.neusoft.po.Branch">
-		select * from branch where qid=#{id}
+		select * from branch where qid=#{id} and valid=1
 	</select>
 	
 	<select id="findAllBranchByPage"  parameterType="com.neusoft.tools.Page" resultType="com.neusoft.po.Branch">
-		select * from branch where qid=#{id} limit #{minNum},#{quantity}
+		select * from branch where qid=#{id} and valid=1 limit #{minNum},#{quantity} 
 	</select>
 	
 	<select id="findBranchById"  parameterType="int" resultType="com.neusoft.po.Branch">
-		select * from branch where bid=#{bid}
+		select * from branch where bid=#{bid} and valid=1
 	</select>
 	
-	<delete id="deleteBranchById"  parameterType="int">
+	<!--<delete id="deleteBranchById"  parameterType="int">
 		delete from branch where bid=#{bid} 
-	</delete>
+	</delete>-->
+	
+	<update id="deleteBranchById"  parameterType="int">
+		update branch set valid=0 where bid=#{bid}
+	</update>
 	
 	<update id="updateBranch"  parameterType="com.neusoft.po.Branch">
-		update branch set name=#{name},address=#{address},tel=#{tel},longitude=#{longitude},latitude=#{latitude} where bid=#{bid}
+		update branch set name=#{name},address=#{address},tel=#{tel},longitude=#{longitude},latitude=#{latitude} where bid=#{bid} and valid=1
 	</update>
 	
 	<!--  <insert id="saveBranch"  parameterType="com.neusoft.po.Branch">
@@ -29,11 +33,11 @@
 	</insert>-->
 	
 	<insert id="saveBranch"  parameterType="com.neusoft.po.Branch">
-		insert into branch(qid,name,address,tel,longitude,latitude) values(#{qid},#{name},#{address},#{tel},#{longitude},#{latitude})
+		insert into branch(qid,name,address,tel,longitude,latitude,valid) values(#{qid},#{name},#{address},#{tel},#{longitude},#{latitude},1)
 	</insert>
 	
 	<select id="findCount" parameterType="int" resultType="int">
-	SELECT COUNT(*) FROM branch where qid=#{qid}
+	SELECT COUNT(*) FROM branch where qid=#{qid} and valid=1
 	</select>
 	
 </mapper>
