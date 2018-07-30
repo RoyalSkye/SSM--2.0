@@ -30,6 +30,12 @@ public class CreditproductHandler {
 		return FileTools.addHeader(creditproductService.findCreditproductByPage(page),page.getTotalPage());
 	}
 	
+	@RequestMapping(value="/test/CreditproductHandler_findCreditproductById",produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public Creditproduct findCreditproductById(int cpid) throws Exception{
+		return creditproductService.findCreditproductById(cpid);
+	}
+	
 	@RequestMapping(value="/test/CreditproductHandler_deleteCreditproduct")
 	@ResponseBody
 	public String deleteCreditproduct(int cpid) throws Exception{
@@ -40,10 +46,20 @@ public class CreditproductHandler {
 		}
 	}
 	
-	@RequestMapping(value="/test/CreditproductHandler_saveCreditproduct")
+	@RequestMapping(value="/test/CreditproductHandler_saveCreditproduct",produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String saveCreditproduct(Creditproduct c) throws Exception{
 		if(creditproductService.saveCreditproduct(c)){
+			return "{\"result\":true}";
+		}else{
+			return "{\"result\":false}";
+		}
+	}
+	
+	@RequestMapping(value="/test/CreditproductHandler_updateCreditproduct",produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public String updateCreditproduct(Creditproduct c) throws Exception{
+		if(creditproductService.updateCreditproduct(c)){
 			return "{\"result\":true}";
 		}else{
 			return "{\"result\":false}";

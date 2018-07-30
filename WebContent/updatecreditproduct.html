@@ -7,24 +7,62 @@
   <link rel="stylesheet" href="../SSM/layui/css/layui.css">
   <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.js"></script>
 <script type="text/javascript">
+function GetQueryString(name)
+{
+     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+     var r = window.location.search.substr(1).match(reg);
+     if(r!=null)return  unescape(r[2]); return null;
+}
+	var cpid=GetQueryString("cpid");
 	var cpname = "";
 	var credit = "";
 	var discount = "";
 	var duration="";
 	var category1=new Array();
 	var category="";
+	var array;
 $(function(){
-	
 	$.ajax({
-		url:"/SSM/test/LessonHandler_selectCategory",			
-		success:function(data)
-		{
+		url:"/SSM/test/CreditproductHandler_findCreditproductById?cpid="+cpid,	
+		async:false,
+		success:function(data){
 			console.log(data);
-			var classcategory="";
-			for(var i=0;i<data.length;i++){
-				classcategory+='<input type="checkbox" lay-filter="filter" name="checkbox" value="'+data[i]+'" title="'+data[i]+'">';
-			}
-			$("#category").append(classcategory);
+			var updatename='<input type="text" name="cpname" id="cpname" required  lay-verify="required" autocomplete="off" placeholder="请输入优惠券名称" value="'+data.cpname+'" class="layui-input">';
+			$("#updatename").append(updatename);
+			var updatecredit='<input type="text" name="credit" id="credit" required  lay-verify="required" autocomplete="off" placeholder="请输入所需积分（整数）"  value="'+data.credit+'" class="layui-input">';
+			$("#updatecredit").append(updatecredit);
+			var updatediscount='<input type="text" name="discount" id="discount" required  lay-verify="required" autocomplete="off" placeholder="请输入折扣（0.0，1.0）" value="'+data.discount+'" class="layui-input">';
+			$("#updatediscount").append(updatediscount);
+			var updateduration='<input type="text" name="duration" id="duration" required  lay-verify="required" autocomplete="off" placeholder="请输入有效期（整数）" value="'+data.duration+'" class="layui-input">';
+			$("#updateduration").append(updateduration);
+			array=data.category.split(",");
+			//console.log("array.length="+array.length);
+		},
+		complete:function(XMLHttpRequest,textStatus){
+			$.ajax({
+				url:"/SSM/test/LessonHandler_selectCategory",	
+				async:false,
+				success:function(data)
+				{
+					console.log(data);
+					var classcategory="";
+					for(var i=0;i<data.length;i++){
+						var flag=0;
+						for(var j=0;j<array.length;j++){
+							if(data[i]==array[j]){
+								flag=1;
+								break;
+							}
+						}
+						if(flag==1){
+							classcategory+='<input type="checkbox" lay-filter="filter" name="checkbox" value="'+data[i]+'" title="'+data[i]+'" checked="">';
+						}else{
+							classcategory+='<input type="checkbox" lay-filter="filter" name="checkbox" value="'+data[i]+'" title="'+data[i]+'">';
+						}
+					}
+					$("#category").append(classcategory);
+				}
+			});
 		}
 	});
 	
@@ -45,8 +83,10 @@ $(function(){
 			if(cpname=="" || credit=="" || discount==""||duration==""||category1==""){
 				category1=[];
 				alert("必填项不能为空!");
-			}else if(discount<=0||discount>=1||parseInt(credit)!=credit||credit<0||duration<0||parseInt(duration)!=duration){
-				//console.log("parseInt(credit)="+parseInt(credit));
+			}else if(discount<=0||discount>=1||String(credit).indexOf(".")>-1||credit<0||duration<0||String(duration).indexOf(".")>-1){
+				/*console.log("parseInt(credit)="+parseInt(credit));
+				if(parseInt(credit)===credit) console.log("===");
+				if(parseInt(credit)==credit) console.log("==");*/
 				category1=[];
 				alert("输入非法!");
 			}else{
@@ -60,18 +100,18 @@ $(function(){
 				}
 				console.log("category="+category);
 				$.ajax({
-					url:"/SSM/test/CreditproductHandler_saveCreditproduct",
+					url:"/SSM/test/CreditproductHandler_updateCreditproduct",
 					type:"post",
-					data:{cpname:cpname,credit:credit,discount:discount,duration:duration,category:category},
+					data:{cpid:cpid,cpname:cpname,credit:credit,discount:discount,duration:duration,category:category},
 			    	dataType:"json", 
 					success:function(data)
 					{
 						console.log(data);
 						if(data.result){
-							alert("save successfully");
+							alert("update successfully");
 							location.href='creditproduct.html';
 						}else{
-							alert("save failed");
+							alert("update failed");
 						}
 					}
 				});
@@ -169,8 +209,7 @@ $(function(){
 	    <div class="layui-colla-content layui-show">
 	    <div class="layui-inline">
       		<label class="layui-form-label">优惠券名称</label>
-	    	<div class="layui-input-inline">
-	      <input type="text" name="cpname" id="cpname" required  lay-verify="required" autocomplete="off" placeholder="请输入优惠券名称" class="layui-input">
+	    	<div class="layui-input-inline" id="updatename">
 	    </div></div>
 	   </div>
 	  </div>
@@ -179,8 +218,7 @@ $(function(){
     <div class="layui-colla-content layui-show">
     <div class="layui-inline">
       	<label class="layui-form-label">所需积分</label>
-    	<div class="layui-input-inline">
-      <input type="text" name="credit" id="credit" required  lay-verify="required" autocomplete="off" placeholder="请输入所需积分（整数）" class="layui-input">
+    	<div class="layui-input-inline" id="updatecredit">
     </div></div>
    </div>
   </div>
@@ -189,8 +227,7 @@ $(function(){
     <div class="layui-colla-content layui-show">
     <div class="layui-inline">
       	<label class="layui-form-label">折扣</label>
-    	<div class="layui-input-inline">
-      <input type="text" name="discount" id="discount" required  lay-verify="required" autocomplete="off" placeholder="请输入折扣（0.0，1.0）" class="layui-input">
+    	<div class="layui-input-inline" id="updatediscount">
     </div></div>
    </div>
   </div>
@@ -199,8 +236,7 @@ $(function(){
     <div class="layui-colla-content layui-show">
     <div class="layui-inline">
       	<label class="layui-form-label">有效期</label>
-    	<div class="layui-input-inline">
-      <input type="text" name="duration" id="duration" required  lay-verify="required" autocomplete="off" placeholder="请输入有效期（整数）" class="layui-input">
+    	<div class="layui-input-inline" id="updateduration">
     </div></div>
    </div>
   </div>

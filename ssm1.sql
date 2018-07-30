@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50718
 File Encoding         : 65001
 
-Date: 2018-07-30 15:46:57
+Date: 2018-07-30 22:21:05
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -107,19 +107,21 @@ CREATE TABLE `creditproduct` (
   `category` varchar(255) DEFAULT NULL,
   `cpname` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`cpid`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of creditproduct
 -- ----------------------------
-INSERT INTO `creditproduct` VALUES ('1', '10', '0.9', '2', 'C++', '优惠券');
-INSERT INTO `creditproduct` VALUES ('2', '10', '0.9', '2', 'Java', '优惠券');
+INSERT INTO `creditproduct` VALUES ('1', '10', '0.9', '2', 'C++,Java', '优惠券');
+INSERT INTO `creditproduct` VALUES ('2', '10', '0.9', '2', 'C++,PythonC++,Python', '更新优惠券');
 INSERT INTO `creditproduct` VALUES ('3', '10', '0.9', '2', 'HTML5', '优惠券');
 INSERT INTO `creditproduct` VALUES ('4', '10', '0.9', '2', 'Python', '优惠券');
 INSERT INTO `creditproduct` VALUES ('5', '20', '0.8', '3', 'C++', '优惠券');
 INSERT INTO `creditproduct` VALUES ('6', '20', '0.8', '3', 'Java', '优惠券');
 INSERT INTO `creditproduct` VALUES ('7', '20', '0.8', '3', 'HTML5', '优惠券');
 INSERT INTO `creditproduct` VALUES ('8', '20', '0.8', '3', 'Python', '优惠券');
+INSERT INTO `creditproduct` VALUES ('11', '50', '0.85', '1', 'Java,HTML5,C++,Python', '通用优惠券');
+INSERT INTO `creditproduct` VALUES ('12', '10', '0.9', '2', 'Java,C++', '优惠券');
 
 -- ----------------------------
 -- Table structure for customer
