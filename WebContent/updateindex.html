@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>NeuSoft introduction</title>
-  <link rel="stylesheet" href="../SSM/layui/css/layui.css">
+  <link rel="stylesheet" href="./layui/css/layui.css">
   <style type="text/css">
     .button-wrap {
       margin: 10px;
@@ -66,7 +66,7 @@
 		    	alert("必填项不能为空!")
 		    }else{
 		    	$.ajax({
-					url:"/SSM/test/EnterpriseHandler_updateEnterprise",
+					url:"test/EnterpriseHandler_updateEnterprise",
 					type:"post",
 					data:{name:name,introduction:introduction,uetext:uetext},
 			    	dataType:"json", 
@@ -215,7 +215,7 @@
     © NeuSoft 
   </div>
 </div>
-<script src="../SSM/layui/layui.js"></script>
+<script src="./layui/layui.js"></script>
 <script>
 //JavaScript代码区域
 layui.use('element', function(){
@@ -229,7 +229,7 @@ layui.use('upload', function(){
 //上传视频
 	upload.render({
     elem: '#test5'
-    ,url: '/SSM/test/EnterpriseHandler_savevideo'
+    ,url: 'test/EnterpriseHandler_savevideo'
     ,size: 102400 //限制文件大小，单位 KB
     ,accept: 'video' //视频
     ,done: function(res){
@@ -246,14 +246,14 @@ layui.use('upload', function(){
 //设定文件大小限制
   upload.render({
     elem: '#test7'
-    ,url: '/SSM/test/EnterpriseHandler_saveimg'
+    ,url: 'test/EnterpriseHandler_saveimg'
     ,size: 1024 //限制文件大小，单位 KB
     ,done: function(res){
       console.log(res)
       if(res.result){
     	  var imgurl="";
     	  $.ajax({
-  			url:"/SSM/test/EnterpriseHandler_findSwiperByQid",
+  			url:"test/EnterpriseHandler_findSwiperByQid",
   			success:function(data)
 			{
   				console.log(data);

@@ -37,7 +37,7 @@
 		    	alert("必填项不能为空!")
 		    }else{
 				$.ajax({
-					url:"/SSM/test/BranchHandler_saveBranch",
+					url:"test/BranchHandler_saveBranch",
 					type:"post",
 					data:{name:name,tel:tel,address:address,longitude:longitude,latitude:latitude},
 			    	dataType:"json", 
@@ -66,7 +66,7 @@
     <ul class="layui-nav layui-layout-right">
       <li class="layui-nav-item">
         <a href="javascript:;">
-          <img src="../SSM/img/profile.jpg" class="layui-nav-img">
+          <img src="./img/profile.jpg" class="layui-nav-img">
           RoyalSkye
         </a>
       </li>
@@ -190,7 +190,7 @@
     © NeuSoft 
   </div>
 </div>
-<script src="../SSM/layui/layui.js"></script>
+<script src="./layui/layui.js"></script>
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=3.0&ak=pZbFQstsAiFjDtaphyFfA6Xj4U7FXucM"></script>
 <script>
   var map = new BMap.Map("map");

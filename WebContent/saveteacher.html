@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>NeuSoft introduction</title>
-  <link rel="stylesheet" href="../SSM/layui/css/layui.css">
+  <link rel="stylesheet" href="./layui/css/layui.css">
   <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.js"></script>
 <script type="text/javascript">
 	var tname = "";
@@ -22,7 +22,7 @@ $(function(){
 				alert("必填项不能为空!");
 			}else{
 				$.ajax({
-					url:"/SSM/test/TeacherHandler_saveTeacher",
+					url:"test/TeacherHandler_saveTeacher",
 					type:"post",
 					data:{tname:tname,tphoto_url:tphoto_url,introduction:introduction},
 			    	dataType:"json", 
@@ -52,7 +52,7 @@ $(function(){
     <ul class="layui-nav layui-layout-right">
       <li class="layui-nav-item">
         <a href="javascript:;">
-          <img src="../SSM/img/profile.jpg" class="layui-nav-img">
+          <img src="./img/profile.jpg" class="layui-nav-img">
           RoyalSkye
         </a>
       </li>
@@ -152,7 +152,7 @@ $(function(){
     © NeuSoft 
   </div>
 </div>
-<script src="../SSM/layui/layui.js"></script>
+<script src="./layui/layui.js"></script>
 <script>
 //JavaScript代码区域
 layui.use('element', function(){
@@ -170,7 +170,7 @@ layui.use('upload', function(){
 //拖拽上传
   upload.render({
     elem: '#test10'
-    ,url: '/SSM/test/TeacherHandler_saveimg'
+    ,url: 'test/TeacherHandler_saveimg'
     ,size: 1024 //限制文件大小，单位 KB
     ,done: function(res){
       console.log(res);

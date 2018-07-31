@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>NeuSoft introduction</title>
-  <link rel="stylesheet" href="../SSM/layui/css/layui.css">
+  <link rel="stylesheet" href="./layui/css/layui.css">
   <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.js"></script>
    <script>
   var mtitle="";
@@ -23,7 +23,7 @@
   	//console.log("mid="+mid);
 	$(function(){
 		$.ajax({
-			url:"/SSM/test/MessageHandler_findMessageById?mid="+mid,				
+			url:"test/MessageHandler_findMessageById?mid="+mid,				
 			success:function(data)
 			{
 				console.log(data);
@@ -55,7 +55,7 @@
 			    	alert("必填项不能为空!");
 			 }else{
 				 $.ajax({
-						url:"/SSM/test/MessageHandler_updateMessage?imgurl="+imgurl,
+						url:"test/MessageHandler_updateMessage?imgurl="+imgurl,
 						type:"post",
 						data:{mid:mid,mtitle:mtitle},
 				    	dataType:"json", 
@@ -83,7 +83,7 @@
     <ul class="layui-nav layui-layout-right">
       <li class="layui-nav-item">
         <a href="javascript:;">
-          <img src="../SSM/img/profile.jpg" class="layui-nav-img">
+          <img src="./img/profile.jpg" class="layui-nav-img">
           RoyalSkye
         </a>
       </li>
@@ -190,7 +190,7 @@
     © NeuSoft 
   </div>
 </div>
-<script src="../SSM/layui/layui.js"></script>
+<script src="./layui/layui.js"></script>
 <script>
 //JavaScript代码区域
 layui.use('element', function(){
@@ -210,7 +210,7 @@ layui.use('upload', function(){
   var demoListView = $('#demoList')
   ,uploadListIns = upload.render({
     elem: '#testList'
-    ,url: '/SSM/test/MessageHandler_saveimg'
+    ,url: 'test/MessageHandler_saveimg'
     ,accept: 'file'
     ,multiple: true
     ,auto: false

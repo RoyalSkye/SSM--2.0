@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>NeuSoft introduction</title>
-  <link rel="stylesheet" href="../SSM/layui/css/layui.css">
+  <link rel="stylesheet" href="./layui/css/layui.css">
   <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.js"></script>
 <script>
   var oid="";
@@ -19,7 +19,7 @@
   			console.log("oid="+oid);
   			console.log("starttime="+starttime);
   			console.log("endtime="+endtime);
-  			url='/SSM/test/OrderHandler_findOrder?status='+encodeURI(encodeURI("退款中"))+'&oid='+oid+'&starttime='+starttime+'&endtime='+endtime;
+  			url='test/OrderHandler_findOrder?status='+encodeURI(encodeURI("退款中"))+'&oid='+oid+'&starttime='+starttime+'&endtime='+endtime;
   			showtable(url);
   		});
   	});
@@ -34,7 +34,7 @@
     <ul class="layui-nav layui-layout-right">
       <li class="layui-nav-item">
         <a href="javascript:;">
-          <img src="../SSM/img/profile.jpg" class="layui-nav-img">
+          <img src="./img/profile.jpg" class="layui-nav-img">
           RoyalSkye
         </a>
       </li>
@@ -149,14 +149,14 @@
   <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="deny">驳回退款</a>
 </script>
 
-<script src="../SSM/layui/layui.js"></script>
+<script src="./layui/layui.js"></script>
 <script>
 //JavaScript代码区域
 layui.use('element', function(){
   var element = layui.element;
   
 });
-url='/SSM/test/OrderHandler_findOrder?status='+encodeURI(encodeURI("退款中"))+'&oid=&starttime=&endtime=';
+url='test/OrderHandler_findOrder?status='+encodeURI(encodeURI("退款中"))+'&oid=&starttime=&endtime=';
 showtable(url);
 
 function showtable(url){
@@ -169,7 +169,7 @@ table.on('tool(demo)', function(obj){
     if(obj.event === 'confirm'){
     	var oid=obj.data.oid;
     	$.ajax({
-			url:"/SSM/test/RefundHandler_confirmRefund",
+			url:"test/RefundHandler_confirmRefund",
 			type:"post",
 			data:{oid:oid},
 	    	dataType:"json", 
@@ -179,7 +179,7 @@ table.on('tool(demo)', function(obj){
 				if(data.result){
 					alert("confirm successfully");
 					//obj.del();
-					url='/SSM/test/OrderHandler_findOrder?status='+encodeURI(encodeURI("退款中"))+'&oid=&starttime=&endtime=';
+					url='test/OrderHandler_findOrder?status='+encodeURI(encodeURI("退款中"))+'&oid=&starttime=&endtime=';
 					showtable(url);
 				}else{
 					alert("confirm failed");
@@ -189,7 +189,7 @@ table.on('tool(demo)', function(obj){
 	}else if(obj.event === 'deny'){
 		var oid=obj.data.oid;
     	$.ajax({
-			url:"/SSM/test/RefundHandler_denyRefund",
+			url:"test/RefundHandler_denyRefund",
 			type:"post",
 			data:{oid:oid},
 	    	dataType:"json", 
@@ -199,7 +199,7 @@ table.on('tool(demo)', function(obj){
 				if(data.result){
 					alert("refuse successfully");
 					//obj.del();
-					url='/SSM/test/OrderHandler_findOrder?status='+encodeURI(encodeURI("退款中"))+'&oid=&starttime=&endtime=';
+					url='test/OrderHandler_findOrder?status='+encodeURI(encodeURI("退款中"))+'&oid=&starttime=&endtime=';
 					showtable(url);
 				}else{
 					alert("refuse failed");

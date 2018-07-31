@@ -102,7 +102,7 @@
   <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 
-<script src="../SSM/layui/layui.js"></script>
+<script src="./layui/layui.js"></script>
 <script>
 //JavaScript代码区域
 layui.use('element', function(){
@@ -115,7 +115,7 @@ layui.use(['table','jquery'],function(){
   var $=layui.jquery;
   table.render({
     elem: '#demo'
-    ,url:'/SSM/test/CreditproductHandler_findCreditproductByPage'
+    ,url:'test/CreditproductHandler_findCreditproductByPage'
     ,cols: [[ //表头
       {field: 'cpid', title: 'ID', width:'10%', style:'height:50px;', fixed: 'left',sort: true}
       ,{field : 'cpname',title : '名称',width : '15%',style:'height:50px;',sort: true}
@@ -136,7 +136,7 @@ layui.use(['table','jquery'],function(){
     if(obj.event === 'del'){
     	layer.confirm('是否确定删除', function(index){
     		$.ajax({
-    			url:"/SSM/test/CreditproductHandler_deleteCreditproduct?cpid="+obj.data.cpid,
+    			url:"test/CreditproductHandler_deleteCreditproduct?cpid="+obj.data.cpid,
     			success:function(data)
     			{
     				var result = JSON.parse(data); 

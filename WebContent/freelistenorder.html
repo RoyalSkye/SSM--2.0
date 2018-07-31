@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>NeuSoft introduction</title>
-  <link rel="stylesheet" href="../SSM/layui/css/layui.css">
+  <link rel="stylesheet" href="./layui/css/layui.css">
   <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.js"></script>
 <script>
 var cname="";
@@ -22,7 +22,7 @@ var url="";
 			console.log("fid="+fid);
 			console.log("starttime="+starttime);
 			console.log("endtime="+endtime);
-			url='/SSM/test/FreelistenbookHandler_findFreelistenbook?cname='+encodeURI(encodeURI(cname))+'&fid='+fid+'&starttime='+starttime+'&endtime='+endtime;
+			url='test/FreelistenbookHandler_findFreelistenbook?cname='+encodeURI(encodeURI(cname))+'&fid='+fid+'&starttime='+starttime+'&endtime='+endtime;
 			showtable(url);
 			/*$.ajax({
 				url:"",
@@ -46,7 +46,7 @@ var url="";
     <ul class="layui-nav layui-layout-right">
       <li class="layui-nav-item">
         <a href="javascript:;">
-          <img src="../SSM/img/profile.jpg" class="layui-nav-img">
+          <img src="./img/profile.jpg" class="layui-nav-img">
           RoyalSkye
         </a>
       </li>
@@ -162,14 +162,14 @@ var url="";
   <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="confirm">订单核销</a>
 </script>
 
-<script src="../SSM/layui/layui.js"></script>
+<script src="./layui/layui.js"></script>
 <script>
 //JavaScript代码区域
 layui.use('element', function(){
   var element = layui.element;
   
 });
-url='/SSM/test/FreelistenbookHandler_findAllFreelistenbookByPage'
+url='test/FreelistenbookHandler_findAllFreelistenbookByPage'
 showtable(url);
 function showtable(url){
 	layui.use('table', function(){
@@ -181,7 +181,7 @@ function showtable(url){
 			    if(obj.event === 'confirm'){
 			    	var id=obj.data.id;
 			    	$.ajax({
-						url:"/SSM/test/FreelistenbookHandler_updateFreelistenbook",
+						url:"test/FreelistenbookHandler_updateFreelistenbook",
 						type:"post",
 						data:{id:id},
 				    	dataType:"json", 
@@ -190,7 +190,7 @@ function showtable(url){
 							if(data.result){
 								console.log(data);
 								obj.del();
-								/*url='/SSM/test/FreelistenbookHandler_findAllFreelistenbookByPage';
+								/*url='test/FreelistenbookHandler_findAllFreelistenbookByPage';
 								showtable(url);*/
 							}else{
 								console.log(data);

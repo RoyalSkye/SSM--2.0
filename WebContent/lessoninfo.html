@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-   <link rel="stylesheet" href="../SSM/layui/css/layui.css">
-   <script type="text/javascript" src="../SSM/layui/layui.js"></script> 
+   <link rel="stylesheet" href="./layui/css/layui.css">
+   <script type="text/javascript" src="./layui/layui.js"></script> 
   <title>NeuSoft introduction</title>
 <style type="text/css">
 .laytable-cell-1-imgurl{
@@ -22,7 +22,7 @@
     <ul class="layui-nav layui-layout-right">
       <li class="layui-nav-item">
         <a href="javascript:;">
-          <img src="../SSM/img/profile.jpg" class="layui-nav-img">
+          <img src="./img/profile.jpg" class="layui-nav-img">
           RoyalSkye
         </a>
       </li>
@@ -113,7 +113,7 @@
   <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 
-<script src="../SSM/layui/layui.js"></script>
+<script src="./layui/layui.js"></script>
 <script>
 //JavaScript代码区域
 layui.use(['element','form','jquery','layer','table'], function(){
@@ -145,17 +145,17 @@ layui.use(['element','form','jquery','layer','table'], function(){
 	})
   var table = layui.table;
   var layer=parent.layer===undefined?layui.layer:parent.layer;
-  var url='/SSM/test/LessonHandler_findAllLessonByPage';
+  var url='test/LessonHandler_findAllLessonByPage';
   showtable(url);
   form.on('select(test)',function(data){
 		console.log(data);
 		//console.log(data.value);
 		if(data.value==='0'){
-			var url='/SSM/test/LessonHandler_findAllLessonByPage';
+			var url='test/LessonHandler_findAllLessonByPage';
 			showtable(url);
 		}else{
 			var bid=data.value;
-			var url='/SSM/test/LessonHandler_findLessonByBid?bid='+bid;  //根据bid查找课程 branch 和 lesson 多对多的关系
+			var url='test/LessonHandler_findLessonByBid?bid='+bid;  //根据bid查找课程 branch 和 lesson 多对多的关系
 			showtable(url);
 		}
 	});

@@ -4,13 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>NeuSoft introduction</title>
-  <link rel="stylesheet" href="../SSM/layui/css/layui.css">
+  <link rel="stylesheet" href="./layui/css/layui.css">
   <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.js"></script>
   <script>
   function deletemessage(mid){
 		//console.log(mid);
 		$.ajax({
-			url:"/SSM/test/MessageHandler_deleteMessage?mid="+mid,
+			url:"test/MessageHandler_deleteMessage?mid="+mid,
 			success:function(data)
 			{
 				var result = JSON.parse(data); 
@@ -27,7 +27,7 @@
   function deletemessagereply(mrid){
 		console.log(mrid);
 		$.ajax({
-			url:"/SSM/test/MessageHandler_deleteMessagereply?mrid="+mrid,
+			url:"test/MessageHandler_deleteMessagereply?mrid="+mrid,
 			success:function(data)
 			{
 				var result = JSON.parse(data); 
@@ -44,7 +44,7 @@
   var message="";
 	$(function(){
 		$.ajax({
-			url:"/SSM/test/MessageHandler_findAllMessage",				
+			url:"test/MessageHandler_findAllMessage",				
 			success:function(data)
 			{
 				console.log(data);
@@ -82,7 +82,7 @@
     <ul class="layui-nav layui-layout-right">
       <li class="layui-nav-item">
         <a href="javascript:;">
-          <img src="../SSM/img/profile.jpg" class="layui-nav-img">
+          <img src="./img/profile.jpg" class="layui-nav-img">
           RoyalSkye
         </a>
       </li>
@@ -165,7 +165,7 @@
     © NeuSoft 
   </div>
 </div>
-<script src="../SSM/layui/layui.js"></script>
+<script src="./layui/layui.js"></script>
 <script>
 //JavaScript代码区域
 layui.use('element', function(){
