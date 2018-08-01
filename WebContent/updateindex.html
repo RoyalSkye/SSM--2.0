@@ -36,10 +36,10 @@
 				$("#updateintroduction").append(updateintroduction);
 				var imgurl='';
 				for(var i=0;i<data.swiperList.length;i++){
-					imgurl+='<img src="/upload/'+data.swiperList[i].imgurl+'" width="300" height="300">';
+					imgurl+='<img src="'+data.swiperList[i].imgurl+'" width="300" height="300">';
 				}
 				$("#imgurl").append(imgurl);
-				var videopath='<video controls="controls" controls="controls"><source src="/upload/'+data.videopath+'"type="video/mp4" /></video>';
+				var videopath='<video controls="controls" controls="controls"><source src="'+data.videopath+'"type="video/mp4" /></video>';
 				$("#videopath").append(videopath);
 				//var uetext='<script id="container" name="content" type="text/plain">'+data.uetext+'<\/script>';
 				var uetext=data.uetext;
@@ -236,7 +236,7 @@ layui.use('upload', function(){
       console.log(res)
       if(res.result){
     	//alert("upload successfully!");
-		  var videopath='<video controls="controls" controls="controls"><source src="/upload/'+res.imgurl+'"type="video/mp4" /></video>';
+		  var videopath='<video controls="controls" controls="controls"><source src="'+res.imgurl+'"type="video/mp4" /></video>';
 		  $("#videopath").html(videopath);
       }else{
     	  alert("upload failed");
@@ -258,7 +258,7 @@ layui.use('upload', function(){
 			{
   				console.log(data);
   				for(var i=0;i<data.length;i++){
-  					imgurl+='<img src="/upload/'+data[i].imgurl+'" width="300" height="300">';
+  					imgurl+='<img src="'+data[i].imgurl+'" width="300" height="300">';
   				}
   				 $("#imgurl").html(imgurl);
 			}

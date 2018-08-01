@@ -32,7 +32,7 @@
 				var updateimgurl="";
 				for(var i=0;i<data.messageimgList.length;i++){
 					if(data.messageimgList[i].imgurl===null) continue;
-					updateimgurl+='<img src="/upload/'+data.messageimgList[i].imgurl+'"  width="150" height="150">';
+					updateimgurl+='<img src="'+data.messageimgList[i].imgurl+'"  width="150" height="150">';
 					imgurl[k++]=data.messageimgList[i].imgurl;
 				}
 				updateimgurl+='<br><br>';
@@ -247,7 +247,7 @@ layui.use('upload', function(){
     ,done: function(res, index, upload){
     	console.log(res);
       if(res.result){ //上传成功
-        uploadimg+='<img src="/upload/'+res.imgurl+'" id="imgurl" width="150" height="150">';
+        uploadimg+='<img src="'+res.imgurl+'" id="imgurl" width="150" height="150">';
         console.log("uploadimg="+uploadimg);
     	tempimgurl[j++]=res.imgurl;
     	$("#updateimgurl").html(uploadimg);

@@ -116,7 +116,7 @@ public class TeacherHandler {
 		}else{
 			qid=(int)session.getAttribute("qid");
 		}
-		String imgurl="/upload/"+teacherService.findimgurl(qid).getImgurl();
+		String imgurl=teacherService.findimgurl(qid).getImgurl();
 		return imgurl;
 	}
 	
@@ -127,7 +127,9 @@ public class TeacherHandler {
 			System.out.println("ÎÄ¼şÎª¿Õ");
 			return "{\"result\":false}";
 		}
-		String url=FileTools.saveimg(file,request).substring(2);
+		//String url=FileTools.saveimg(file,request).substring(2);
+		String url=FileTools.saveimg(file,request);
+		System.out.println("url="+url);
 		if(url==null||url==""){
 			return "{\"result\":false}";
 		}else{
@@ -143,6 +145,7 @@ public class TeacherHandler {
 			return "{\"result\":false}";
 		}
 		String url=FileTools.saveimg(file,request);
+		System.out.println("url="+url);
 		if(url==null||url==""){
 			return "{\"result\":false}";
 		}else{
@@ -151,8 +154,8 @@ public class TeacherHandler {
 			Swiper swiper=new Swiper();
 			swiper.setCategory("B");
 			swiper.setQid(qid);
-			String imgurl=url.substring(10);
-			swiper.setImgurl(imgurl);
+			//String imgurl=url.substring(10);
+			swiper.setImgurl(url);
 			if(swiperService.updateSwiper(swiper)){
 				return "{\"result\":true,\"imgurl\":\""+url+"\"}";
 			}else{

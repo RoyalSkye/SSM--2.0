@@ -323,7 +323,7 @@ layui.use('upload', function(){
     ,done: function(res){
       console.log(res);
       if(res.result){
-    	  $("#lessonphoto").attr('src', "/upload/"+res.imgurl);
+    	  $("#lessonphoto").attr('src', ""+res.imgurl);
     	  imgurl=$("#lessonphoto").attr("src");
     	  console.log(imgurl);
       }else{

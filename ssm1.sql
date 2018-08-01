@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50718
 File Encoding         : 65001
 
-Date: 2018-07-30 22:21:05
+Date: 2018-08-01 19:20:58
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -107,7 +107,7 @@ CREATE TABLE `creditproduct` (
   `category` varchar(255) DEFAULT NULL,
   `cpname` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`cpid`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of creditproduct
@@ -167,7 +167,7 @@ CREATE TABLE `enterprise` (
 -- ----------------------------
 -- Records of enterprise
 -- ----------------------------
-INSERT INTO `enterprise` VALUES ('1', '东软睿道', '1.mp4', '沈阳东软睿道教育服务有限公司（简称东软睿道）由东软创办，基于东软的产业发展与人才培养实践，提供更加符合IT行业发展需求的人才培养体系和方法学，精准提升大学生和大学后的就业、创业技能，为新经济时代的转型发展提供高质量规模化的人才供给。', '<p><img src=\"/upload/1.jpg\" width=\"300\" height=\"300\"/></p><p><br/></p>');
+INSERT INTO `enterprise` VALUES ('1', '东软睿道', 'http://101.201.70.204:9998/group1/M00/00/00/rBAFzFthlp2AaYSPAFmTZruco8A027.mp4', '沈阳东软睿道教育服务有限公司（简称东软睿道）由东软创办，基于东软的产业发展与人才培养实践，提供更加符合IT行业发展需求的人才培养体系和方法学，精准提升大学生和大学后的就业、创业技能，为新经济时代的转型发展提供高质量规模化的人才供给。', '<p><img src=\"/upload/1.jpg\" width=\"300\" height=\"300\"/></p><p><br/></p>');
 INSERT INTO `enterprise` VALUES ('2', '实训中心', '1.mp4', '实训中心 Test', 'test');
 
 -- ----------------------------
@@ -367,7 +367,7 @@ INSERT INTO `message` VALUES ('21', 'test21', '2018-07-13 14:42:14', '1');
 INSERT INTO `message` VALUES ('22', 'test22', '2018-07-13 14:42:14', '1');
 INSERT INTO `message` VALUES ('28', '发布朋友圈', '2018-07-14 07:16:23', '1');
 INSERT INTO `message` VALUES ('29', '20180714', '2018-07-14 07:17:34', '1');
-INSERT INTO `message` VALUES ('30', 'treet', '2018-07-16 15:32:38', '1');
+INSERT INTO `message` VALUES ('30', 'treet', '2018-08-01 19:13:50', '1');
 
 -- ----------------------------
 -- Table structure for messageimg
@@ -380,7 +380,7 @@ CREATE TABLE `messageimg` (
   PRIMARY KEY (`miid`),
   KEY `fk_mid` (`mid`),
   CONSTRAINT `fk_mid` FOREIGN KEY (`mid`) REFERENCES `message` (`mid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of messageimg
@@ -391,8 +391,8 @@ INSERT INTO `messageimg` VALUES ('23', '28', '15315668078874.jpg');
 INSERT INTO `messageimg` VALUES ('24', '28', '15315668136037.jpg');
 INSERT INTO `messageimg` VALUES ('25', '29', '1531567051788timg.jpg');
 INSERT INTO `messageimg` VALUES ('26', '3', '1.jpg');
-INSERT INTO `messageimg` VALUES ('27', '30', '15317263546841.png');
-INSERT INTO `messageimg` VALUES ('28', '30', '15317263546915.png');
+INSERT INTO `messageimg` VALUES ('29', '30', 'http://101.201.70.204:9998/group1/M00/00/00/rBAFzFthleaAY70OAAAltvWxY8Y222.jpg');
+INSERT INTO `messageimg` VALUES ('30', '30', 'http://101.201.70.204:9998/group1/M00/00/00/rBAFzFthleaAeukZAADps5aemcY263.jpg');
 
 -- ----------------------------
 -- Table structure for messagelike
@@ -549,10 +549,10 @@ CREATE TABLE `swiper` (
 -- ----------------------------
 -- Records of swiper
 -- ----------------------------
-INSERT INTO `swiper` VALUES ('1', '1', '1.jpg', 'A');
+INSERT INTO `swiper` VALUES ('1', '1', 'http://101.201.70.204:9998/group1/M00/00/00/rBAFzFthlq6AXp3HAAAltvWxY8Y773.jpg', 'A');
 INSERT INTO `swiper` VALUES ('2', '1', '1531718145086show2.jpg', 'B');
 INSERT INTO `swiper` VALUES ('3', '1', '1.jpg', 'C');
-INSERT INTO `swiper` VALUES ('4', '1', '1531741797771timg.jpg', 'D');
+INSERT INTO `swiper` VALUES ('4', '1', 'http://101.201.70.204:9998/group1/M00/00/00/rBAFzFthkTGAAUHsAAKnZXaSxqs950.jpg', 'D');
 INSERT INTO `swiper` VALUES ('5', '2', '1.jpg', 'A');
 
 -- ----------------------------

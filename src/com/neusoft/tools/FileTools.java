@@ -6,6 +6,7 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.csource.common.NameValuePair;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
@@ -15,20 +16,30 @@ import java.util.regex.Pattern;
 
 public class FileTools {
 	
-	public static String saveimg(MultipartFile upload,HttpServletRequest request){
-		String url=null;
+	public static String saveimg(MultipartFile upload,HttpServletRequest request) throws IOException{
+		//String url=null;
 		//1.文件上传
 		//1.1 重命名 时间戳+文件名/UUID+文件名  时间戳:当前系统时间距离1970年时间原点总的毫秒数
 		String OriginalFilename=upload.getOriginalFilename().trim();  //去掉字符串首尾的空格
 		String type="";
 		int dot = OriginalFilename.lastIndexOf('.'); //.jpg 防止.被替换成ZH
-		System.out.println("dot="+dot);
+		//System.out.println("dot="+dot);
 		if ((dot >-1) && (dot < (OriginalFilename.length()))) { 
 			type=OriginalFilename.substring(dot + 1); 
 			OriginalFilename = OriginalFilename.substring(0, dot); 
         }
 		OriginalFilename=OriginalFilename.replaceAll("[^x00-xff]", "ZH");
 		String filename=System.currentTimeMillis()+OriginalFilename+"."+type;
+		
+		FastDFSFile file = new FastDFSFile(upload.getBytes(),type);
+		NameValuePair[] meta_list = new NameValuePair[4];
+	    meta_list[0] = new NameValuePair("fileName", filename);
+	    meta_list[1] = new NameValuePair("fileLength", String.valueOf(upload.getSize()));
+	    meta_list[2] = new NameValuePair("fileExt", type);
+	    meta_list[3] = new NameValuePair("fileAuthor", "skye");
+	    String filePath = FileManager.upload(file,meta_list);
+	    return filePath;
+	    /*
 		//1.2 文件传到当前工程的同级目录下
 		String path=request.getServletContext().getRealPath("/");
 		File f =new File(path);
@@ -46,6 +57,7 @@ public class FileTools {
 			e.printStackTrace();
 		}
 		return url;
+		*/
 	}
 	
 	public static String addHeader(Object obj,int count) {

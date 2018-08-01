@@ -200,7 +200,7 @@ public class LessonHandler {
 		}else{
 			qid=(int)session.getAttribute("qid");
 		}
-		String imgurl="/upload/"+lessonService.findimgurl(qid).getImgurl();
+		String imgurl=lessonService.findimgurl(qid).getImgurl();
 		return imgurl;
 	}
 	
@@ -211,7 +211,9 @@ public class LessonHandler {
 			System.out.println("ÎÄ¼şÎª¿Õ");
 			return "{\"result\":false}";
 		}
-		String url=FileTools.saveimg(file,request).substring(10);
+		//String url=FileTools.saveimg(file,request).substring(10);
+		String url=FileTools.saveimg(file,request);
+		System.out.println("url="+url);
 		if(url==null||url==""){
 			return "{\"result\":false}";
 		}else{
@@ -227,6 +229,7 @@ public class LessonHandler {
 			return "{\"result\":false}";
 		}
 		String url=FileTools.saveimg(file,request);
+		System.out.println("url="+url);
 		if(url==null||url==""){
 			return "{\"result\":false}";
 		}else{
@@ -240,8 +243,8 @@ public class LessonHandler {
 			Swiper swiper=new Swiper();
 			swiper.setCategory("C");
 			swiper.setQid(qid);
-			String imgurl=url.substring(10);
-			swiper.setImgurl(imgurl);
+			//String imgurl=url.substring(10);
+			swiper.setImgurl(url);
 			if(swiperService.updateSwiper(swiper)){
 				return "{\"result\":true,\"imgurl\":\""+url+"\"}";
 			}else{

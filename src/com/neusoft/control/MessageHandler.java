@@ -208,7 +208,7 @@ public class MessageHandler {
 		}else{
 			qid=(int)session.getAttribute("qid");
 		}
-		String imgurl="/upload/"+messageService.findimgurl(qid).getImgurl();
+		String imgurl=messageService.findimgurl(qid).getImgurl();
 		return imgurl;
 	}
 	
@@ -219,7 +219,9 @@ public class MessageHandler {
 			System.out.println("ÎÄ¼şÎª¿Õ");
 			return "{\"result\":false}";
 		}
-		String url=FileTools.saveimg(file,request).substring(10);
+		//String url=FileTools.saveimg(file,request).substring(10);
+		String url=FileTools.saveimg(file,request);
+		System.out.println("url="+url);
 		if(url==null||url==""){
 			return "{\"result\":false}";
 		}else{
@@ -235,6 +237,7 @@ public class MessageHandler {
 			return "{\"result\":false}";
 		}
 		String url=FileTools.saveimg(file,request);
+		System.out.println("url="+url);
 		if(url==null||url==""){
 			return "{\"result\":false}";
 		}else{
@@ -248,8 +251,8 @@ public class MessageHandler {
 			Swiper swiper=new Swiper();
 			swiper.setCategory("D");
 			swiper.setQid(qid);
-			String imgurl=url.substring(10);
-			swiper.setImgurl(imgurl);
+			//String imgurl=url.substring(10);
+			swiper.setImgurl(url);
 			if(swiperService.updateSwiper(swiper)){
 				return "{\"result\":true,\"imgurl\":\""+url+"\"}";
 			}else{

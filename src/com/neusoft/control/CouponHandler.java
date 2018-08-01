@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.neusoft.service.CouponService;
-import com.neusoft.tools.FileTools;
-import com.neusoft.tools.Page;
 import com.neusoft.po.Coupon;
 
 @Controller

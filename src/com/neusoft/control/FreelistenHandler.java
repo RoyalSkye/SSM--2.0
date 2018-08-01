@@ -119,7 +119,9 @@ public class FreelistenHandler {
 			System.out.println("ÎÄ¼şÎª¿Õ!");
 			return "{\"result\":false}";
 		}
-		String url=FileTools.saveimg(file,request).substring(10);
+		//String url=FileTools.saveimg(file,request).substring(10);
+		String url=FileTools.saveimg(file,request);
+		System.out.println("url="+url);
 		if(url==null||url==""){
 			return "{\"result\":false}";
 		}else{

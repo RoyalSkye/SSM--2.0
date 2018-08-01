@@ -92,10 +92,10 @@ public class EnterpriseHandler {
 			}else{
 				qid=(int)session.getAttribute("qid");
 			}
-			String videopath=url.substring(10);
+			//String videopath=url.substring(10);
 			Enterprise e=new Enterprise();
 			e.setQid(qid);
-			e.setVideopath(videopath);
+			e.setVideopath(url);
 			enterpriseService.updateEnterprise(e);
 			return "{\"result\":true,\"imgurl\":\""+url+"\"}";
 		}
@@ -122,8 +122,8 @@ public class EnterpriseHandler {
 			}
 			Swiper swiper=new Swiper();
 			swiper.setQid(qid);
-			String imgurl=url.substring(10);  //  ../upload/....jpg
-			swiper.setImgurl(imgurl);
+			//String imgurl=url.substring(10);  //  ../upload/....jpg
+			swiper.setImgurl(url);
 			swiper.setCategory("A");
 			if(swiperService.updateSwiper(swiper)){
 				return "{\"result\":true,\"imgurl\":\""+url+"\"}";

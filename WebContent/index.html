@@ -25,12 +25,12 @@
 				$("#name").append(name);
 				var imgurl='';
 				for(var i=0;i<data.swiperList.length;i++){
-					imgurl+='<img src="/upload/'+data.swiperList[i].imgurl+'" width="300" height="300">';
+					imgurl+='<img src="'+data.swiperList[i].imgurl+'" width="300" height="300">';
 				}
 				$("#imgurl").append(imgurl);
 				var introduction=data.introduction;
 				$("#introduction").append(introduction);
-				var videopath='<video controls="controls" controls="controls"><source src="/upload/'+data.videopath+'"type="video/mp4" /></video>';
+				var videopath='<video controls="controls" controls="controls"><source src="'+data.videopath+'"type="video/mp4" /></video>';
 				$("#videopath").append(videopath);
 				var uetext=data.uetext;
 				$("#uetext").append(uetext);

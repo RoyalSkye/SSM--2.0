@@ -53,7 +53,7 @@
 		        	message+='</div><div><a href="updatemessage.html?mid='+data[i].mid+'"><button class="layui-btn layui-btn-sm">编辑</button></a><a style="margin-left: 30px"><button class="layui-btn layui-btn-sm" onclick="deletemessage('+data[i].mid+')">删除</button></a></div></div><div class="layui-card-body">';
 		        	for(var j=0;j<data[i].messageimgList.length;j++){
 		        		if(data[i].messageimgList[j].imgurl===null) continue;
-		        		message+='<img src="/upload/'+data[i].messageimgList[j].imgurl+'"  width="150" height="150">';
+		        		message+='<img src="'+data[i].messageimgList[j].imgurl+'"  width="150" height="150">';
 		        	}
 		        	message+='</div><div class="layui-col-md12"><div class="layui-card"><div class="layui-card-header"><i class="layui-icon layui-icon-praise" style="font-size: 20px; color: #787878;"></i>点赞	:</div><div class="layui-card-body">';
 		        	for(var j=0;j<data[i].messagelikeList.length;j++){

@@ -271,7 +271,7 @@ layui.use('upload', function(){
     ,done: function(res){
       console.log(res)
       if(res.result){
-    	  var img='<img src="/upload/'+res.imgurl+'" id="imgurl" width="200" height="200">';
+    	  var img='<img src="'+res.imgurl+'" id="imgurl" width="200" height="200">';
     	  $("#img").html(img);
     	  imgurl=$("#imgurl").attr("src");
     	  console.log(imgurl);
