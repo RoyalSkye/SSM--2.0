@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
 import com.neusoft.po.Customer;
 import com.neusoft.po.Freelistenbook;
 import com.neusoft.po.Order;
@@ -34,11 +35,11 @@ public class OrderHandler {
 		HttpSession session=request.getSession();
 		int limit = Integer.parseInt(request.getParameter("limit"));
 		int pages = Integer.parseInt(request.getParameter("page"));
+		Gson g=new Gson();
 		int qid;
-		if(session.getAttribute("qid")==null){
-			qid=1;
-		}else{
-			qid=(int)session.getAttribute("qid");
+		if(request.getSession().getAttribute("qid")==null) qid=1;
+		else{
+			qid=g.fromJson(session.getAttribute("qid").toString(),int.class);
 		}
 		Page page = new Page(limit,pages,qid);
 		page.setTotalPage(orderService.findCount(page.getId()));
@@ -49,8 +50,8 @@ public class OrderHandler {
 	@ResponseBody
 	public List<Order> findOrderByPhone(HttpServletRequest request) throws Exception{
 		HttpSession session=request.getSession();
-		String phone=session.getAttribute("phone").toString();
-		//String phone="136";
+		Gson g=new Gson();
+		String phone=g.fromJson(session.getAttribute("phone").toString(),String.class);
 		return orderService.findOrderByPhone(phone);
 	}
 	
@@ -59,11 +60,11 @@ public class OrderHandler {
 	public String findOrder(HttpServletRequest request) throws Exception{
 		Map<String,Object> map=new HashMap<String,Object>();
 		HttpSession session = request.getSession();
+		Gson g=new Gson();
 		int qid;
-		if(session.getAttribute("qid")==null){
-			qid=1;
-		}else{
-			qid=(int)session.getAttribute("qid");
+		if(request.getSession().getAttribute("qid")==null) qid=1;
+		else{
+			qid=g.fromJson(session.getAttribute("qid").toString(),int.class);
 		}
 		String oid=request.getParameter("oid");
 		String status=request.getParameter("status");
@@ -93,7 +94,8 @@ public class OrderHandler {
 	public String updateOrder(Order order,HttpServletRequest request) throws Exception{
 		//System.out.println("total="+order.getTotal());
 		HttpSession session=request.getSession();
-		String phone=(String)session.getAttribute("phone");
+		Gson g=new Gson();
+		String phone=g.fromJson(session.getAttribute("phone").toString(),String.class);
 		order.setOpenid(phone);
 		if(orderService.updateOrder(order)){
 			return "{\"result\":true}";
@@ -106,7 +108,8 @@ public class OrderHandler {
 	@ResponseBody
 	public List<Order> findAllOrderByPhone(HttpServletRequest request) throws Exception{
 		HttpSession session=request.getSession();
-		String phone=(String)session.getAttribute("phone");
+		Gson g=new Gson();
+		String phone=g.fromJson(session.getAttribute("phone").toString(),String.class);
 		return orderService.findAllOrderByPhone(phone);
 	}
 
@@ -114,16 +117,16 @@ public class OrderHandler {
 	@ResponseBody
 	public String saveOrder(Order order,HttpServletRequest request) throws Exception{
 		HttpSession session=request.getSession();
-		String phone=(String)session.getAttribute("phone");
+		Gson g=new Gson();
+		String phone=g.fromJson(session.getAttribute("phone").toString(),String.class);
 		order.setOpenid(phone);
 		Date date=new Date();
 		SimpleDateFormat ft =new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
 		order.setOrdertime(ft.format(date));
 		int qid;
-		if(session.getAttribute("qid")==null){
-			qid=1;
-		}else{
-			qid=(int)session.getAttribute("qid");
+		if(request.getSession().getAttribute("qid")==null) qid=1;
+		else{
+			qid=g.fromJson(session.getAttribute("qid").toString(),int.class);
 		}
 		order.setQid(qid);
 		String transactionid=System.currentTimeMillis()+"";
@@ -140,11 +143,11 @@ public class OrderHandler {
 	@ResponseBody
 	public int findCount(HttpServletRequest request) throws Exception{
 		HttpSession session = request.getSession();
+		Gson g=new Gson();
 		int qid;
-		if(session.getAttribute("qid")==null){
-			qid=1;
-		}else{
-			qid=(int)session.getAttribute("qid");
+		if(request.getSession().getAttribute("qid")==null) qid=1;
+		else{
+			qid=g.fromJson(session.getAttribute("qid").toString(),int.class);
 		}
 		return	orderService.findCount(qid);
 	}

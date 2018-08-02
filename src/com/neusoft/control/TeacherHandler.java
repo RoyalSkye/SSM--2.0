@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
 import com.neusoft.po.Swiper;
 import com.neusoft.po.Teacher;
 import com.neusoft.service.SwiperService;
@@ -32,11 +33,11 @@ public class TeacherHandler {
 	@ResponseBody
 	public String findAllTeacher(HttpServletRequest request) throws Exception{
 		HttpSession session=request.getSession();
+		Gson g=new Gson();
 		int qid;
-		if(session.getAttribute("qid")==null){
-			qid=1;
-		}else{
-			qid=(int)session.getAttribute("qid");
+		if(request.getSession().getAttribute("qid")==null) qid=1;
+		else{
+			qid=g.fromJson(session.getAttribute("qid").toString(),int.class);
 		}
 		Page page=new Page();
 		page.setId(qid);
@@ -50,11 +51,11 @@ public class TeacherHandler {
 		HttpSession session=request.getSession();
 		int limit = Integer.parseInt(request.getParameter("limit"));
 		int pages = Integer.parseInt(request.getParameter("page"));
+		Gson g=new Gson();
 		int qid;
-		if(session.getAttribute("qid")==null){
-			qid=1;
-		}else{
-			qid=(int)session.getAttribute("qid");
+		if(request.getSession().getAttribute("qid")==null) qid=1;
+		else{
+			qid=g.fromJson(session.getAttribute("qid").toString(),int.class);
 		}
 		Page page = new Page(limit,pages,qid);
 		page.setTotalPage(teacherService.findCount(page.getId()));
@@ -92,11 +93,11 @@ public class TeacherHandler {
 	@ResponseBody
 	public String saveTeacher(Teacher t,HttpServletRequest request) throws Exception{
 		HttpSession session=request.getSession();
+		Gson g=new Gson();
 		int qid;
-		if(session.getAttribute("qid")==null){
-			qid=1;
-		}else{
-			qid=(int)session.getAttribute("qid");
+		if(request.getSession().getAttribute("qid")==null) qid=1;
+		else{
+			qid=g.fromJson(session.getAttribute("qid").toString(),int.class);
 		}
 		t.setQid(qid);
 		if(teacherService.saveTeacher(t)){
@@ -110,11 +111,11 @@ public class TeacherHandler {
 	@ResponseBody
 	public String findimgurl(HttpServletRequest request) throws Exception{
 		HttpSession session=request.getSession();
+		Gson g=new Gson();
 		int qid;
-		if(session.getAttribute("qid")==null){
-			qid=1;
-		}else{
-			qid=(int)session.getAttribute("qid");
+		if(request.getSession().getAttribute("qid")==null) qid=1;
+		else{
+			qid=g.fromJson(session.getAttribute("qid").toString(),int.class);
 		}
 		String imgurl=teacherService.findimgurl(qid).getImgurl();
 		return imgurl;
@@ -150,7 +151,12 @@ public class TeacherHandler {
 			return "{\"result\":false}";
 		}else{
 			HttpSession session=request.getSession();
-			int qid=(int)session.getAttribute("qid");
+			Gson g=new Gson();
+			int qid;
+			if(request.getSession().getAttribute("qid")==null) qid=1;
+			else{
+				qid=g.fromJson(session.getAttribute("qid").toString(),int.class);
+			}
 			Swiper swiper=new Swiper();
 			swiper.setCategory("B");
 			swiper.setQid(qid);
@@ -167,11 +173,11 @@ public class TeacherHandler {
 	@ResponseBody
 	public int findCount(HttpServletRequest request) throws Exception{
 		HttpSession session = request.getSession();
+		Gson g=new Gson();
 		int qid;
-		if(session.getAttribute("qid")==null){
-			qid=1;
-		}else{
-			qid=(int)session.getAttribute("qid");
+		if(request.getSession().getAttribute("qid")==null) qid=1;
+		else{
+			qid=g.fromJson(session.getAttribute("qid").toString(),int.class);
 		}
 		return teacherService.findCount(qid);
 	}

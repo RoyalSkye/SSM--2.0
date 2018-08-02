@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
 import com.neusoft.po.User;
 import com.neusoft.service.UserService;
 
@@ -23,11 +24,14 @@ public class UserHandler {
 	@RequestMapping(value="/test/UserHandler_login")
 	public String login(User user,HttpServletRequest request) throws Exception{
 		if(userService.login(user)){
+			Gson g=new Gson();
 			User u=userService.findUserinfoByUsername(user);
 			HttpSession session=request.getSession();
-			session.setAttribute("qid", u.getQid());
-			session.setAttribute("user", u);
-			session.setAttribute("isLoginOK", true);
+			//session.setAttribute("qid", u.getQid());
+			//session.setAttribute("isLoginOK", true);
+			session.setAttribute("qid", g.toJson(u.getQid()));
+			//session.setAttribute("user", u);
+			session.setAttribute("isLoginOK", g.toJson(true));
 			session.setMaxInactiveInterval(60*30);
 			//return "{\"result\":true}";
 			return "redirect:/index2.html";

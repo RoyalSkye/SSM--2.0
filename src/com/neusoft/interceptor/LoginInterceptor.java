@@ -7,6 +7,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+
 public class LoginInterceptor implements HandlerInterceptor {
 
 	@Override
@@ -27,10 +29,19 @@ public class LoginInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object arg2) throws Exception {
 		System.out.println("...LoginInterceptor...preHandle()...前置通知...");
 		HttpSession session=request.getSession();
-		boolean isLoginOK=Boolean.parseBoolean((session.getAttribute("isLoginOK")+""));
-		//boolean app=Boolean.parseBoolean((session.getAttribute("app")+""));
-		//int key=Integer.parseInt((session.getAttribute("key")+""));
-		if(isLoginOK){   //(isLoginOK&&(!app)&&(key==1))||(isLoginOK&&app&&(key==1))||((!isLoginOK)&&app&&(key==2))
+		/*boolean isLoginOK=Boolean.parseBoolean((session.getAttribute("isLoginOK")+""));
+		System.out.println("isLoginOK="+isLoginOK);
+		int q1=(int)session.getAttribute("qid");
+		System.out.println("qid="+q1);*/
+		Gson g=new Gson();
+		boolean isLoginOK;
+		if(session.getAttribute("isLoginOK")==null) isLoginOK=false;
+		else{
+			isLoginOK=g.fromJson(session.getAttribute("isLoginOK").toString(),boolean.class);
+		}
+		System.out.println("isLoginOK="+isLoginOK);
+		//int q=g.fromJson(request.getSession().getAttribute("qid").toString(),int.class);
+		if(isLoginOK){
 			System.out.println("登录成功");
 			System.out.println("session:"+session);
 			return true;

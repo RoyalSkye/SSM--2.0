@@ -10,7 +10,6 @@
     "imageUrlPrefix": "", 
     "imagePathFormat": "/../upload/{yyyy}{mm}{dd}/{time}{rand:6}", 
                                 
-
     
     "scrawlActionName": "uploadscrawl", 
     "scrawlFieldName": "upfile", 

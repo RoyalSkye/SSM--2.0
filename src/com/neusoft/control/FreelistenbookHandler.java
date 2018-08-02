@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
 import com.neusoft.po.Customer;
 import com.neusoft.po.Freelistenbook;
 import com.neusoft.service.FreelistenbookService;
@@ -34,11 +35,11 @@ public class FreelistenbookHandler {
 		int limit = Integer.parseInt(request.getParameter("limit"));
 		int pages = Integer.parseInt(request.getParameter("page"));
 		HttpSession session=request.getSession();
+		Gson g=new Gson();
 		int qid;
-		if(session.getAttribute("qid")==null){
-			qid=1;
-		}else{
-			qid=(int)session.getAttribute("qid");
+		if(request.getSession().getAttribute("qid")==null) qid=1;
+		else{
+			qid=g.fromJson(session.getAttribute("qid").toString(),int.class);
 		}
 		Page page = new Page(limit,pages,qid);
 		page.setTotalPage(freelistenbookService.findCount());
@@ -82,8 +83,8 @@ public class FreelistenbookHandler {
 	@ResponseBody
 	public List<Freelistenbook> findFreelistenbookByPhone(HttpServletRequest request) throws Exception{
 		HttpSession session=request.getSession();
-		String phone=session.getAttribute("phone").toString();
-		//String phone="138";
+		Gson g=new Gson();
+		String phone=g.fromJson(session.getAttribute("phone").toString(),String.class);
 		return freelistenbookService.findFreelistenbookByPhone(phone);
 	}
 	
@@ -93,7 +94,8 @@ public class FreelistenbookHandler {
 		//wait for testing 
 		System.out.println("tel="+freelistenbook.getTel());
 		HttpSession session=request.getSession();
-		String phone=session.getAttribute("phone").toString();
+		Gson g=new Gson();
+		String phone=g.fromJson(session.getAttribute("phone").toString(),String.class);
 		freelistenbook.setStatus("´ý´¦Àí");
 		freelistenbook.setOpenid(phone);
 		Date date=new Date();
@@ -109,11 +111,11 @@ public class FreelistenbookHandler {
 	@ResponseBody
 	public int findCount(HttpServletRequest request) throws Exception{
 		HttpSession session = request.getSession();
+		Gson g=new Gson();
 		int qid;
-		if(session.getAttribute("qid")==null){
-			qid=1;
-		}else{
-			qid=(int)session.getAttribute("qid");
+		if(request.getSession().getAttribute("qid")==null) qid=1;
+		else{
+			qid=g.fromJson(session.getAttribute("qid").toString(),int.class);
 		}
 		return	freelistenbookService.findCount();
 	}

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
 import com.neusoft.po.Branch;
 import com.neusoft.po.Lesson;
 import com.neusoft.po.Swiper;
@@ -37,11 +38,11 @@ public class LessonHandler {
 	public List<Lesson> findLessonByCondition(HttpServletRequest request) throws Exception{
 		Map<String,Object> m=new HashMap<>();
 		HttpSession session=request.getSession();
+		Gson g=new Gson();
 		int qid;
-		if(session.getAttribute("qid")==null){
-			qid=1;
-		}else{
-			qid=(int)session.getAttribute("qid");
+		if(request.getSession().getAttribute("qid")==null) qid=1;
+		else{
+			qid=g.fromJson(session.getAttribute("qid").toString(),int.class);
 		}
 		if(request.getParameter("bid")==null || request.getParameter("bid")==""){
 			m.put("bid", null);
@@ -67,11 +68,11 @@ public class LessonHandler {
 	@ResponseBody
 	public List<Lesson> findAllLesson(HttpServletRequest request) throws Exception{
 		HttpSession session = request.getSession();
+		Gson g=new Gson();
 		int qid;
-		if(session.getAttribute("qid")==null){
-			qid=1;
-		}else{
-			qid=(int)session.getAttribute("qid");
+		if(request.getSession().getAttribute("qid")==null) qid=1;
+		else{
+			qid=g.fromJson(session.getAttribute("qid").toString(),int.class);
 		}
 		return	lessonService.findAllLesson(qid);
 	}
@@ -82,11 +83,11 @@ public class LessonHandler {
 		HttpSession session = request.getSession();
 		int limit = Integer.parseInt(request.getParameter("limit"));
 		int pages = Integer.parseInt(request.getParameter("page"));
+		Gson g=new Gson();
 		int qid;
-		if(session.getAttribute("qid")==null){
-			qid=1;
-		}else{
-			qid=(int)session.getAttribute("qid");
+		if(request.getSession().getAttribute("qid")==null) qid=1;
+		else{
+			qid=g.fromJson(session.getAttribute("qid").toString(),int.class);
 		}
 		Page page = new Page(limit,pages,qid);
 		page.setTotalPage(lessonService.findCount(page.getId()));
@@ -109,11 +110,11 @@ public class LessonHandler {
 	@ResponseBody
 	public int findCount(HttpServletRequest request) throws Exception{
 		HttpSession session = request.getSession();
+		Gson g=new Gson();
 		int qid;
-		if(session.getAttribute("qid")==null){
-			qid=1;
-		}else{
-			qid=(int)session.getAttribute("qid");
+		if(request.getSession().getAttribute("qid")==null) qid=1;
+		else{
+			qid=g.fromJson(session.getAttribute("qid").toString(),int.class);
 		}
 		return	lessonService.findCount(qid);
 	}
@@ -150,11 +151,11 @@ public class LessonHandler {
 		String bid = request.getParameter("bid");  //¿Î³ÌËùÊôµÄbranchid  eg:1,2,3,5
 		//System.out.println("bid.length="+bid.length());
 		HttpSession session=request.getSession();
+		Gson g=new Gson();
 		int qid;
-		if(session.getAttribute("qid")==null){
-			qid=1;
-		}else{
-			qid=(int)session.getAttribute("qid");
+		if(request.getSession().getAttribute("qid")==null) qid=1;
+		else{
+			qid=g.fromJson(session.getAttribute("qid").toString(),int.class);
 		}
 		lesson.setQid(qid);
 		Date date=new Date();
@@ -173,11 +174,11 @@ public class LessonHandler {
 		String bid = request.getParameter("bid"); 
 		System.out.println("bid="+bid);
 		HttpSession session=request.getSession();
+		Gson g=new Gson();
 		int qid;
-		if(session.getAttribute("qid")==null){
-			qid=1;
-		}else{
-			qid=(int)session.getAttribute("qid");
+		if(request.getSession().getAttribute("qid")==null) qid=1;
+		else{
+			qid=g.fromJson(session.getAttribute("qid").toString(),int.class);
 		}
 		lesson.setQid(qid);
 		Date date=new Date();
@@ -194,11 +195,11 @@ public class LessonHandler {
 	@ResponseBody
 	public String findimgurl(HttpServletRequest request) throws Exception{
 		HttpSession session=request.getSession();
+		Gson g=new Gson();
 		int qid;
-		if(session.getAttribute("qid")==null){
-			qid=1;
-		}else{
-			qid=(int)session.getAttribute("qid");
+		if(request.getSession().getAttribute("qid")==null) qid=1;
+		else{
+			qid=g.fromJson(session.getAttribute("qid").toString(),int.class);
 		}
 		String imgurl=lessonService.findimgurl(qid).getImgurl();
 		return imgurl;
@@ -234,11 +235,11 @@ public class LessonHandler {
 			return "{\"result\":false}";
 		}else{
 			HttpSession session=request.getSession();
+			Gson g=new Gson();
 			int qid;
-			if(session.getAttribute("qid")==null){
-				qid=1;
-			}else{
-				qid=(int)session.getAttribute("qid");
+			if(request.getSession().getAttribute("qid")==null) qid=1;
+			else{
+				qid=g.fromJson(session.getAttribute("qid").toString(),int.class);
 			}
 			Swiper swiper=new Swiper();
 			swiper.setCategory("C");

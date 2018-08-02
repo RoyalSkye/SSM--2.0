@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
 import com.neusoft.po.Enterprise;
 import com.neusoft.po.Swiper;
 import com.neusoft.service.impl.EnterpriseServiceBean;
@@ -33,11 +34,11 @@ public class EnterpriseHandler {
 	@ResponseBody
 	public Enterprise findEnterpriseById(HttpServletRequest request) throws Exception{
 		HttpSession session=request.getSession();
+		Gson g=new Gson();
 		int qid;
-		if(session.getAttribute("qid")==null){
-			qid=1;
-		}else{
-			qid=(int)session.getAttribute("qid");
+		if(request.getSession().getAttribute("qid")==null) qid=1;
+		else{
+			qid=g.fromJson(session.getAttribute("qid").toString(),int.class);
 		}
 		return enterpriseService.findEnterpriseById(qid);
 	}
@@ -46,11 +47,11 @@ public class EnterpriseHandler {
 	@ResponseBody
 	public String updateEnterprise(Enterprise e,HttpServletRequest request) throws Exception{
 		HttpSession session=request.getSession();
+		Gson g=new Gson();
 		int qid;
-		if(session.getAttribute("qid")==null){
-			qid=1;
-		}else{
-			qid=(int)session.getAttribute("qid");
+		if(request.getSession().getAttribute("qid")==null) qid=1;
+		else{
+			qid=g.fromJson(session.getAttribute("qid").toString(),int.class);
 		}
 		e.setQid(qid);
 		if(enterpriseService.updateEnterprise(e)){
@@ -64,11 +65,11 @@ public class EnterpriseHandler {
 	@ResponseBody
 	public List<Swiper> findSwiperByQid(HttpServletRequest request) throws Exception{
 		HttpSession session=request.getSession();
+		Gson g=new Gson();
 		int qid;
-		if(session.getAttribute("qid")==null){
-			qid=1;
-		}else{
-			qid=(int)session.getAttribute("qid");
+		if(request.getSession().getAttribute("qid")==null) qid=1;
+		else{
+			qid=g.fromJson(session.getAttribute("qid").toString(),int.class);
 		}
 		return swiperService.findSwiperByQid(qid);
 	}
@@ -86,11 +87,11 @@ public class EnterpriseHandler {
 			return "{\"result\":false}";
 		}else{
 			HttpSession session=request.getSession();
+			Gson g=new Gson();
 			int qid;
-			if(session.getAttribute("qid")==null){
-				qid=1;
-			}else{
-				qid=(int)session.getAttribute("qid");
+			if(request.getSession().getAttribute("qid")==null) qid=1;
+			else{
+				qid=g.fromJson(session.getAttribute("qid").toString(),int.class);
 			}
 			//String videopath=url.substring(10);
 			Enterprise e=new Enterprise();
@@ -114,11 +115,11 @@ public class EnterpriseHandler {
 			return "{\"result\":false}";
 		}else{
 			HttpSession session=request.getSession();
+			Gson g=new Gson();
 			int qid;
-			if(session.getAttribute("qid")==null){
-				qid=1;
-			}else{
-				qid=(int)session.getAttribute("qid");
+			if(request.getSession().getAttribute("qid")==null) qid=1;
+			else{
+				qid=g.fromJson(session.getAttribute("qid").toString(),int.class);
 			}
 			Swiper swiper=new Swiper();
 			swiper.setQid(qid);

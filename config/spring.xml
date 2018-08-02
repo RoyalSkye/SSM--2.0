@@ -39,7 +39,7 @@
 	<!-- dbcp2是数据库连接池c3p0 -->
 	<bean id="ds" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/ssm1"/>
+		<property name="url" value="jdbc:mysql://101.201.70.204:3306/ssm1"/>
 		<property name="username" value="root" />
 		<property name="password" value="rx806090733wx" />
 	</bean>

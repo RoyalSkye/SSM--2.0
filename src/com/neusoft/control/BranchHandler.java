@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
 import com.neusoft.po.Branch;
 import com.neusoft.service.BranchService;
 import com.neusoft.tools.FileTools;
@@ -25,12 +26,13 @@ public class BranchHandler {
 	@ResponseBody
 	public String findAllBranch(HttpServletRequest request) throws Exception{
 		HttpSession session=request.getSession();
+		Gson g=new Gson();
 		int qid;
-		if(session.getAttribute("qid")==null){
-			qid=1;
-		}else{
-			qid=(int)session.getAttribute("qid");
+		if(request.getSession().getAttribute("qid")==null) qid=1;
+		else{
+			qid=g.fromJson(session.getAttribute("qid").toString(),int.class);
 		}
+		System.out.println("qid="+qid);
 		Page page=new Page();
 		page.setTotalPage(branchService.findCount(qid));
 		return FileTools.addHeader(branchService.findAllBranch(qid),page.getTotalPage());
@@ -42,11 +44,11 @@ public class BranchHandler {
 		int limit = Integer.parseInt(request.getParameter("limit"));
 		int pages = Integer.parseInt(request.getParameter("page"));
 		HttpSession session=request.getSession();
+		Gson g=new Gson();
 		int qid;
-		if(session.getAttribute("qid")==null){
-			qid=1;
-		}else{
-			qid=(int)session.getAttribute("qid");
+		if(request.getSession().getAttribute("qid")==null) qid=1;
+		else{
+			qid=g.fromJson(session.getAttribute("qid").toString(),int.class);
 		}
 		Page page = new Page(limit,pages,qid);
 		page.setTotalPage(branchService.findCount(page.getId()));
@@ -73,11 +75,11 @@ public class BranchHandler {
 	@ResponseBody
 	public int findCount(HttpServletRequest request) throws Exception{
 		HttpSession session = request.getSession();
+		Gson g=new Gson();
 		int qid;
-		if(session.getAttribute("qid")==null){
-			qid=1;
-		}else{
-			qid=(int)session.getAttribute("qid");
+		if(request.getSession().getAttribute("qid")==null) qid=1;
+		else{
+			qid=g.fromJson(session.getAttribute("qid").toString(),int.class);
 		}
 		return branchService.findCount(qid);
 	}
@@ -86,11 +88,11 @@ public class BranchHandler {
 	@ResponseBody
 	public String updateBranch(Branch b,HttpServletRequest request) throws Exception{
 		HttpSession session=request.getSession();
+		Gson g=new Gson();
 		int qid;
-		if(session.getAttribute("qid")==null){
-			qid=1;
-		}else{
-			qid=(int)session.getAttribute("qid");
+		if(request.getSession().getAttribute("qid")==null) qid=1;
+		else{
+			qid=g.fromJson(session.getAttribute("qid").toString(),int.class);
 		}
 		b.setQid(qid);
 		if(branchService.updateBranch(b)){
@@ -105,11 +107,11 @@ public class BranchHandler {
 	@ResponseBody
 	public String saveBranch(Branch b,HttpServletRequest request) throws Exception{
 		HttpSession session=request.getSession();
+		Gson g=new Gson();
 		int qid;
-		if(session.getAttribute("qid")==null){
-			qid=1;
-		}else{
-			qid=(int)session.getAttribute("qid");
+		if(request.getSession().getAttribute("qid")==null) qid=1;
+		else{
+			qid=g.fromJson(session.getAttribute("qid").toString(),int.class);
 		}
 		b.setQid(qid);
 		if(branchService.saveBranch(b)){

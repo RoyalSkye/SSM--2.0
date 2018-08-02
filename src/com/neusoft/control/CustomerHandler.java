@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
 import com.neusoft.po.Checkin;
 import com.neusoft.po.Customer;
 import com.neusoft.service.CustomerService;
@@ -30,7 +31,9 @@ public class CustomerHandler {
 		boolean isLoginOK=Boolean.parseBoolean((session.getAttribute("app")+""));
 		
 		isLoginOK=true;
-		session.setAttribute("phone", "18604010547");
+		//session.setAttribute("phone", "18604010547");
+		Gson g=new Gson();
+		session.setAttribute("phone", g.toJson("18604010547"));
 		
 		if(isLoginOK){
 			System.out.println("app已登录");
@@ -45,7 +48,9 @@ public class CustomerHandler {
 	@ResponseBody
 	public Customer findCustomerByPhone(HttpServletRequest request) throws Exception{
 		HttpSession session=request.getSession();
-		String phone=(String)session.getAttribute("phone");
+		//String phone=(String)session.getAttribute("phone");
+		Gson g=new Gson();
+		String phone=g.fromJson(session.getAttribute("phone").toString(),String.class);
 		return customerService.findCustomerByPhone(phone);
 	}
 	
@@ -90,6 +95,7 @@ public class CustomerHandler {
 	@RequestMapping(value="/test/CustomerHandler_login",produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String login(Customer customer,HttpServletRequest request) throws Exception{  //phone password(code)
+		Gson g=new Gson();
 		String mobileNumber = customer.getPhone();//接收验证码的手机号码
         String code = customer.getPassword();//验证码
         HttpSession session=request.getSession();
@@ -101,20 +107,21 @@ public class CustomerHandler {
                 if(c==null){
                 	System.out.println("customer is null");
                 	if(customerService.saveCustomer(customer)){
-                		session.setAttribute("app", true);
-                    	session.setAttribute("customer", customer);
+                		session.setAttribute("app", g.toJson(true));
+                		session.setAttribute("qid", g.toJson((int)1));
+                		session.setAttribute("phone", g.toJson(customer.getPhone()));
+                		/*session.setAttribute("app", true);
                     	session.setAttribute("qid", 1);
-                        session.setAttribute("phone", customer.getPhone());
+                        session.setAttribute("phone", customer.getPhone());*/
                         session.setMaxInactiveInterval(60*100);
                         return "{\"result\":true}";
                 	}else{
                 		 return "{\"result\":false}";
                 	}
                 }else{
-                	session.setAttribute("app", true);
-                	session.setAttribute("customer", c);
-                	session.setAttribute("qid", 1);
-                    session.setAttribute("phone", c.getPhone());
+                	session.setAttribute("app", g.toJson(true));
+            		session.setAttribute("qid", g.toJson((int)1));
+            		session.setAttribute("phone", g.toJson(customer.getPhone()));
                     session.setMaxInactiveInterval(60*30);
                     return "{\"result\":true}";
                 }

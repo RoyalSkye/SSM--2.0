@@ -10,7 +10,6 @@ import com.google.gson.Gson;
 import com.neusoft.mapper.EnterpriseMapper;
 import com.neusoft.po.Enterprise;
 import com.neusoft.service.EnterpriseService;
-import com.neusoft.tools.RedisConnection;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -27,6 +26,13 @@ public class EnterpriseServiceBean implements EnterpriseService {
 	public Boolean updateEnterprise(Enterprise e) throws Exception{
 		boolean isok=false;
 		int result=mapper.updateEnterprise(e);
+		//É¾³ýredisÖÐµÄÄÚÈÝ
+		Jedis jedis=jedisPool.getResource();
+		String enterprise="enterprise"+e.getQid();
+		//System.out.println("enterprise="+enterprise);
+		jedis.del(enterprise);
+		//jedis.set("test", "test");
+		jedis.close();
 		if(result>0){
 			isok=true;
 		}else{
@@ -37,7 +43,11 @@ public class EnterpriseServiceBean implements EnterpriseService {
 
 	@Override
 	public Enterprise findEnterpriseById(int qid) throws Exception {
-		/*Gson g=new Gson();
+		/*Jedis jedis1=jedisPool.getResource();
+		String sessionid=jedis1.get("120CA8290352F329EE8FCD8ACE1DD03C");
+		System.out.println("sessionid="+sessionid);
+		jedis1.close();*/
+		Gson g=new Gson();
 		//key: enterprise{qid} value:[json]
 		//Jedis jedis=RedisConnection.getJedis();
 		Jedis jedis=jedisPool.getResource();
@@ -47,14 +57,16 @@ public class EnterpriseServiceBean implements EnterpriseService {
 			String jsonstr=g.toJson(e);
 			//System.out.println("jsonstr="+jsonstr);
 			jedis.set("enterprise"+qid, jsonstr);
+			jedis.close();
 			return e;
 		}else{  //get data from redis
 			//System.out.println("enterprise="+enterprise);
 			//System.out.println("redis");
 			Enterprise e=g.fromJson(enterprise, Enterprise.class);
+			jedis.close();
 			return e;
-		}*/
-		return mapper.findEnterpriseById(qid);
+		}
+		//return mapper.findEnterpriseById(qid);
 	}
 
 }

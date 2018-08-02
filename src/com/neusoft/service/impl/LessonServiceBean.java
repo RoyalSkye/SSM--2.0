@@ -1,5 +1,6 @@
 package com.neusoft.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +8,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.neusoft.mapper.BranchMapper;
 import com.neusoft.mapper.FreelistenMapper;
 import com.neusoft.mapper.LessonBranchMapper;
@@ -18,6 +21,9 @@ import com.neusoft.po.Swiper;
 import com.neusoft.service.LessonService;
 import com.neusoft.tools.Page;
 
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
+
 @Service
 public class LessonServiceBean implements LessonService {
 
@@ -25,10 +31,32 @@ public class LessonServiceBean implements LessonService {
 	private LessonMapper mapper;
 	@Autowired
 	private LessonBranchMapper lessonbranchmapper;
+	@Autowired
+	private JedisPool jedisPool;
 	
 	@Override
 	public List<Lesson> findAllLesson(int qid) throws Exception {
-		return mapper.findAllLesson(qid);
+		Gson g=new Gson();
+		Jedis jedis=jedisPool.getResource();
+		Long lesson=jedis.hlen("lesson");
+		if(lesson==0){
+			List<Lesson> s=mapper.findAllLesson(qid);
+			for(int i=0;i<s.size();i++){
+				String jsonstr=g.toJson(s.get(i));
+				jedis.hset("lesson", String.valueOf(s.get(i).getLid()), jsonstr);  //将课程lid作为filed 防止相同
+			}
+			jedis.close();
+			return s;
+		}else{
+			List<String> s1=jedis.hvals("lesson");
+			List<Lesson> s = new ArrayList();
+			for(int i=0;i<s1.size();i++){
+				s.add(g.fromJson(s1.get(i), Lesson.class));
+			}
+			//List<Lesson> s = g.fromJson("lesson", new TypeToken<List<Lesson>>(){}.getType());
+			jedis.close();
+			return s;
+		}
 	}
 
 	@Override
@@ -41,6 +69,9 @@ public class LessonServiceBean implements LessonService {
 		boolean isok=false;
 		int result=mapper.deleteLessonById(lid);
 		if(result>0){
+			Jedis jedis=jedisPool.getResource();
+			jedis.del("lesson");
+			jedis.close();
 			isok=true;
 		}else{
 			isok=false;
@@ -54,6 +85,9 @@ public class LessonServiceBean implements LessonService {
 		int result=mapper.saveLesson(lesson);
 		int lid=mapper.selectLAST_INSERT_ID();
 		if(result>0){
+			Jedis jedis=jedisPool.getResource();
+			jedis.del("lesson");
+			jedis.close();
 			isok=true;
 			String[] splitbid=bid1.split(",");
 			for(int i=0;i<splitbid.length;i++){
@@ -78,6 +112,9 @@ public class LessonServiceBean implements LessonService {
 		boolean isok=false;
 		int result=mapper.updateLesson(lesson);
 		if(result>0){
+			Jedis jedis=jedisPool.getResource();
+			jedis.del("lesson");
+			jedis.close();
 			isok=true;
 			LessonBranch lessonbranch=new LessonBranch();
 			lessonbranch.setLid(lid);

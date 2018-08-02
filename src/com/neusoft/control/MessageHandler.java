@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
 import com.neusoft.po.Customer;
 import com.neusoft.po.Message;
 import com.neusoft.po.Messageimg;
@@ -37,11 +38,11 @@ public class MessageHandler {
 	@ResponseBody
 	public List<Message> findAllMessage(HttpServletRequest request) throws Exception{
 		HttpSession session=request.getSession();
+		Gson g=new Gson();
 		int qid;
-		if(session.getAttribute("qid")==null){
-			qid=1;
-		}else{
-			qid=(int)session.getAttribute("qid");
+		if(request.getSession().getAttribute("qid")==null) qid=1;
+		else{
+			qid=g.fromJson(session.getAttribute("qid").toString(),int.class);
 		}
 		return messageService.findAllMessage(qid);
 	}
@@ -85,11 +86,11 @@ public class MessageHandler {
 	@ResponseBody
 	public String saveMessage(Message message,HttpServletRequest request) throws Exception{
 		HttpSession session=request.getSession();
+		Gson g=new Gson();
 		int qid;
-		if(session.getAttribute("qid")==null){
-			qid=1;
-		}else{
-			qid=(int)session.getAttribute("qid");
+		if(request.getSession().getAttribute("qid")==null) qid=1;
+		else{
+			qid=g.fromJson(session.getAttribute("qid").toString(),int.class);
 		}
 		message.setQid(qid);
 		String imgurl = request.getParameter("imgurl"); 
@@ -117,13 +118,13 @@ public class MessageHandler {
 	@ResponseBody
 	public String findMessagereplyById(HttpServletRequest request) throws Exception{
 		HttpSession session = request.getSession();
+		Gson g=new Gson();
 		int qid;
-		if(session.getAttribute("qid")==null){
-			qid=1;
-		}else{
-			qid=(int)session.getAttribute("qid");
+		if(request.getSession().getAttribute("qid")==null) qid=1;
+		else{
+			qid=g.fromJson(session.getAttribute("qid").toString(),int.class);
 		}
-		Page page = new Page((int)session.getAttribute("limit"),(int)session.getAttribute("page"),qid);
+		Page page = new Page((int)request.getAttribute("limit"),(int)request.getAttribute("page"),qid);
 		page.setTotalPage(messageService.findMessageCount(page.getId()));
 		return FileTools.addHeader(messageService.findMessagereplyById(page), page.getTotalPage()) ;
 	}
@@ -142,7 +143,8 @@ public class MessageHandler {
 	@ResponseBody
 	public String saveMessagereply(Messagereply m,HttpServletRequest request) throws Exception{
 		HttpSession session=request.getSession();
-		String phone=session.getAttribute("phone").toString();
+		Gson g=new Gson();
+		String phone=g.fromJson(session.getAttribute("phone").toString(),String.class);
 		Date date=new Date();
 		SimpleDateFormat ft =new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
 		m.setMrtime(ft.format(date));
@@ -160,7 +162,8 @@ public class MessageHandler {
 	@ResponseBody
 	public String saveMessagelike(Messagelike m,HttpServletRequest request) throws Exception{
 		HttpSession session=request.getSession();
-		String phone=session.getAttribute("phone").toString();
+		Gson g=new Gson();
+		String phone=g.fromJson(session.getAttribute("phone").toString(),String.class);
 		Date date=new Date();
 		SimpleDateFormat ft =new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
 		m.setMltime(ft.format(date));
@@ -189,7 +192,8 @@ public class MessageHandler {
 	@ResponseBody
 	public List<Messagelike> findAllMessagelike(HttpServletRequest request) throws Exception{
 		HttpSession session=request.getSession();
-		String phone=session.getAttribute("phone").toString();
+		Gson g=new Gson();
+		String phone=g.fromJson(session.getAttribute("phone").toString(),String.class);
 		//Customer c=(Customer)session.getAttribute("customer");
 		//String mlnickname=c.getNickname();
 		//System.out.println("phone"+phone);
@@ -202,11 +206,11 @@ public class MessageHandler {
 	@ResponseBody
 	public String findimgurl(HttpServletRequest request) throws Exception{
 		HttpSession session=request.getSession();
+		Gson g=new Gson();
 		int qid;
-		if(session.getAttribute("qid")==null){
-			qid=1;
-		}else{
-			qid=(int)session.getAttribute("qid");
+		if(request.getSession().getAttribute("qid")==null) qid=1;
+		else{
+			qid=g.fromJson(session.getAttribute("qid").toString(),int.class);
 		}
 		String imgurl=messageService.findimgurl(qid).getImgurl();
 		return imgurl;
@@ -242,11 +246,11 @@ public class MessageHandler {
 			return "{\"result\":false}";
 		}else{
 			HttpSession session=request.getSession();
+			Gson g=new Gson();
 			int qid;
-			if(session.getAttribute("qid")==null){
-				qid=1;
-			}else{
-				qid=(int)session.getAttribute("qid");
+			if(request.getSession().getAttribute("qid")==null) qid=1;
+			else{
+				qid=g.fromJson(session.getAttribute("qid").toString(),int.class);
 			}
 			Swiper swiper=new Swiper();
 			swiper.setCategory("D");
