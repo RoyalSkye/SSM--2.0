@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50641
 File Encoding         : 65001
 
-Date: 2018-08-03 19:55:58
+Date: 2018-08-03 22:24:37
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -169,7 +169,7 @@ CREATE TABLE `enterprise` (
 -- ----------------------------
 -- Records of enterprise
 -- ----------------------------
-INSERT INTO `enterprise` VALUES ('1', '东软睿道12', 'http://101.201.70.204:9998/group1/M00/00/00/rBAFzFthpFeALIOEAFmTZruco8A841.mp4', '沈阳东软睿道教育服务有限公司（简称东软睿道）由东软创办，基于东软的产业发展与人才培养实践，提供更加符合IT行业发展需求的人才培养体系和方法学，精准提升大学生和大学后的就业、创业技能，为新经济时代的转型发展提供高质量规模化的人才供给。', '<p><img src=\"/upload/1.jpg\" width=\"300\" height=\"300\"/></p><p><span style=\"color: rgb(255, 255, 0); text-decoration: line-through;\">haha</span></p><p><em><strong><span style=\"text-decoration: underline;\">test</span></strong></em></p><p><em><strong><span style=\"text-decoration: underline;\">haha</span></strong></em></p><p><em><strong><span style=\"text-decoration: underline;\"><img src=\"http://101.201.70.204:9998/group1/M00/00/00/rBAFzFtkQeeAfNgVAAAltvWxY8Y504.jpg\" title=\"http://101.201.70.204:9998/group1/M00/00/00/rBAFzFtkQeeAfNgVAAAltvWxY8Y504.jpg\" alt=\"http://101.201.70.204:9998/group1/M00/00/00/rBAFzFtkQeeAfNgVAAAltvWxY8Y504.jpg\"/></span></strong></em></p>');
+INSERT INTO `enterprise` VALUES ('1', '东软睿道12', 'http://101.201.70.204:9998/group1/M00/00/00/rBAFzFthpFeALIOEAFmTZruco8A841.mp4', '沈阳东软睿道教育服务有限公司（简称东软睿道）由东软创办，基于东软的产业发展与人才培养实践，提供更加符合IT行业发展需求的人才培养体系和方法学，精准提升大学生和大学后的就业、创业技能，为新经济时代的转型发展提供高质量规模化的人才供给。', '<p><img src=\"http://101.201.70.204:9998/group1/M00/00/00/rBAFzFtkST2Abu98AABeSInX9G4935.jpg\" title=\"http://101.201.70.204:9998/group1/M00/00/00/rBAFzFtkST2Abu98AABeSInX9G4935.jpg\" alt=\"http://101.201.70.204:9998/group1/M00/00/00/rBAFzFtkST2Abu98AABeSInX9G4935.jpg\" width=\"395\" height=\"278\"/></p><p><span style=\"color: rgb(255, 255, 0); text-decoration: line-through;\">haha</span></p><p><em><strong><span style=\"text-decoration: underline;\">test</span></strong></em></p><p><em><strong><span style=\"text-decoration: underline;\">haha</span></strong></em></p><p><em><strong><span style=\"text-decoration: underline;\"><img src=\"http://101.201.70.204:9998/group1/M00/00/00/rBAFzFtkQeeAfNgVAAAltvWxY8Y504.jpg\" title=\"http://101.201.70.204:9998/group1/M00/00/00/rBAFzFtkQeeAfNgVAAAltvWxY8Y504.jpg\" alt=\"http://101.201.70.204:9998/group1/M00/00/00/rBAFzFtkQeeAfNgVAAAltvWxY8Y504.jpg\"/><img src=\"http://101.201.70.204:9998/group1/M00/00/00/rBAFzFtkYXGAOnwrAAENJpLexGY155.jpg\" title=\"http://101.201.70.204:9998/group1/M00/00/00/rBAFzFtkYXGAOnwrAAENJpLexGY155.jpg\" alt=\"http://101.201.70.204:9998/group1/M00/00/00/rBAFzFtkYXGAOnwrAAENJpLexGY155.jpg\" width=\"290\" height=\"270\"/></span></strong></em></p>');
 INSERT INTO `enterprise` VALUES ('2', '实训中心', '1.mp4', '实训中心 Test', 'test');
 
 -- ----------------------------
@@ -180,7 +180,7 @@ CREATE TABLE `freelisten` (
   `fid` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) DEFAULT NULL,
   `imgurl` varchar(255) DEFAULT NULL,
-  `fdesc` varchar(255) DEFAULT NULL,
+  `fdesc` text,
   `status` varchar(255) DEFAULT NULL,
   `qid` int(11) DEFAULT NULL,
   `bid` int(11) DEFAULT NULL,
@@ -195,7 +195,7 @@ CREATE TABLE `freelisten` (
 -- ----------------------------
 -- Records of freelisten
 -- ----------------------------
-INSERT INTO `freelisten` VALUES ('1', 'JAVA免费试听课', '/upload/1531209359661timg.jpg', '<p><img src=\"/upload/1.jpg\" width=\"300\" height=\"300\"/>haha</p>', '进行中', '1', '1', '2018-06-11 10:53:43');
+INSERT INTO `freelisten` VALUES ('1', 'JAVA免费试听课', 'http://101.201.70.204:9998/group1/M00/00/00/rBAFzFtkYjyAPK-RAAAltvWxY8Y150.jpg', '<p>\n    <img src=\"http://101.201.70.204:9998/group1/M00/00/00/rBAFzFtkYjaAUokOAAAltvWxY8Y550.jpg\" title=\"http://101.201.70.204:9998/group1/M00/00/00/rBAFzFtkYjaAUokOAAAltvWxY8Y550.jpg\"/>\n</p>\n<p>\n    <img src=\"http://101.201.70.204:9998/group1/M00/00/00/rBAFzFtkYjaAdOxKAAAltvWxY8Y013.jpg\" title=\"http://101.201.70.204:9998/group1/M00/00/00/rBAFzFtkYjaAdOxKAAAltvWxY8Y013.jpg\"/>\n</p>\n<p>\n    haha<br/>\n</p>', '进行中', '1', '1', '2018-06-11 10:53:43');
 INSERT INTO `freelisten` VALUES ('2', '大数据免费试听课', '/upload/1531718242586show1.jpg', '<p><img src=\"/upload/1.jpg\" width=\"300\" height=\"300\"/></p>', '进行中', '1', '2', '2018-06-12 10:53:46');
 INSERT INTO `freelisten` VALUES ('3', 'PHP免费试听课', '/upload/1531718258328show3.jpg', '<p><img src=\"/upload/1.jpg\" width=\"300\" height=\"300\"/></p>', '进行中', '1', '1', '2018-06-13 10:53:50');
 INSERT INTO `freelisten` VALUES ('4', 'Python免费试听课', '/upload/1.jpg', 'test', '进行中', '2', '13', '2018-07-10 10:22:51');
@@ -271,7 +271,7 @@ CREATE TABLE `lesson` (
   PRIMARY KEY (`lid`),
   KEY `fk_qid2` (`qid`),
   CONSTRAINT `fk_qid2` FOREIGN KEY (`qid`) REFERENCES `enterprise` (`qid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of lesson
@@ -289,6 +289,7 @@ INSERT INTO `lesson` VALUES ('10', 'Python', '/upload/course2.jpg', '1', '<p><st
 INSERT INTO `lesson` VALUES ('11', 'HTML5', '/upload/course3.jpg', '1', '<p><strong><img src=\"http://localhost:8080/upload/20180716/1531721413369003436.jpg\" title=\"1531721413369003436.jpg\" alt=\"4.jpg\" width=\"286\" height=\"166\"/></strong><br/></p><p>test</p><p>neusoft</p><p><strong style=\"white-space: normal;\"><img src=\"http://localhost:8080/upload/20180716/1531721413369003436.jpg\" title=\"1531721413369003436.jpg\" alt=\"4.jpg\" width=\"286\" height=\"166\"/></strong></p>', 'C++', '2', '2018-07-12 09:21:07', '10');
 INSERT INTO `lesson` VALUES ('26', 'test', '/upload/15329213790206.jpg', '1', '<p>1</p>', 'C++', '1', '2018-07-30 11:29:39', '10');
 INSERT INTO `lesson` VALUES ('27', 'test', '/upload/1532923035177cat.jpg', '1', '<p>test</p>', 'C++', '1', '2018-07-30 11:57:33', '10');
+INSERT INTO `lesson` VALUES ('28', 'test', 'http://101.201.70.204:9998/group1/M00/00/00/rBAFzFtkZGOAJhCLAAENJpLexGY156.jpg', '10', '<p><img src=\"http://101.201.70.204:9998/group1/M00/00/00/rBAFzFtkZISAMpukAAOvwx92PuY765.jpg\" title=\"http://101.201.70.204:9998/group1/M00/00/00/rBAFzFtkZISAMpukAAOvwx92PuY765.jpg\" width=\"300\" height=\"181\"/><img src=\"http://101.201.70.204:9998/group1/M00/00/00/rBAFzFtkZISAQ44vAAP3t3e3Cr8957.jpg\" title=\"http://101.201.70.204:9998/group1/M00/00/00/rBAFzFtkZISAQ44vAAP3t3e3Cr8957.jpg\" width=\"318\" height=\"174\"/></p><p><br/></p>', 'Java', '1', '2018-08-03 22:20:43', '0');
 
 -- ----------------------------
 -- Table structure for lessonbranch
@@ -303,7 +304,7 @@ CREATE TABLE `lessonbranch` (
   KEY `fk_lid` (`lid`),
   CONSTRAINT `fk_bid1` FOREIGN KEY (`bid`) REFERENCES `branch` (`bid`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_lid` FOREIGN KEY (`lid`) REFERENCES `lesson` (`lid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of lessonbranch
@@ -328,6 +329,9 @@ INSERT INTO `lessonbranch` VALUES ('93', '1', '2');
 INSERT INTO `lessonbranch` VALUES ('94', '1', '3');
 INSERT INTO `lessonbranch` VALUES ('95', '2', '1');
 INSERT INTO `lessonbranch` VALUES ('96', '3', '1');
+INSERT INTO `lessonbranch` VALUES ('97', '28', '1');
+INSERT INTO `lessonbranch` VALUES ('98', '28', '2');
+INSERT INTO `lessonbranch` VALUES ('99', '28', '3');
 
 -- ----------------------------
 -- Table structure for message
@@ -369,7 +373,7 @@ INSERT INTO `message` VALUES ('21', 'test21', '2018-07-13 14:42:14', '1');
 INSERT INTO `message` VALUES ('22', 'test22', '2018-07-13 14:42:14', '1');
 INSERT INTO `message` VALUES ('28', '发布朋友圈', '2018-07-14 07:16:23', '1');
 INSERT INTO `message` VALUES ('29', '20180714', '2018-07-14 07:17:34', '1');
-INSERT INTO `message` VALUES ('30', 'treet', '2018-07-16 15:32:38', '1');
+INSERT INTO `message` VALUES ('30', 'treet', '2018-08-03 21:00:52', '1');
 
 -- ----------------------------
 -- Table structure for messageimg
@@ -382,7 +386,7 @@ CREATE TABLE `messageimg` (
   PRIMARY KEY (`miid`),
   KEY `fk_mid` (`mid`),
   CONSTRAINT `fk_mid` FOREIGN KEY (`mid`) REFERENCES `message` (`mid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of messageimg
@@ -393,8 +397,7 @@ INSERT INTO `messageimg` VALUES ('23', '28', '15315668078874.jpg');
 INSERT INTO `messageimg` VALUES ('24', '28', '15315668136037.jpg');
 INSERT INTO `messageimg` VALUES ('25', '29', '1531567051788timg.jpg');
 INSERT INTO `messageimg` VALUES ('26', '3', '1.jpg');
-INSERT INTO `messageimg` VALUES ('27', '30', '15317263546841.png');
-INSERT INTO `messageimg` VALUES ('28', '30', '15317263546915.png');
+INSERT INTO `messageimg` VALUES ('29', '30', 'http://101.201.70.204:9998/group1/M00/00/00/rBAFzFtkUgOARawLAAAltvWxY8Y795.jpg');
 
 -- ----------------------------
 -- Table structure for messagelike

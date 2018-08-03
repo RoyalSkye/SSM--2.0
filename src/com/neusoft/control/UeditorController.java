@@ -25,7 +25,7 @@ public class UeditorController {
 		// 转型为MultipartHttpRequest：
 		MultipartHttpServletRequest multipartRequest=(MultipartHttpServletRequest) request;
 		// 获得文件：
-		MultipartFile file =multipartRequest.getFile("upfile"); //UEditor传到后台的是这个upfile，其他的文件上传，应该也差不多是这个，还没去研究，断点一下就知道了
+		MultipartFile file =multipartRequest.getFile("upfile"); //UEditor传到后台的是这个upfile
 		String url=FileTools.saveimg(file,request);
 		rui = new ReturnUploadImage();
 		rui.setState("SUCCESS");
