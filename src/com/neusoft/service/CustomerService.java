@@ -11,6 +11,6 @@ public interface CustomerService {
 	public Customer findCustomerByPhone(String phone) throws Exception;
 	public boolean updateCustomer(Customer customer) throws Exception;
 	public boolean saveCustomer(Customer customer) throws Exception;
-	public List<Checkin> findAllCheckin(int cid) throws Exception;
+	public List<String> findAllCheckin(Checkin c) throws Exception;
 	public boolean saveCheckin(Checkin c) throws Exception;
 }

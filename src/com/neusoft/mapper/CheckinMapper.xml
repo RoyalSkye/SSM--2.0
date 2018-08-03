@@ -5,15 +5,15 @@
 <mapper namespace="com.neusoft.mapper.CheckinMapper">                                                                                                                               
 
 	<select id="findCheckin"  parameterType="com.neusoft.po.Checkin" resultType="int">
-		select count(*) from checkin where cid=#{cid} and time=#{time}
+		select count(*) from checkin where phone=#{phone} and time=#{time}
 	</select>
 	
-	<select id="findAllCheckin"  parameterType="int" resultType="com.neusoft.po.Checkin">
-		select * from checkin where cid=#{cid}
+	<select id="findAllCheckin"  parameterType="com.neusoft.po.Checkin" resultType="String">
+		select timestamp from checkin where phone=#{phone}
 	</select>
 	
 	<insert id="saveCheckin"  parameterType="com.neusoft.po.Checkin">
-		insert into checkin(time,cid) values(#{time},#{cid})
+		insert into checkin(timestamp,time,phone) values(#{timestamp},#{time},#{phone})
 	</insert>
 	
 </mapper>

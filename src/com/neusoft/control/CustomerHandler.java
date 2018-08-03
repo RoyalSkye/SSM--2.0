@@ -56,7 +56,14 @@ public class CustomerHandler {
 	
 	@RequestMapping(value="/test/CustomerHandler_saveCheckin")
 	@ResponseBody
-	public String saveCheckin(Checkin c) throws Exception{
+	public String saveCheckin(HttpServletRequest request) throws Exception{
+		Checkin c=new Checkin();
+		HttpSession session=request.getSession();
+		Gson g=new Gson();
+		String phone=g.fromJson(session.getAttribute("phone").toString(),String.class);
+		c.setPhone(phone);
+		String timestamp=(System.currentTimeMillis()+"").substring(0, 10);
+		c.setTimestamp(timestamp);
 		Date date=new Date();
 		SimpleDateFormat ft =new SimpleDateFormat ("yyyy-MM-dd");
 		c.setTime(ft.format(date));
@@ -69,8 +76,13 @@ public class CustomerHandler {
 	
 	@RequestMapping(value="/test/CustomerHandler_findAllCheckin")
 	@ResponseBody
-	public List<Checkin> findAllCheckin(int cid) throws Exception{  //也可返回数组 看前端需求
-		return customerService.findAllCheckin(cid);
+	public List<String> findAllCheckin(HttpServletRequest request) throws Exception{
+		Checkin c=new Checkin();
+		HttpSession session=request.getSession();
+		Gson g=new Gson();
+		String phone=g.fromJson(session.getAttribute("phone").toString(),String.class);
+		c.setPhone(phone);
+		return customerService.findAllCheckin(c);
 	}
 	
 	@RequestMapping(value="/test/CustomerHandler_getcode",produces = "application/json; charset=utf-8")

@@ -48,8 +48,8 @@ public class CustomerServiceBean implements CustomerService {
 	}
 
 	@Override
-	public List<Checkin> findAllCheckin(int cid) throws Exception {
-		return checkinmapper.findAllCheckin(cid);
+	public List<String> findAllCheckin(Checkin c) throws Exception {
+		return checkinmapper.findAllCheckin(c);
 	}
 
 	@Override

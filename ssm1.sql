@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost_3306
-Source Server Version : 50718
-Source Host           : localhost:3306
+Source Server         : 101.201.70.204
+Source Server Version : 50641
+Source Host           : 101.201.70.204:3306
 Source Database       : ssm1
 
 Target Server Type    : MYSQL
-Target Server Version : 50718
+Target Server Version : 50641
 File Encoding         : 65001
 
-Date: 2018-08-01 19:20:58
+Date: 2018-08-03 19:55:58
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -59,18 +59,20 @@ INSERT INTO `branch` VALUES ('18', '1', '730', '东北大学', '730', '123.42514
 DROP TABLE IF EXISTS `checkin`;
 CREATE TABLE `checkin` (
   `checkinid` int(11) NOT NULL AUTO_INCREMENT,
+  `timestamp` varchar(255) DEFAULT NULL,
+  `phone` varchar(255) DEFAULT NULL,
   `time` datetime DEFAULT NULL,
-  `cid` int(11) DEFAULT NULL,
-  PRIMARY KEY (`checkinid`),
-  KEY `fk_checkincid` (`cid`),
-  CONSTRAINT `fk_checkincid` FOREIGN KEY (`cid`) REFERENCES `customer` (`cid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`checkinid`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of checkin
 -- ----------------------------
-INSERT INTO `checkin` VALUES ('1', '2018-07-29 22:00:00', '8');
-INSERT INTO `checkin` VALUES ('2', '2018-07-28 00:00:15', '8');
+INSERT INTO `checkin` VALUES ('1', '1533262844', '13504019086', '2018-08-03 00:00:00');
+INSERT INTO `checkin` VALUES ('2', '1533262863', '13504019086', '2018-08-03 00:00:00');
+INSERT INTO `checkin` VALUES ('3', '1533262844', '18604010547', '2018-08-03 00:00:00');
+INSERT INTO `checkin` VALUES ('4', '1533262863', '18604010547', '2018-08-03 00:00:00');
+INSERT INTO `checkin` VALUES ('5', '1533262879', '18604010547', '2018-08-03 00:00:00');
 
 -- ----------------------------
 -- Table structure for coupon
@@ -167,7 +169,7 @@ CREATE TABLE `enterprise` (
 -- ----------------------------
 -- Records of enterprise
 -- ----------------------------
-INSERT INTO `enterprise` VALUES ('1', '东软睿道', 'http://101.201.70.204:9998/group1/M00/00/00/rBAFzFthlp2AaYSPAFmTZruco8A027.mp4', '沈阳东软睿道教育服务有限公司（简称东软睿道）由东软创办，基于东软的产业发展与人才培养实践，提供更加符合IT行业发展需求的人才培养体系和方法学，精准提升大学生和大学后的就业、创业技能，为新经济时代的转型发展提供高质量规模化的人才供给。', '<p><img src=\"/upload/1.jpg\" width=\"300\" height=\"300\"/></p><p><br/></p>');
+INSERT INTO `enterprise` VALUES ('1', '东软睿道12', 'http://101.201.70.204:9998/group1/M00/00/00/rBAFzFthpFeALIOEAFmTZruco8A841.mp4', '沈阳东软睿道教育服务有限公司（简称东软睿道）由东软创办，基于东软的产业发展与人才培养实践，提供更加符合IT行业发展需求的人才培养体系和方法学，精准提升大学生和大学后的就业、创业技能，为新经济时代的转型发展提供高质量规模化的人才供给。', '<p><img src=\"/upload/1.jpg\" width=\"300\" height=\"300\"/></p><p><span style=\"color: rgb(255, 255, 0); text-decoration: line-through;\">haha</span></p><p><em><strong><span style=\"text-decoration: underline;\">test</span></strong></em></p><p><em><strong><span style=\"text-decoration: underline;\">haha</span></strong></em></p><p><em><strong><span style=\"text-decoration: underline;\"><img src=\"http://101.201.70.204:9998/group1/M00/00/00/rBAFzFtkQeeAfNgVAAAltvWxY8Y504.jpg\" title=\"http://101.201.70.204:9998/group1/M00/00/00/rBAFzFtkQeeAfNgVAAAltvWxY8Y504.jpg\" alt=\"http://101.201.70.204:9998/group1/M00/00/00/rBAFzFtkQeeAfNgVAAAltvWxY8Y504.jpg\"/></span></strong></em></p>');
 INSERT INTO `enterprise` VALUES ('2', '实训中心', '1.mp4', '实训中心 Test', 'test');
 
 -- ----------------------------
@@ -274,9 +276,9 @@ CREATE TABLE `lesson` (
 -- ----------------------------
 -- Records of lesson
 -- ----------------------------
-INSERT INTO `lesson` VALUES ('1', 'java', '/upload/course1.jpg', '1', '<p><strong><img src=\"http://localhost:8080/upload/20180716/1531721413369003436.jpg\" title=\"1531721413369003436.jpg\" alt=\"4.jpg\" width=\"286\" height=\"166\"/></strong><br/></p><p>test</p><p>neusoft</p><p><strong style=\"white-space: normal;\"><img src=\"http://localhost:8080/upload/20180716/1531721413369003436.jpg\" title=\"1531721413369003436.jpg\" alt=\"4.jpg\" width=\"286\" height=\"166\"/></strong></p>', 'Java', '1', '2018-07-30 12:58:46', '9');
-INSERT INTO `lesson` VALUES ('2', 'C++', '/upload/course2.jpg', '1', '<p><strong><img src=\"http://localhost:8080/upload/20180716/1531721413369003436.jpg\" title=\"1531721413369003436.jpg\" alt=\"4.jpg\" width=\"286\" height=\"166\"/></strong><br/></p><p>test</p><p>neusoft</p><p><strong style=\"white-space: normal;\"><img src=\"http://localhost:8080/upload/20180716/1531721413369003436.jpg\" title=\"1531721413369003436.jpg\" alt=\"4.jpg\" width=\"286\" height=\"166\"/></strong></p>', 'HTML5', '1', '2018-06-04 10:39:29', '10');
-INSERT INTO `lesson` VALUES ('3', 'ACM', '/upload/course3.jpg', '1', '<p><strong><img src=\"http://localhost:8080/upload/20180716/1531721413369003436.jpg\" title=\"1531721413369003436.jpg\" alt=\"4.jpg\" width=\"286\" height=\"166\"/></strong><br/></p><p>test</p><p>neusoft</p><p><strong style=\"white-space: normal;\"><img src=\"http://localhost:8080/upload/20180716/1531721413369003436.jpg\" title=\"1531721413369003436.jpg\" alt=\"4.jpg\" width=\"286\" height=\"166\"/></strong></p>', 'Java', '1', '2018-06-11 10:39:33', '10');
+INSERT INTO `lesson` VALUES ('1', 'java', 'http://101.201.70.204:9998/group1/M00/00/00/rBAFzFtikvaAN7NgAABsUl2SKHQ013.jpg', '1', '<p><strong><img src=\"http://localhost:8080/upload/20180716/1531721413369003436.jpg\" title=\"1531721413369003436.jpg\" alt=\"4.jpg\" width=\"286\" height=\"166\"/></strong><br/></p><p>test</p><p>neusoft</p><p><strong style=\"white-space: normal;\"><img src=\"http://localhost:8080/upload/20180716/1531721413369003436.jpg\" title=\"1531721413369003436.jpg\" alt=\"4.jpg\" width=\"286\" height=\"166\"/></strong></p>', 'Java', '1', '2018-08-02 13:13:32', '9');
+INSERT INTO `lesson` VALUES ('2', 'C++', 'http://101.201.70.204:9998/group1/M00/00/00/rBAFzFtikwyAM5R9AAAXIMAOnwg370.jpg', '1', '<p><strong><img src=\"http://localhost:8080/upload/20180716/1531721413369003436.jpg\" title=\"1531721413369003436.jpg\" alt=\"4.jpg\" width=\"286\" height=\"166\"/></strong><br/></p><p>test</p><p>neusoft</p><p><strong style=\"white-space: normal;\"><img src=\"http://localhost:8080/upload/20180716/1531721413369003436.jpg\" title=\"1531721413369003436.jpg\" alt=\"4.jpg\" width=\"286\" height=\"166\"/></strong></p>', 'C++', '1', '2018-08-02 13:13:49', '10');
+INSERT INTO `lesson` VALUES ('3', 'ACM', 'http://101.201.70.204:9998/group1/M00/00/00/rBAFzFtikxeAVMdeAABcsE9QtYQ503.jpg', '1', '<p><strong><img src=\"http://localhost:8080/upload/20180716/1531721413369003436.jpg\" title=\"1531721413369003436.jpg\" alt=\"4.jpg\" width=\"286\" height=\"166\"/></strong><br/></p><p>test</p><p>neusoft</p><p><strong style=\"white-space: normal;\"><img src=\"http://localhost:8080/upload/20180716/1531721413369003436.jpg\" title=\"1531721413369003436.jpg\" alt=\"4.jpg\" width=\"286\" height=\"166\"/></strong></p>', 'C++', '1', '2018-08-02 13:14:03', '10');
 INSERT INTO `lesson` VALUES ('4', 'C', '/upload/course4.jpg', '1', '<p><strong><img src=\"http://localhost:8080/upload/20180716/1531721413369003436.jpg\" title=\"1531721413369003436.jpg\" alt=\"4.jpg\" width=\"286\" height=\"166\"/></strong><br/></p><p>test</p><p>neusoft</p><p><strong style=\"white-space: normal;\"><img src=\"http://localhost:8080/upload/20180716/1531721413369003436.jpg\" title=\"1531721413369003436.jpg\" alt=\"4.jpg\" width=\"286\" height=\"166\"/></strong></p>', 'HTML5', '1', '2018-06-07 10:39:37', '10');
 INSERT INTO `lesson` VALUES ('5', '大数据课程', '/upload/course1.jpg', '1', '<p><strong><img src=\"http://localhost:8080/upload/20180716/1531721413369003436.jpg\" title=\"1531721413369003436.jpg\" alt=\"4.jpg\" width=\"286\" height=\"166\"/></strong><br/></p><p>test</p><p>neusoft</p><p><strong style=\"white-space: normal;\"><img src=\"http://localhost:8080/upload/20180716/1531721413369003436.jpg\" title=\"1531721413369003436.jpg\" alt=\"4.jpg\" width=\"286\" height=\"166\"/></strong></p>', 'C++', '1', '2018-06-08 10:39:40', '10');
 INSERT INTO `lesson` VALUES ('6', '计算机网络', '/upload/course2.jpg', '1', '<p><strong><img src=\"http://localhost:8080/upload/20180716/1531721413369003436.jpg\" title=\"1531721413369003436.jpg\" alt=\"4.jpg\" width=\"286\" height=\"166\"/></strong><br/></p><p>test</p><p>neusoft</p><p><strong style=\"white-space: normal;\"><img src=\"http://localhost:8080/upload/20180716/1531721413369003436.jpg\" title=\"1531721413369003436.jpg\" alt=\"4.jpg\" width=\"286\" height=\"166\"/></strong></p>', 'C++', '1', '2018-06-13 10:39:44', '10');
@@ -301,12 +303,11 @@ CREATE TABLE `lessonbranch` (
   KEY `fk_lid` (`lid`),
   CONSTRAINT `fk_bid1` FOREIGN KEY (`bid`) REFERENCES `branch` (`bid`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_lid` FOREIGN KEY (`lid`) REFERENCES `lesson` (`lid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=92 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of lessonbranch
 -- ----------------------------
-INSERT INTO `lessonbranch` VALUES ('2', '2', '1');
 INSERT INTO `lessonbranch` VALUES ('4', '4', '2');
 INSERT INTO `lessonbranch` VALUES ('5', '5', '2');
 INSERT INTO `lessonbranch` VALUES ('6', '6', '2');
@@ -314,7 +315,6 @@ INSERT INTO `lessonbranch` VALUES ('7', '7', '3');
 INSERT INTO `lessonbranch` VALUES ('8', '8', '3');
 INSERT INTO `lessonbranch` VALUES ('9', '9', '3');
 INSERT INTO `lessonbranch` VALUES ('10', '10', '3');
-INSERT INTO `lessonbranch` VALUES ('11', '3', '1');
 INSERT INTO `lessonbranch` VALUES ('13', '11', '13');
 INSERT INTO `lessonbranch` VALUES ('82', '26', '1');
 INSERT INTO `lessonbranch` VALUES ('83', '26', '2');
@@ -323,9 +323,11 @@ INSERT INTO `lessonbranch` VALUES ('85', '26', '15');
 INSERT INTO `lessonbranch` VALUES ('86', '26', '16');
 INSERT INTO `lessonbranch` VALUES ('87', '27', '15');
 INSERT INTO `lessonbranch` VALUES ('88', '27', '16');
-INSERT INTO `lessonbranch` VALUES ('89', '1', '1');
-INSERT INTO `lessonbranch` VALUES ('90', '1', '2');
-INSERT INTO `lessonbranch` VALUES ('91', '1', '3');
+INSERT INTO `lessonbranch` VALUES ('92', '1', '1');
+INSERT INTO `lessonbranch` VALUES ('93', '1', '2');
+INSERT INTO `lessonbranch` VALUES ('94', '1', '3');
+INSERT INTO `lessonbranch` VALUES ('95', '2', '1');
+INSERT INTO `lessonbranch` VALUES ('96', '3', '1');
 
 -- ----------------------------
 -- Table structure for message
@@ -367,7 +369,7 @@ INSERT INTO `message` VALUES ('21', 'test21', '2018-07-13 14:42:14', '1');
 INSERT INTO `message` VALUES ('22', 'test22', '2018-07-13 14:42:14', '1');
 INSERT INTO `message` VALUES ('28', '发布朋友圈', '2018-07-14 07:16:23', '1');
 INSERT INTO `message` VALUES ('29', '20180714', '2018-07-14 07:17:34', '1');
-INSERT INTO `message` VALUES ('30', 'treet', '2018-08-01 19:13:50', '1');
+INSERT INTO `message` VALUES ('30', 'treet', '2018-07-16 15:32:38', '1');
 
 -- ----------------------------
 -- Table structure for messageimg
@@ -380,7 +382,7 @@ CREATE TABLE `messageimg` (
   PRIMARY KEY (`miid`),
   KEY `fk_mid` (`mid`),
   CONSTRAINT `fk_mid` FOREIGN KEY (`mid`) REFERENCES `message` (`mid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of messageimg
@@ -391,8 +393,8 @@ INSERT INTO `messageimg` VALUES ('23', '28', '15315668078874.jpg');
 INSERT INTO `messageimg` VALUES ('24', '28', '15315668136037.jpg');
 INSERT INTO `messageimg` VALUES ('25', '29', '1531567051788timg.jpg');
 INSERT INTO `messageimg` VALUES ('26', '3', '1.jpg');
-INSERT INTO `messageimg` VALUES ('29', '30', 'http://101.201.70.204:9998/group1/M00/00/00/rBAFzFthleaAY70OAAAltvWxY8Y222.jpg');
-INSERT INTO `messageimg` VALUES ('30', '30', 'http://101.201.70.204:9998/group1/M00/00/00/rBAFzFthleaAeukZAADps5aemcY263.jpg');
+INSERT INTO `messageimg` VALUES ('27', '30', '15317263546841.png');
+INSERT INTO `messageimg` VALUES ('28', '30', '15317263546915.png');
 
 -- ----------------------------
 -- Table structure for messagelike
@@ -484,12 +486,12 @@ INSERT INTO `order` VALUES ('52', '2', '139', '1', '1', '待付款', '2018-05-26
 INSERT INTO `order` VALUES ('53', '4', '139', '1', '1', '待付款', '2018-05-26 14:11:35', '1', null, 'skye', '139');
 INSERT INTO `order` VALUES ('54', '2', '139', '1', '1', '已退款', '2018-05-26 14:19:35', '1', '4200000110201805263169394125', 'skye', '139');
 INSERT INTO `order` VALUES ('55', '4', '139', '1', '1', '已付款', '2018-05-26 14:20:15', '1', '4200000138201805262717162733', 'skye', '139');
-INSERT INTO `order` VALUES ('56', '1', '139', '1', '1', '已付款', '2018-06-07 16:46:55', '1', '4200000124201806070328955434', '费园园', '15940471397');
+INSERT INTO `order` VALUES ('56', '1', '139', '1', '1', '已使用', '2018-06-07 16:46:55', '1', '4200000124201806070328955434', '费园园', '15940471397');
 INSERT INTO `order` VALUES ('57', '1', '139', '1', '1', '已付款', '2018-06-07 17:36:42', '1', '4200000126201806078388299831', '哈哈', '123');
 INSERT INTO `order` VALUES ('58', '1', '139', '1', '1', '待付款', '2018-06-07 18:38:05', '1', null, '', '');
 INSERT INTO `order` VALUES ('59', '2', '139', '1', '1', '待付款', '2018-06-07 18:39:49', '1', null, '', '');
 INSERT INTO `order` VALUES ('63', '1', '139', '1', '1', '退款中', '2018-06-15 11:31:05', '1', '4200000117201806150052450136', '费园园', '15940471397');
-INSERT INTO `order` VALUES ('64', '1', '135', '1', '1', '已付款', '2018-06-15 11:31:18', '1', '4200000137201806155057560390', '费园园', '');
+INSERT INTO `order` VALUES ('64', '1', '135', '1', '1', '已使用', '2018-06-15 11:31:18', '1', '4200000137201806155057560390', '费园园', '');
 INSERT INTO `order` VALUES ('65', '1', '139', '1', '1', '待付款', '2018-06-15 14:03:47', '1', null, '', '');
 INSERT INTO `order` VALUES ('66', '1', '139', '1', '1', '待付款', '2018-06-15 14:51:50', '1', null, '', '');
 INSERT INTO `order` VALUES ('67', '1', '139', '1', '1', '已使用', '2018-06-19 13:02:37', '1', null, 'aa', '123');
@@ -549,10 +551,10 @@ CREATE TABLE `swiper` (
 -- ----------------------------
 -- Records of swiper
 -- ----------------------------
-INSERT INTO `swiper` VALUES ('1', '1', 'http://101.201.70.204:9998/group1/M00/00/00/rBAFzFthlq6AXp3HAAAltvWxY8Y773.jpg', 'A');
-INSERT INTO `swiper` VALUES ('2', '1', '1531718145086show2.jpg', 'B');
-INSERT INTO `swiper` VALUES ('3', '1', '1.jpg', 'C');
-INSERT INTO `swiper` VALUES ('4', '1', 'http://101.201.70.204:9998/group1/M00/00/00/rBAFzFthkTGAAUHsAAKnZXaSxqs950.jpg', 'D');
+INSERT INTO `swiper` VALUES ('1', '1', 'http://101.201.70.204:9998/group1/M00/00/00/rBAFzFtifuOAKNGrAAOvwx92PuY832.jpg', 'A');
+INSERT INTO `swiper` VALUES ('2', '1', 'http://101.201.70.204:9998/group1/M00/00/00/rBAFzFtiftGABgIlAAP3t3e3Cr8206.jpg', 'B');
+INSERT INTO `swiper` VALUES ('3', '1', 'http://101.201.70.204:9998/group1/M00/00/00/rBAFzFtifwCAPv8XAAAltvWxY8Y148.jpg', 'C');
+INSERT INTO `swiper` VALUES ('4', '1', 'http://101.201.70.204:9998/group1/M00/00/00/rBAFzFthoSGAO9uXAAKnZXaSxqs938.jpg', 'D');
 INSERT INTO `swiper` VALUES ('5', '2', '1.jpg', 'A');
 
 -- ----------------------------
@@ -573,11 +575,11 @@ CREATE TABLE `teacher` (
 -- ----------------------------
 -- Records of teacher
 -- ----------------------------
-INSERT INTO `teacher` VALUES ('1', '费园园', '/upload/feiyy.jpg', '主要从事HTML5、Java开源领域及Android移动开发，在东软集团担任过6年的软件工程师，2年半的HTML5、JAVA培训讲师，承担过东北大学，北交大等重点高校培训项目。', '1');
-INSERT INTO `teacher` VALUES ('2', '陈伟', '/upload/chenw.jpg', '有30多年的软件项目开发经验，有10多年的教学经验，熟悉.NET、C#、F#、C语言、Java等编程语言等，擅长C#、Java语言课程。为Microsoft、Intel、AutoDisk、南京大学、东北大学等学校和企业授过课。', '1');
-INSERT INTO `teacher` VALUES ('3', '宋波', '/upload/1531717870631teacher.jpg', ' 12年开发经验，2年教学经验,精通JAVA、C、C++、C#、PHP等多种编程语言，熟悉ios，android移动平台APP开发，语言功底扎实浑厚，精通数据结构和算法，积累多套软件开发框架。', '1');
-INSERT INTO `teacher` VALUES ('4', '居老师', '/upload/153170448921010.JPG', '镇生者之魂，安亡者之心，赎未亡之罪，轮未竟之回', '1');
-INSERT INTO `teacher` VALUES ('6', 'test', '/upload/1531717882102teacher.jpg', 'Neusoft Neusoft Neusoft Neusoft', '1');
+INSERT INTO `teacher` VALUES ('1', '费园园', 'http://101.201.70.204:9998/group1/M00/00/00/rBAFzFtikkKAYxAZAAAJIJouOSg521.jpg', '主要从事HTML5、Java开源领域及Android移动开发，在东软集团担任过6年的软件工程师，2年半的HTML5、JAVA培训讲师，承担过东北大学，北交大等重点高校培训项目。', '1');
+INSERT INTO `teacher` VALUES ('2', '陈伟', 'http://101.201.70.204:9998/group1/M00/00/00/rBAFzFtikkyADXzFAAAJi4BJpxI173.jpg', '有30多年的软件项目开发经验，有10多年的教学经验，熟悉.NET、C#、F#、C语言、Java等编程语言等，擅长C#、Java语言课程。为Microsoft、Intel、AutoDisk、南京大学、东北大学等学校和企业授过课。', '1');
+INSERT INTO `teacher` VALUES ('3', '宋波', 'http://101.201.70.204:9998/group1/M00/00/00/rBAFzFtiknWAY20UAAENJpLexGY556.jpg', ' 12年开发经验，2年教学经验,精通JAVA、C、C++、C#、PHP等多种编程语言，熟悉ios，android移动平台APP开发，语言功底扎实浑厚，精通数据结构和算法，积累多套软件开发框架。', '1');
+INSERT INTO `teacher` VALUES ('4', '居老师', 'http://101.201.70.204:9998/group1/M00/00/00/rBAFzFtikq-AWbryAACUch8JUHI058.JPG', '镇生者之魂，安亡者之心，赎未亡之罪，轮未竟之回', '1');
+INSERT INTO `teacher` VALUES ('6', 'test', 'http://101.201.70.204:9998/group1/M00/00/00/rBAFzFtikqaAHVObAAENJpLexGY186.jpg', 'Neusoft Neusoft Neusoft Neusoft 垃圾', '1');
 INSERT INTO `teacher` VALUES ('13', '面面', '/upload/1531741520586timg.jpg', '镇魂澜孩最爱的面面', '1');
 INSERT INTO `teacher` VALUES ('14', '12343', '/upload/1531741598821timg.jpg', '。。。。', '1');
 INSERT INTO `teacher` VALUES ('18', '中文处理', '/upload/1532659988556ZHZHZHZHtest.jpg', '中文处理', '1');
