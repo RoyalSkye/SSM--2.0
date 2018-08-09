@@ -8,6 +8,10 @@
 		select * from creditproduct limit #{minNum},#{quantity}
 	</select>
 	
+	<select id="findCreditproduct" resultType="com.neusoft.po.Creditproduct">
+		select * from creditproduct
+	</select>
+	
 	<select id="findCreditproductById"  parameterType="int" resultType="com.neusoft.po.Creditproduct">
 		select * from creditproduct where cpid=#{cpid}
 	</select>

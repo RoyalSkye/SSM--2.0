@@ -3,12 +3,19 @@ package com.neusoft.po;
 public class Coupon {
 	private int couponid;
 	private String category;
-	private int cid;
+	private String phone;
 	private String starttime;
 	private String endtime;
 	private double discount;
 	private String name;
+	private int valid;
 	
+	public int getValid() {
+		return valid;
+	}
+	public void setValid(int valid) {
+		this.valid = valid;
+	}
 	public String getName() {
 		return name;
 	}
@@ -27,11 +34,11 @@ public class Coupon {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	public int getCid() {
-		return cid;
+	public String getPhone() {
+		return phone;
 	}
-	public void setCid(int cid) {
-		this.cid = cid;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 	public String getStarttime() {
 		return starttime;

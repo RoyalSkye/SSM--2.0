@@ -43,11 +43,15 @@ public class LoginInterceptor implements HandlerInterceptor {
 		//int q=g.fromJson(request.getSession().getAttribute("qid").toString(),int.class);
 		if(isLoginOK){
 			System.out.println("登录成功");
+			String ip = request.getRemoteAddr();
 			System.out.println("session:"+session);
+			System.out.println("ip:"+ip);
 			return true;
 		}else{
 			System.out.println("您还未登录，请先登录");
+			String ip = request.getRemoteAddr();
 			System.out.println("session:"+session);
+			System.out.println("ip:"+ip);
 			//request.getRequestDispatcher("/login.html").forward(request, response);  //由于浏览器缓存可能导致登录后访问刚刚测试拦截器的页面直接跳转到登录页面
 			//response.sendRedirect(request.getContextPath() +"/login.html");
 			response.sendRedirect(response.encodeURL("/SSM/login.html"));

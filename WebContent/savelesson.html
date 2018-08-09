@@ -29,7 +29,8 @@
 	var bid=new Array();
 	$(function(){
 		$.ajax({
-			url:"test/BranchHandler_findAllBranch",			
+			url:"test/BranchHandler_findAllBranch",	
+			async:false,
 			success:function(data)
 			{
 				console.log(data);
@@ -41,7 +42,8 @@
 			}
 		});
 		$.ajax({
-			url:"test/LessonHandler_selectCategory",			
+			url:"test/LessonHandler_selectCategory",
+			async:false,
 			success:function(data)
 			{
 				console.log(data);

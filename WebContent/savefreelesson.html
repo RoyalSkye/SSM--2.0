@@ -28,7 +28,8 @@
 	var bid="";
 	$(function(){
 		$.ajax({
-			url:"test/BranchHandler_findAllBranch",			
+			url:"test/BranchHandler_findAllBranch",	
+			async:false,
 			success:function(data)
 			{
 				console.log(data);

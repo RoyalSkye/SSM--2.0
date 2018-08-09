@@ -41,7 +41,7 @@
 	</select>
 	
 	<select id="findOrderByPhone"  parameterType="String" resultMap="order_lesson_map">
-		select * from `order` left join lesson on `order`.lid=lesson.lid where `order`.openid=#{_parameter}
+		select * from `order` left join lesson on `order`.lid=lesson.lid where `order`.openid=#{_parameter} order by ordertime desc
 	</select>
 	
 	<select id="findOrder"  parameterType="Map" resultType="com.neusoft.po.Order">

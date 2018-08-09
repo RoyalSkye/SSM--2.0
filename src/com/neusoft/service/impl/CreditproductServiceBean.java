@@ -67,4 +67,9 @@ public class CreditproductServiceBean implements CreditproductService {
 		return mapper.findCreditproductById(cpid);
 	}
 
+	@Override
+	public List<Creditproduct> findCreditproduct() throws Exception {
+		return mapper.findCreditproduct();
+	}
+
 }

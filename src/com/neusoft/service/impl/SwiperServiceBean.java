@@ -77,7 +77,10 @@ public class SwiperServiceBean implements SwiperService {
 				s.add(g.fromJson(s1.get(i), Swiper.class));
 			}
 			//List<Swiper> s=g.fromJson(jedis.hvals("swiper"),new TypeToken<Swiper>(){}.getType());
-			//List<Swiper> s = g.fromJson("swiper", new TypeToken<List<Swiper>>(){}.getType());
+			/*List<Swiper> s2 = g.fromJson("swiper", new TypeToken<List<Swiper>>(){}.getType());
+			for (Swiper stu : s2) {
+				System.out.println(stu);
+			}*/
 			jedis.close();
 			return s;
 		}

@@ -115,7 +115,8 @@ public class OrderHandler {
 
 	@RequestMapping(value="/test/OrderHandler_saveOrder")
 	@ResponseBody
-	public String saveOrder(Order order,HttpServletRequest request) throws Exception{
+	public String saveOrder(Order order,int couponid,HttpServletRequest request) throws Exception{
+		System.out.println("couponid="+couponid);
 		HttpSession session=request.getSession();
 		Gson g=new Gson();
 		String phone=g.fromJson(session.getAttribute("phone").toString(),String.class);
@@ -132,7 +133,15 @@ public class OrderHandler {
 		String transactionid=System.currentTimeMillis()+"";
 		order.setTransactionid(transactionid);
 		System.out.println("transactionid"+transactionid+"test");
-		order.setActual(0);
+		if(couponid==0){
+			order.setActual(order.getTotal());
+		}else{  //使用了优惠券
+			if(orderService.saveOrder2(order, couponid)){
+				return "{\"result\":true}";
+			}else{
+				return "{\"result\":false}";
+			}
+		}
 		if(orderService.saveOrder(order)){
 			return "{\"result\":true}";
 		}else{

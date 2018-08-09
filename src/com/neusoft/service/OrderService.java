@@ -14,6 +14,7 @@ public interface OrderService {
 	public boolean updateOrder(Order order) throws Exception;
 	public List<Order> findAllOrderByPhone(String phone) throws Exception;
 	public boolean saveOrder(Order order) throws Exception;
+	public boolean saveOrder2(Order order,int couponid) throws Exception;  //ÓÅ»ÝÈ¯¹ºÂò
 	public int findCount(int qid) throws Exception;
 	public int findCountByCondition(Map map) throws Exception;
 	public List<Order> findOrderByPhone(String phone) throws Exception;

@@ -5,17 +5,58 @@
 <title>Insert title here</title>
 <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.js"></script>
 <script>
-
+	
 	$(function(){
-		
-		$.ajax({
-			url:"/SSM/test/LessonHandler_findAllLessonByPage?page=1&limit=5",				
+		 /*var reg = new RegExp("(^|&)"+ "category" +"=([^&]*)(&|$)");
+		 var r = window.location.search.substr(1).match(reg);
+		 var url;
+		 if(r!=null){
+			 url=unescape(r[2]); 
+		 }else{
+			 uri=null;
+		 }
+		 console.log("url="+url);*/
+		 
+		 /*var href = window.location.search;
+		 console.log("href="+href);
+		 var search = href.substr(1).match("(^|&)"+ "couponid" +"=([^&]*)(&|$)");
+		 console.log("search:"+unescape(search[2]));*/
+		 /*var str1="C++";
+		 var str2="C++,Java";
+		 var loc=str2.indexOf(str1);
+		 console.log("loc="+loc);*/
+	        
+		 
+		 var href=window.location.hash;
+		 var search=href.match(/\?[a-zA-Z\d&=-_,+]+/);
+		 console.log(href);
+		 console.log(href.match(/\?[a-zA-Z\d&=-_,+]+/));
+		 console.log("Search:"+search);
+		 console.log(search[0]);
+		 var s=search[0].match(/[a-zA-Z\d-_,+]+\=[a-zA-Z\d-_,+]+/);
+		 //var s1=search[0].match(/=couponid+\=[a-zA-Z\d-_,+]+/);
+		 console.log("s:"+s);
+		// console.log("s1:"+s1);
+		 var s2=search[0].match(/&category+\=[a-zA-Z\d-_,+]+/);
+		 console.log("s2:"+s2);
+		 
+		/*$.ajax({
+			url:"/SSM/test/OrderHandler_saveOrder?lid=2&couponid=2",				
 			success:function(data)
 			{
 				console.log(data);
 			}
 		
-	})
+		})*/
+		
+		/*$.ajax({
+			url:"/SSM/test/MessageHandler_findAllMessagelike",				
+			success:function(data)
+			{
+				console.log(data);
+			}
+		
+		})*/
 })
 
 </script>

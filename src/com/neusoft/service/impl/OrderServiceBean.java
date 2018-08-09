@@ -8,9 +8,11 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.neusoft.mapper.CouponMapper;
 import com.neusoft.mapper.CustomerMapper;
 import com.neusoft.mapper.OrderMapper;
 import com.neusoft.mapper.RefundMapper;
+import com.neusoft.po.Coupon;
 import com.neusoft.po.Customer;
 import com.neusoft.po.Order;
 import com.neusoft.po.Refund;
@@ -26,6 +28,8 @@ public class OrderServiceBean implements OrderService {
 	private CustomerMapper customermapper;
 	@Autowired
 	private RefundMapper refundmapper;
+	@Autowired
+	private CouponMapper couponMapper;
 	
 	@Override
 	public List<Order> findAllOrder(Page page) throws Exception {
@@ -118,5 +122,17 @@ public class OrderServiceBean implements OrderService {
 	@Override
 	public Order findOrderByOid(int oid) throws Exception {
 		return mapper.findOrderByOid(oid);
+	}
+
+	@Override
+	public boolean saveOrder2(Order order, int couponid) throws Exception {   //ÓÅ»ÝÈ¯¹ºÂò
+		boolean isok=false;
+		Coupon c=couponMapper.findCouponById(couponid);
+		if(c==null) return false;
+		order.setActual(order.getTotal()*c.getDiscount());
+		if(mapper.saveOrder(order)<=0) return false;
+		if(couponMapper.updateCoupon(c)<=0) return false;
+		isok=true;
+		return isok;
 	}
 }

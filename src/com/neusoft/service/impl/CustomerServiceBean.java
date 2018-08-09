@@ -3,11 +3,16 @@ package com.neusoft.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.google.gson.Gson;
 import com.neusoft.mapper.CheckinMapper;
 import com.neusoft.mapper.CustomerMapper;
 import com.neusoft.po.Customer;
 import com.neusoft.service.CustomerService;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import com.neusoft.po.Checkin;
 
 @Service
@@ -53,9 +58,16 @@ public class CustomerServiceBean implements CustomerService {
 	}
 
 	@Override
-	public boolean saveCheckin(Checkin c) throws Exception {
+	public boolean saveCheckin(Checkin c,HttpServletRequest request) throws Exception {  //签到成功，积分+10
 		if(checkinmapper.findCheckin(c)==0){
 			if(checkinmapper.saveCheckin(c)>0){
+				Customer customer=new Customer();
+				HttpSession session=request.getSession();
+				Gson g=new Gson();
+				String phone=g.fromJson(session.getAttribute("phone").toString(),String.class);
+				customer.setPhone(phone);
+				customer.setCredit(10);
+				if(mapper.updateCustomer(customer)<=0) return false;
 				return true;
 			}
 		}

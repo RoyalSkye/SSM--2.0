@@ -18,7 +18,7 @@
   			<if test="password!=null">password=#{password},</if>
   			<if test="nickname!=null">nickname=#{nickname},</if>
   			<if test="money!=null">money=money+#{money},</if>
-  			<if test="credit!=null">credit=#{credit},</if>
+  			<if test="credit!=null">credit=credit+#{credit},</if>
   		</trim>
 		where phone=#{phone}
 	</update>

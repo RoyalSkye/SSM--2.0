@@ -30,8 +30,8 @@ public class CustomerHandler {
 		HttpSession session=request.getSession();
 		boolean isLoginOK=Boolean.parseBoolean((session.getAttribute("app")+""));
 		
+		//验证码不够时使用，即app端不需要登录，使用默认账号18604010547
 		isLoginOK=true;
-		//session.setAttribute("phone", "18604010547");
 		Gson g=new Gson();
 		session.setAttribute("phone", g.toJson("18604010547"));
 		
@@ -67,7 +67,7 @@ public class CustomerHandler {
 		Date date=new Date();
 		SimpleDateFormat ft =new SimpleDateFormat ("yyyy-MM-dd");
 		c.setTime(ft.format(date));
-		if(customerService.saveCheckin(c)){
+		if(customerService.saveCheckin(c,request)){
 			return "{\"result\":true}";
 		}else{
 			return "{\"result\":false}";
@@ -111,6 +111,27 @@ public class CustomerHandler {
 		String mobileNumber = customer.getPhone();//接收验证码的手机号码
         String code = customer.getPassword();//验证码
         HttpSession session=request.getSession();
+        
+        /*Customer c=customerService.findCustomerByPhone(mobileNumber);
+        if(c==null){
+        	System.out.println("customer is null");
+        	if(customerService.saveCustomer(customer)){
+        		session.setAttribute("app", g.toJson(true));
+        		session.setAttribute("qid", g.toJson((int)1));
+        		session.setAttribute("phone", g.toJson(customer.getPhone()));
+                session.setMaxInactiveInterval(60*100);
+                return "{\"result\":true}";
+        	}else{
+        		 return "{\"result\":false}";
+        	}
+        }else{
+        	session.setAttribute("app", g.toJson(true));
+    		session.setAttribute("qid", g.toJson((int)1));
+    		session.setAttribute("phone", g.toJson(customer.getPhone()));
+            session.setMaxInactiveInterval(60*30);
+            return "{\"result\":true}";
+        }*/
+        
         try {
             String str = MobileMessageCheck.checkMsg(mobileNumber,code);
             if("success".equals(str)){
@@ -122,9 +143,6 @@ public class CustomerHandler {
                 		session.setAttribute("app", g.toJson(true));
                 		session.setAttribute("qid", g.toJson((int)1));
                 		session.setAttribute("phone", g.toJson(customer.getPhone()));
-                		/*session.setAttribute("app", true);
-                    	session.setAttribute("qid", 1);
-                        session.setAttribute("phone", customer.getPhone());*/
                         session.setMaxInactiveInterval(60*100);
                         return "{\"result\":true}";
                 	}else{

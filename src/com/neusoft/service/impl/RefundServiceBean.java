@@ -56,7 +56,7 @@ public class RefundServiceBean  implements RefundService{
 			Customer customer=new Customer();
 			Order o=ordermapper.findOrderByOid(refund.getOid());
 			customer.setPhone(o.getOpenid());
-			customer.setMoney(0+o.getTotal());
+			customer.setMoney(0+o.getActual());  //返还优惠后的实付金额
 			if(customermapper.updateCustomer(customer)<=0) isok=false;
 		}else{
 			isok=false;
